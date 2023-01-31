@@ -12,6 +12,7 @@ import pageObject.BasePage;
 
 import static com.codeborne.selenide.Selectors.byLinkText;
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.page;
 
 public class PurchaseOrdersPage extends BasePage {
     @FindBy(how = How.XPATH, using = ".//div[@class='ui-header']//a[@id='order__BV_button_']")
@@ -92,6 +93,12 @@ public class PurchaseOrdersPage extends BasePage {
     @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-content']/div[1]//a[text()='Dima ']")
     private SelenideElement purchaseOrderOwner;
 
+    @FindBy(how = How.XPATH, using = ".//input[@placeholder='Search']")
+    private SelenideElement searchInput;
+
+    @FindBy(how = How.XPATH, using = ".//button[text()='Search ']")
+    private SelenideElement searchButton;
+
     public void clickSetBuyerManuallyCheckbox() {
         WebDriver driver = WebDriverRunner.getWebDriver();
         WebElement element = setBuyerManuallyCheckbox;
@@ -99,7 +106,7 @@ public class PurchaseOrdersPage extends BasePage {
         executor.executeScript("arguments[0].click();", element);
     }
 
-    public void createPurchaseOrderWithSpecifiedBuyer(String id, String name, String phoneNumber, String email) {
+    public PurchaseOrdersPage createPurchaseOrderWithSpecifiedBuyer(String id, String name, String phoneNumber, String email) {
         ordersButton.click();
         purchaseOrdersButton.click();
         createButton.click();
@@ -111,9 +118,10 @@ public class PurchaseOrdersPage extends BasePage {
         phoneNumberField.setValue(phoneNumber);
         emailField.setValue(email);
         okButton.click();
+        return page(this);
     }
 
-    public void createPurchaseOrderWithSelectedBuyer(String id) {
+    public PurchaseOrdersPage createPurchaseOrderWithSelectedBuyer(String id) {
         ordersButton.click();
         purchaseOrdersButton.click();
         createButton.click();
@@ -123,9 +131,10 @@ public class PurchaseOrdersPage extends BasePage {
         buyerField.click();
         firstBuyer.click();
         okButton.click();
+        return page(this);
     }
 
-    public void createPurchaseOrderWithCustomCode(String id, String code, String numbersQuantity, String sequenceStartNumber, String totalSealsQuantity) {
+    public PurchaseOrdersPage createPurchaseOrderWithCustomCode(String id, String code, String numbersQuantity, String sequenceStartNumber, String totalSealsQuantity) {
         ordersButton.click();
         purchaseOrdersButton.click();
         createButton.click();
@@ -141,14 +150,23 @@ public class PurchaseOrdersPage extends BasePage {
         buyerField.click();
         firstBuyer.click();
         okButton.click();
+        return page(this);
+    }
+
+    public PurchaseOrderPage openPurchaseOrderPage(String id) {
+        searchInput.setValue(id);
+        searchButton.click();
+        $(byLinkText(id)).click();
+        return page(PurchaseOrderPage.class);
     }
 
     public boolean createdPurchaseOrderIdIsDisplayed(String id) {
         return $(byLinkText(id)).isDisplayed();
     }
 
-    public void waitForLoadPurchaseOrdersPage(String id) {
+    public PurchaseOrdersPage waitForLoadPurchaseOrdersPage(String id) {
         $(byLinkText(id)).should(Condition.exist);
+        return page(this);
     }
 
     public String getPurchaseOrderState() {

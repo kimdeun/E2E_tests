@@ -23,9 +23,9 @@ public class PurchaseOrdersTest extends BaseTest {
         loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
                 .openProductionSetPage()
                 .openPurchaseOrdersPage()
-                .createPurchaseOrderWithSpecifiedBuyer(id, name, phoneNumber, email);
+                .createPurchaseOrderWithSpecifiedBuyer(id, name, phoneNumber, email)
+                .waitForLoadPurchaseOrdersPage(id);
 
-        purchaseOrdersPage.waitForLoadPurchaseOrdersPage(id);
         assertTrue(purchaseOrdersPage.createdPurchaseOrderIdIsDisplayed(id));
     }
 
@@ -34,10 +34,10 @@ public class PurchaseOrdersTest extends BaseTest {
         loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
                 .openProductionSetPage()
                 .openPurchaseOrdersPage()
-                .createPurchaseOrderWithSpecifiedBuyer(id, name, phoneNumber, email);
+                .createPurchaseOrderWithSpecifiedBuyer(id, name, phoneNumber, email)
+                .waitForLoadPurchaseOrdersPage(id);
 
-        purchaseOrdersPage.waitForLoadPurchaseOrdersPage(id);
-        assertEquals("ENTERED", purchaseOrdersPage.getPurchaseOrderState());
+        assertEquals(Credentials.STATE_ENTERED, purchaseOrdersPage.getPurchaseOrderState());
     }
 
     @Test
@@ -45,10 +45,10 @@ public class PurchaseOrdersTest extends BaseTest {
         loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
                 .openProductionSetPage()
                 .openPurchaseOrdersPage()
-                .createPurchaseOrderWithSpecifiedBuyer(id, name, phoneNumber, email);
+                .createPurchaseOrderWithSpecifiedBuyer(id, name, phoneNumber, email)
+                .waitForLoadPurchaseOrdersPage(id);
 
-        purchaseOrdersPage.waitForLoadPurchaseOrdersPage(id);
-        assertEquals("TestCompanyForAutoTests", purchaseOrdersPage.getPurchaseOrderCompany());
+        assertEquals(Credentials.USERS_COMPANY, purchaseOrdersPage.getPurchaseOrderCompany());
     }
 
     @Test
@@ -56,9 +56,9 @@ public class PurchaseOrdersTest extends BaseTest {
         loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
                 .openProductionSetPage()
                 .openPurchaseOrdersPage()
-                .createPurchaseOrderWithSpecifiedBuyer(id, name, phoneNumber, email);
+                .createPurchaseOrderWithSpecifiedBuyer(id, name, phoneNumber, email)
+                .waitForLoadPurchaseOrdersPage(id);
 
-        purchaseOrdersPage.waitForLoadPurchaseOrdersPage(id);
         assertEquals(name, purchaseOrdersPage.getPurchaseOrderBuyer());
     }
 
@@ -68,10 +68,10 @@ public class PurchaseOrdersTest extends BaseTest {
         loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
                 .openProductionSetPage()
                 .openPurchaseOrdersPage()
-                .createPurchaseOrderWithSpecifiedBuyer(id, name, phoneNumber, email);
+                .createPurchaseOrderWithSpecifiedBuyer(id, name, phoneNumber, email)
+                .waitForLoadPurchaseOrdersPage(id);
 
-        purchaseOrdersPage.waitForLoadPurchaseOrdersPage(id);
-        assertEquals("Dima", purchaseOrdersPage.getPurchaseOrderOwner());
+        assertEquals(Credentials.USER_NAME, purchaseOrdersPage.getPurchaseOrderOwner());
     }
 
     @Test
@@ -79,9 +79,9 @@ public class PurchaseOrdersTest extends BaseTest {
         loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
                 .openProductionSetPage()
                 .openPurchaseOrdersPage()
-                .createPurchaseOrderWithSelectedBuyer(id);
+                .createPurchaseOrderWithSelectedBuyer(id)
+                .waitForLoadPurchaseOrdersPage(id);
 
-        purchaseOrdersPage.waitForLoadPurchaseOrdersPage(id);
         assertTrue(purchaseOrdersPage.createdPurchaseOrderIdIsDisplayed(id));
     }
 
@@ -90,9 +90,9 @@ public class PurchaseOrdersTest extends BaseTest {
         loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
                 .openProductionSetPage()
                 .openPurchaseOrdersPage()
-                .createPurchaseOrderWithCustomCode(id, customCode, numbersQuantity, sequenceStartNumber, totalSealsQuantity);
+                .createPurchaseOrderWithCustomCode(id, customCode, numbersQuantity, sequenceStartNumber, totalSealsQuantity)
+                .waitForLoadPurchaseOrdersPage(id);
 
-        purchaseOrdersPage.waitForLoadPurchaseOrdersPage(id);
         assertTrue(purchaseOrdersPage.createdPurchaseOrderIdIsDisplayed(id));
     }
 }
