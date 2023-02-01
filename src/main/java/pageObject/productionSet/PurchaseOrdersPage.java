@@ -17,85 +17,58 @@ import static com.codeborne.selenide.Selenide.page;
 public class PurchaseOrdersPage extends BasePage {
     @FindBy(how = How.XPATH, using = ".//div[@class='ui-header']//a[@id='order__BV_button_']")
     private SelenideElement ordersButton;
-
     @FindBy(how = How.XPATH, using = ".//div[@class='ui-header']//a[contains(text(),'Purchase Orders')]")
     private SelenideElement purchaseOrdersButton;
-
     @FindBy(how = How.XPATH, using = ".//button[contains(text(),'Create')]")
     private SelenideElement createButton;
-
     @FindBy(how = How.XPATH, using = ".//input[@placeholder='Enter purchase order ID']")
     private SelenideElement idField;
-
     @FindBy(how = How.XPATH, using = ".//input[@placeholder='Select company']")
     private SelenideElement companyField;
-
     @FindBy(how = How.XPATH, using = ".//ul[@class='dropdown-menu']/li/a[contains(text(), 'TestCompanyForAutoTests')]")
     private SelenideElement testCompany;
-
     @FindBy(how = How.XPATH, using = ".//div[@class='ui-form']/div[4]//input")
     private SelenideElement codeTypeField;
-
     @FindBy(how = How.XPATH, using = ".//a[contains(text(), 'Custom')]")
     private SelenideElement customCode;
-
     @FindBy(how = How.XPATH, using = ".//a[contains(text(), 'System')]")
     private SelenideElement systemCode;
-
     @FindBy(how = How.XPATH, using = ".//div[@class='ui-form']/div[5]//input")
     private SelenideElement excludedSigns;
-
     @FindBy(how = How.XPATH, using = ".//input[@placeholder='Enter code']")
     private SelenideElement codeField;
-
     @FindBy(how = How.XPATH, using = ".//input[@placeholder='Enter numbers quantity (excluding code)']")
     private SelenideElement numberQuantityField;
-
     @FindBy(how = How.XPATH, using = ".//input[@placeholder='Enter sequence start number']")
     private SelenideElement sequenceStartNumberField;
-
     @FindBy(how = How.XPATH, using = ".//input[@placeholder='Enter total seals quantity']")
     private SelenideElement totalSealsQuantityField;
-
     @FindBy(how = How.XPATH, using = ".//input[@type='checkbox']")
     private WebElement setBuyerManuallyCheckbox;
-
     @FindBy(how = How.XPATH, using = ".//input[contains(@placeholder, 'full name')]")
     private SelenideElement fullNameField;
-
     @FindBy(how = How.XPATH, using = ".//input[contains(@placeholder, 'phone number')]")
     private SelenideElement phoneNumberField;
-
     @FindBy(how = How.XPATH, using = ".//input[contains(@placeholder, 'email address')]")
     private SelenideElement emailField;
-
     @FindBy(how = How.XPATH, using = ".//input[@placeholder='Select a buyer']")
     private SelenideElement buyerField;
-
     @FindBy(how = How.XPATH, using = ".//ul[@class='dropdown-menu']/li[1]")
     private SelenideElement firstBuyer;
-
     @FindBy(how = How.XPATH, using = ".//div[contains(text(), 'Ok')]")
     private SelenideElement okButton;
-
     @FindBy(how = How.XPATH, using = ".//span[text()='Purchase orders']")
     private SelenideElement pageTitle;
-
     @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-content']/div[1]//span[contains(text(), 'Entered')]")
     private SelenideElement purchaseOrderState;
-
     @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-content']/div[1]//a[text()='TestCompanyForAutoTests']")
     private SelenideElement purchaseOrderCompany;
-
     @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-content']/div[1]/div/div[4]/span")
     private SelenideElement purchaseOrderBuyer;
-
     @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-content']/div[1]//a[text()='Dima ']")
     private SelenideElement purchaseOrderOwner;
-
     @FindBy(how = How.XPATH, using = ".//input[@placeholder='Search']")
     private SelenideElement searchInput;
-
     @FindBy(how = How.XPATH, using = ".//button[text()='Search ']")
     private SelenideElement searchButton;
 
@@ -170,22 +143,18 @@ public class PurchaseOrdersPage extends BasePage {
     }
 
     public String getPurchaseOrderState() {
-        String state = purchaseOrderState.getText();
-        return state;
+        return purchaseOrderState.getText();
     }
 
     public String getPurchaseOrderCompany() {
-        String company = purchaseOrderCompany.getText();
-        return company;
+        return purchaseOrderCompany.getText();
     }
 
     public String getPurchaseOrderBuyer() {
-        String buyer = purchaseOrderBuyer.getText();
-        return buyer;
+        return purchaseOrderBuyer.getText();
     }
 
     public String getPurchaseOrderOwner() {
-        String owner = purchaseOrderOwner.getText();
-        return owner;
+        return purchaseOrderOwner.getText();
     }
 }
