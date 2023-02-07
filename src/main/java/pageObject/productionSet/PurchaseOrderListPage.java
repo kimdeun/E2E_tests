@@ -14,7 +14,7 @@ import static com.codeborne.selenide.Selectors.byLinkText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.page;
 
-public class PurchaseOrdersPage extends BasePage {
+public class PurchaseOrderListPage extends BasePage {
     @FindBy(how = How.XPATH, using = ".//div[@class='ui-header']//a[@id='order__BV_button_']")
     private SelenideElement ordersButton;
     @FindBy(how = How.XPATH, using = ".//div[@class='ui-header']//a[contains(text(),'Purchase Orders')]")
@@ -79,7 +79,7 @@ public class PurchaseOrdersPage extends BasePage {
         executor.executeScript("arguments[0].click();", element);
     }
 
-    public PurchaseOrdersPage createPurchaseOrderWithSpecifiedBuyer(String id, String name, String phoneNumber, String email) {
+    public PurchaseOrderListPage createPurchaseOrderWithSpecifiedBuyer(String id, String name, String phoneNumber, String email) {
         ordersButton.click();
         purchaseOrdersButton.click();
         createButton.click();
@@ -94,7 +94,7 @@ public class PurchaseOrdersPage extends BasePage {
         return page(this);
     }
 
-    public PurchaseOrdersPage createPurchaseOrderWithSelectedBuyer(String id) {
+    public PurchaseOrderListPage createPurchaseOrderWithSelectedBuyer(String id) {
         ordersButton.click();
         purchaseOrdersButton.click();
         createButton.click();
@@ -107,7 +107,7 @@ public class PurchaseOrdersPage extends BasePage {
         return page(this);
     }
 
-    public PurchaseOrdersPage createPurchaseOrderWithCustomCode(String id, String code, String numbersQuantity, String sequenceStartNumber, String totalSealsQuantity) {
+    public PurchaseOrderListPage createPurchaseOrderWithCustomCode(String id, String code, String numbersQuantity, String sequenceStartNumber, String totalSealsQuantity) {
         ordersButton.click();
         purchaseOrdersButton.click();
         createButton.click();
@@ -137,7 +137,7 @@ public class PurchaseOrdersPage extends BasePage {
         return $(byLinkText(id)).isDisplayed();
     }
 
-    public PurchaseOrdersPage waitForLoadPurchaseOrdersPage(String id) {
+    public PurchaseOrderListPage waitForLoadPurchaseOrdersPage(String id) {
         $(byLinkText(id)).should(Condition.exist);
         return page(this);
     }

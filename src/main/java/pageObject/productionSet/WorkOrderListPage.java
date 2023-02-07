@@ -9,7 +9,7 @@ import org.openqa.selenium.support.How;
 import static com.codeborne.selenide.Selectors.byLinkText;
 import static com.codeborne.selenide.Selenide.*;
 
-public class WorkOrdersPage {
+public class WorkOrderListPage {
     @FindBy(how = How.XPATH, using = ".//button[contains(text(), 'Create')]")
     private SelenideElement createWorkOrderButton;
     @FindBy(how = How.XPATH, using = ".//input[@placeholder='Select purchase order']")
@@ -67,7 +67,7 @@ public class WorkOrdersPage {
     @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-content']/div[1]/div[1]/div[13]//span")
     private SelenideElement workOrderLogo;
 
-    public WorkOrdersPage createWorkOrder(String id, String quantity, String notes) {
+    public WorkOrderListPage createWorkOrder(String id, String quantity, String notes) {
         createWorkOrderButton.click();
         sleep(1500);
         purchaseOrderField.setValue(id).pressEnter();

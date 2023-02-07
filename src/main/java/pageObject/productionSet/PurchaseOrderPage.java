@@ -37,10 +37,60 @@ public class PurchaseOrderPage {
     private SelenideElement ordersButton;
     @FindBy(how = How.XPATH, using = ".//div[@class='ui-header']//a[contains(text(),'Work Orders')]")
     private SelenideElement workOrdersButton;
+    @FindBy(how = How.XPATH, using = ".//div[@class='ui-modal-content']//input[@placeholder='Select production']")
+    private SelenideElement productionField;
+    @FindBy(how = How.XPATH, using = ".//span[contains(text(), 'Select etching format')]")
+    private SelenideElement etchingFormatSpan;
+    @FindBy(how = How.XPATH, using = ".//input[@placeholder='Select etching format']")
+    private SelenideElement etchingFormatField;
+    @FindBy(how = How.XPATH, using = ".//input[@placeholder='Enter quantity']")
+    private SelenideElement quantityFieldInCreateWorkOrderModal;
+    @FindBy(how = How.XPATH, using = ".//input[@placeholder='Select company']")
+    private SelenideElement companyField;
+    @FindBy(how = How.XPATH, using = ".//span[contains(text(), 'Select location')]")
+    private SelenideElement locationSpan;
+    @FindBy(how = How.XPATH, using = ".//input[@placeholder='Select location']")
+    private SelenideElement locationField;
+    @FindBy(how = How.XPATH, using = ".//textarea[@placeholder='Enter notes']")
+    private SelenideElement notesField;
+    @FindBy(how = How.XPATH, using = ".//input[@placeholder='Select Skid type']")
+    private SelenideElement skidField;
+    @FindBy(how = How.XPATH, using = ".//input[@placeholder='Select Box type']")
+    private SelenideElement boxField;
+    @FindBy(how = How.XPATH, using = ".//input[@placeholder='Select Bag type']")
+    private SelenideElement bagField;
+    @FindBy(how = How.XPATH, using = ".//div[@class='col-md-6']/div[2]/input[@placeholder='Enter quantity']")
+    private SelenideElement boxesInSkidField;
+    @FindBy(how = How.XPATH, using = ".//div[@class='col-md-6']/div[3]/input[@placeholder='Enter quantity']")
+    private SelenideElement sealsInBoxField;
+    @FindBy(how = How.XPATH, using = ".//div[@class='col-md-6']/div[5]/input[@placeholder='Enter quantity']")
+    private SelenideElement sealsInBagField;
+    @FindBy(how = How.XPATH, using = ".//span[contains(text(), 'Select enumeration mode')]")
+    private SelenideElement enumerationFieldSpan;
+    @FindBy(how = How.XPATH, using = ".//input[@placeholder='Select enumeration mode']")
+    private SelenideElement enumerationField;
+    @FindBy(how = How.XPATH, using = ".//div[contains(text(), 'Ok')]")
+    private SelenideElement okButtonInCreateWorkOrderModal;
+    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-content']/div[1]/div[1]/div[1]/a")
+    private SelenideElement workOrderId;
+    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-content']/div[1]/div[1]/div[2]/a")
+    private SelenideElement workOrderProduction;
+    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-content']/div[1]/div[1]/div[3]/span")
+    private SelenideElement workOrderState;
+    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-content']/div[1]/div[1]/div[4]/a")
+    private SelenideElement workOrderOwner;
+    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-content']/div[1]/div[1]/div[5]/span")
+    private SelenideElement workOrderSealType;
+    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-content']/div[1]/div[1]/div[6]/span")
+    private SelenideElement workOrderSealColor;
+    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-content']/div[1]/div[1]/div[9]/span")
+    private SelenideElement workOrderEtchingFormat;
+    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-content']/div[1]/div[1]/div[10]/span")
+    private SelenideElement workOrderLogo;
 
     public PurchaseOrderPage addSealGroup(String quantityOfSeals) {
         addSealsButton.click();
-        sleep(1000);
+        sleep(1500);
         typeField.setValue(Credentials.SEAL_TYPE).pressEnter();
         colorField.click();
         firstColorInTheList.click();
@@ -78,10 +128,81 @@ public class PurchaseOrderPage {
         return state;
     }
 
-
-    public WorkOrdersPage openWorkOrdersPage() {
+    public WorkOrderListPage openWorkOrdersPage() {
         ordersButton.click();
         workOrdersButton.click();
-        return page(WorkOrdersPage.class);
+        return page(WorkOrderListPage.class);
+    }
+
+    public PurchaseOrderPage createWorkOrder(String quantity, String notes) {
+        createWorkOrderButton.click();
+        sleep(1500);
+        productionField.shouldBe(Condition.visible);
+        productionField.click();
+        productionField.setValue(Credentials.USA_PRODUCTION).pressEnter();
+        etchingFormatSpan.click();
+        etchingFormatField.pressEnter();
+        quantityFieldInCreateWorkOrderModal.setValue(quantity);
+        companyField.click();
+        companyField.setValue(Credentials.USERS_COMPANY).pressEnter();
+        locationSpan.click();
+        locationField.click();
+        locationField.setValue(Credentials.COMPANY_LOCATION).pressEnter();
+        notesField.setValue(notes);
+        skidField.click();
+        skidField.pressEnter();
+        boxField.click();
+        boxField.pressEnter();
+        bagField.click();
+        bagField.pressEnter();
+        boxesInSkidField.setValue(Credentials.BOXES_IN_SKID_FOR_CREATING_WORK_ORDER);
+        sealsInBoxField.setValue(Credentials.SEALS_IN_BOX_FOR_CREATING_WORK_ORDER);
+        sealsInBagField.setValue(Credentials.SEALS_IN_BAG_FOR_CREATING_WORK_ORDER).pressEnter();
+        enumerationFieldSpan.click();
+        enumerationField.pressEnter();
+        okButtonInCreateWorkOrderModal.click();
+        return page(this);
+    }
+
+    public boolean createdWorkOrderIsDisplayed() {
+        return $(workOrderId).isDisplayed();
+    }
+
+    public PurchaseOrderPage waitForNewWorkOrder() {
+        workOrderId.should(Condition.exist);
+        return this;
+    }
+
+    public String getWorkOrderProduction() {
+        return workOrderProduction.getText();
+    }
+
+    public String getWorkOrderState() {
+        return workOrderState.getText();
+    }
+
+    public String getWorkOrderOwner() {
+        return workOrderOwner.getText();
+    }
+
+    public String getWorkOrderSealType() {
+        return workOrderSealType.getText();
+    }
+
+    public String getWorkOrderSealColor() {
+        return workOrderSealColor.getAttribute("style");
+    }
+
+    public String getWorkOrderEtchingFormat() {
+        return workOrderEtchingFormat.getText();
+    }
+
+    public String getWorkOrderLogo() {
+        return workOrderLogo.getText();
+    }
+
+    public WorkOrderPage openWorkOrderPage() {
+        workOrderId.click();
+        return page(WorkOrderPage.class);
     }
 }

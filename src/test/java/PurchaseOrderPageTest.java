@@ -7,7 +7,7 @@ import static com.codeborne.selenide.Selenide.page;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class PurchaseOrderTest extends BaseTest {
+public class PurchaseOrderPageTest extends BaseTest {
     public String id = RandomStringUtils.randomAlphanumeric(7);
     public String quantityOfSeals = RandomStringUtils.randomNumeric(5);
     PurchaseOrderPage purchaseOrderPage = page(PurchaseOrderPage.class);
