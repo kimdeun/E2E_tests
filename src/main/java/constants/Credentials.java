@@ -8,6 +8,7 @@ public class Credentials {
     public static final String COMPANY_LOCATION = "TestCompanyLocation";
     public static final String STATE_ENTERED = "ENTERED";
     public static final String STATE_CONFIRMED = "CONFIRMED";
+    public static final String STATE_IN_PRODUCTION = "IN PRODUCTION";
     public static final String STATE_PRODUCED = "PRODUCED";
     public static final String USA_PRODUCTION = "USA production";
     public static final String BOXES_IN_SKID_FOR_CREATING_WORK_ORDER = "10";
