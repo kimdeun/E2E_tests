@@ -27,7 +27,44 @@ public class WorkOrderPageTest extends BaseTest {
                 .changeStateOfWorkOrder()
                 .waitForContainersTable();
 
-        assertEquals(Credentials.STATE_CONFIRMED, workOrderPage.getWorkOrderState());
+        workOrderPage.stateShouldBeConfirmed();
+    }
+
+    @Test
+    public void changeStateOfWorkOrderToInProduction() {
+        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+                .openProductionSetPage()
+                .openPurchaseOrdersPage()
+                .createPurchaseOrderWithSelectedBuyer(id)
+                .openPurchaseOrderPage(id)
+                .addSealGroup(quantityOfSeals)
+                .createWorkOrder(quantityOfSeals, notes)
+                .waitForNewWorkOrder()
+                .openWorkOrderPage()
+                .changeStateOfWorkOrder()
+                .waitForContainersTable()
+                .changeStateOfWorkOrderToInProduction();
+
+        workOrderPage.stateShouldBeInProduction();
+    }
+
+    @Test
+    public void changeStateOfWorkOrderToProduced() {
+        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+                .openProductionSetPage()
+                .openPurchaseOrdersPage()
+                .createPurchaseOrderWithSelectedBuyer(id)
+                .openPurchaseOrderPage(id)
+                .addSealGroup(quantityOfSeals)
+                .createWorkOrder(quantityOfSeals, notes)
+                .waitForNewWorkOrder()
+                .openWorkOrderPage()
+                .changeStateOfWorkOrder()
+                .waitForContainersTable()
+                .changeStateOfWorkOrder()
+                .clickOkButtonInTheUpdateWorOrderStateConfirmationModal();
+
+        workOrderPage.stateShouldBeProduced();
     }
 
     @Test

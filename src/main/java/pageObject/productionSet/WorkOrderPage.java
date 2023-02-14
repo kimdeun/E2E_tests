@@ -8,7 +8,6 @@ import org.openqa.selenium.support.How;
 import java.time.Duration;
 
 import static com.codeborne.selenide.Selenide.page;
-import static com.codeborne.selenide.Selenide.sleep;
 
 public class WorkOrderPage {
     @FindBy(how = How.XPATH, using = ".//div[@class='ml-auto ui-page-label']/span[1]")
@@ -16,7 +15,9 @@ public class WorkOrderPage {
     @FindBy(how = How.XPATH, using = ".//input[@placeholder='Mark as']")
     private SelenideElement markAsInput;
     @FindBy(how = How.XPATH, using = ".//div[@class='ui-form-group']//a")
-    private SelenideElement newStateOfPurchaseOrder;
+    private SelenideElement newStateOfWorkOrder;
+    @FindBy(how = How.XPATH, using = ".//div[@class='ui-form-group']//a[contains(text(), 'In Production')]")
+    private SelenideElement newInProductionStateOfWorkOrder;
     @FindBy(how = How.XPATH, using = ".//div[contains(text(), 'Ok')]")
     private SelenideElement okButtonInTheUpdateStateModal;
     @FindBy(how = How.XPATH, using = ".//div[@class='ui-work-order-packing']//div[@class='ui-table-row']")
@@ -45,9 +46,29 @@ public class WorkOrderPage {
     public WorkOrderPage changeStateOfWorkOrder() {
         stateLabel.click();
         markAsInput.click();
-        newStateOfPurchaseOrder.click();
+        newStateOfWorkOrder.click();
         okButtonInTheUpdateStateModal.click();
         return page(this);
+    }
+
+    public WorkOrderPage changeStateOfWorkOrderToInProduction() {
+        stateLabel.click();
+        markAsInput.click();
+        newInProductionStateOfWorkOrder.click();
+        okButtonInTheUpdateStateModal.click();
+        return page(this);
+    }
+
+    public void stateShouldBeConfirmed() {
+        stateLabel.shouldHave(Condition.text(Credentials.STATE_CONFIRMED));
+    }
+
+    public void stateShouldBeInProduction() {
+        stateLabel.shouldHave(Condition.text(Credentials.STATE_IN_PRODUCTION));
+    }
+
+    public void stateShouldBeProduced() {
+        stateLabel.shouldHave(Condition.text(Credentials.STATE_PRODUCED), Duration.ofSeconds(180));
     }
 
     public WorkOrderPage waitForContainersTable() {
