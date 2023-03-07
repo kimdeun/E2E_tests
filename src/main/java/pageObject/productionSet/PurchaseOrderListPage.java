@@ -10,6 +10,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import pageObject.BasePage;
 
+import java.time.Duration;
+
 import static com.codeborne.selenide.Selectors.byLinkText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.page;
@@ -65,12 +67,14 @@ public class PurchaseOrderListPage extends BasePage {
     private SelenideElement purchaseOrderCompany;
     @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-content']/div[1]/div/div[4]/span")
     private SelenideElement purchaseOrderBuyer;
-    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-content']/div[1]//a[text()='Dima ']")
+    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-content']/div[1]//a[text()='Test User']")
     private SelenideElement purchaseOrderOwner;
     @FindBy(how = How.XPATH, using = ".//input[@placeholder='Search']")
     private SelenideElement searchInput;
     @FindBy(how = How.XPATH, using = ".//button[text()='Search ']")
     private SelenideElement searchButton;
+    @FindBy(how = How.XPATH, using = ".//span[text()='Create a purchase order']")
+    private SelenideElement createPurchaseOrderModalTitle;
 
     public void clickSetBuyerManuallyCheckbox() {
         WebDriver driver = WebDriverRunner.getWebDriver();
@@ -104,6 +108,7 @@ public class PurchaseOrderListPage extends BasePage {
         buyerField.click();
         firstBuyer.click();
         okButton.click();
+        createPurchaseOrderModalTitle.shouldNotBe(Condition.visible, Duration.ofSeconds(10));
         return page(this);
     }
 

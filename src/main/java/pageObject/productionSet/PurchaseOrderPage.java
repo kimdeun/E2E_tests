@@ -6,6 +6,8 @@ import constants.Credentials;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
+import java.time.Duration;
+
 import static com.codeborne.selenide.Selenide.*;
 
 public class PurchaseOrderPage {
@@ -87,12 +89,18 @@ public class PurchaseOrderPage {
     private SelenideElement workOrderEtchingFormat;
     @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-content']/div[1]/div[1]/div[10]/span")
     private SelenideElement workOrderLogo;
+    @FindBy(how = How.CSS, using = ".ui-app-hint.container.ui-error")
+    private SelenideElement noTemplateHint;
+    @FindBy(how = How.CSS, using = ".no-options")
+    private SelenideElement emptyListOfDataInTheCreateWorkOrderModal;
 
     public PurchaseOrderPage addSealGroup(String quantityOfSeals) {
         addSealsButton.click();
-        sleep(1500);
+        typeField.click();
+        emptyListOfDataInTheCreateWorkOrderModal.shouldNot(Condition.exist);
         typeField.setValue(Credentials.SEAL_TYPE).pressEnter();
         colorField.click();
+        emptyListOfDataInTheCreateWorkOrderModal.shouldNot(Condition.exist);
         firstColorInTheList.click();
         quantityField.clear();
         quantityField.setValue(quantityOfSeals);
@@ -136,9 +144,9 @@ public class PurchaseOrderPage {
 
     public PurchaseOrderPage createWorkOrder(String quantity, String notes) {
         createWorkOrderButton.click();
-        sleep(1500);
-        productionField.shouldBe(Condition.visible);
+        noTemplateHint.shouldBe(Condition.visible, Duration.ofSeconds(120));
         productionField.click();
+        emptyListOfDataInTheCreateWorkOrderModal.shouldNot(Condition.exist);
         productionField.setValue(Credentials.USA_PRODUCTION).pressEnter();
         etchingFormatSpan.click();
         etchingFormatField.pressEnter();

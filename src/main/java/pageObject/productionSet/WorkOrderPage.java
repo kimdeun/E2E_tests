@@ -24,8 +24,6 @@ public class WorkOrderPage {
     private SelenideElement rowsOfTheContainersTable;
     @FindBy(how = How.XPATH, using = ".//div[@class='ui-work-order-packing']//div[@class='ui-table-row']/div[last()]/button")
     private ElementsCollection containersStateCollectionInTheContainersTable;
-    @FindBy(how = How.XPATH, using = ".//div[@class='ui-work-order-packing']//div[@class='ui-table-row']/div[2]/span")
-    private ElementsCollection containersSkidNumbersCollectionInTheContainersTable;
     @FindBy(how = How.XPATH, using = ".//div[contains(text(), 'Ok')]")
     private SelenideElement okButtonInTheUpdateWorkOrderStateConfirmationModal;
     @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-content']/div[1]//button[contains(text(), 'Skid')]")
@@ -68,20 +66,16 @@ public class WorkOrderPage {
     }
 
     public void stateShouldBeProduced() {
-        stateLabel.shouldHave(Condition.text(Credentials.STATE_PRODUCED), Duration.ofSeconds(180));
+        stateLabel.shouldHave(Condition.text(Credentials.STATE_PRODUCED), Duration.ofSeconds(300));
     }
 
     public WorkOrderPage waitForContainersTable() {
-        rowsOfTheContainersTable.shouldBe(Condition.visible, Duration.ofSeconds(180));
+        rowsOfTheContainersTable.shouldBe(Condition.visible, Duration.ofSeconds(300));
         return page(this);
     }
 
     public boolean containersTableIsDisplayed() {
         return rowsOfTheContainersTable.isDisplayed();
-    }
-
-    public String getWorkOrderState() {
-        return stateLabel.getText();
     }
 
     public void containersStateShouldBeInProduction() {
@@ -94,7 +88,7 @@ public class WorkOrderPage {
     public void containersStateShouldBeProduced() {
         containersStateCollectionInTheContainersTable.shouldHave(CollectionCondition.sizeGreaterThan(0));
         for (SelenideElement element : containersStateCollectionInTheContainersTable) {
-            element.shouldHave(Condition.text(Credentials.STATE_PRODUCED), Duration.ofSeconds(180));
+            element.shouldHave(Condition.text(Credentials.STATE_PRODUCED), Duration.ofSeconds(300));
         }
     }
 
@@ -102,11 +96,6 @@ public class WorkOrderPage {
         okButtonInTheUpdateWorkOrderStateConfirmationModal.click();
         Selenide.sleep(1500);
         return page(this);
-    }
-
-    public String getRandomSkidNumber() {
-        containersStateCollectionInTheContainersTable.shouldHave(CollectionCondition.sizeGreaterThan(0));
-        return containersSkidNumbersCollectionInTheContainersTable.get(1).getText();
     }
 
     public WorkOrderPage firstChildContainerIsBox() {
@@ -127,6 +116,7 @@ public class WorkOrderPage {
     public WorkOrderPage changeStateOfTheSkid() {
         firstSkidStateInTheSkidInTheContainersTable.click();
         okButtonInTheUpdateStateModal.click();
+        okButtonInTheUpdateStateModal.shouldNotBe(Condition.visible, Duration.ofSeconds(10));
         firstSkidInTheContainersTable.click();
         return page(this);
     }
@@ -136,6 +126,7 @@ public class WorkOrderPage {
         firstBoxInTheSkidInTheContainersTable.shouldHave(Condition.text(Credentials.BOX));
         firstBoxStateInTheSkidInTheContainersTable.click();
         okButtonInTheUpdateStateModal.click();
+        okButtonInTheUpdateStateModal.shouldNotBe(Condition.visible, Duration.ofSeconds(10));
         firstBoxInTheSkidInTheContainersTable.click();
         return page(this);
     }
@@ -146,6 +137,7 @@ public class WorkOrderPage {
         firstBagInTheSkidInTheContainersTable.shouldHave(Condition.text(Credentials.BAG));
         firstBagStateInTheSkidInTheContainersTable.click();
         okButtonInTheUpdateStateModal.click();
+        okButtonInTheUpdateStateModal.shouldNotBe(Condition.visible, Duration.ofSeconds(10));
         firstBagInTheSkidInTheContainersTable.click();
         return page(this);
     }

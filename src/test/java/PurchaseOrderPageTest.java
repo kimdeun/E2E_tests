@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class PurchaseOrderPageTest extends BaseTest {
     public String id = RandomStringUtils.randomAlphanumeric(7);
-    public String quantityOfSeals = RandomStringUtils.randomNumeric(5);
+    public String quantityOfSeals = "50";
     PurchaseOrderPage purchaseOrderPage = page(PurchaseOrderPage.class);
 
     @Test

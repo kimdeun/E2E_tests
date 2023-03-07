@@ -6,8 +6,11 @@ import constants.Credentials;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
+import java.time.Duration;
+
 import static com.codeborne.selenide.Selectors.byLinkText;
-import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.page;
 
 public class WorkOrderListPage {
     @FindBy(how = How.XPATH, using = ".//button[contains(text(), 'Create')]")
@@ -66,14 +69,19 @@ public class WorkOrderListPage {
     private SelenideElement workOrderEtchingFormat;
     @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-content']/div[1]/div[1]/div[13]//span")
     private SelenideElement workOrderLogo;
+    @FindBy(how = How.CSS, using = ".ui-app-hint.container.ui-error")
+    private SelenideElement noTemplateHint;
+    @FindBy(how = How.CSS, using = ".no-options")
+    private SelenideElement emptyListOfDataInTheCreateWorkOrderModal;
 
     public WorkOrderListPage createWorkOrder(String id, String quantity, String notes) {
         createWorkOrderButton.click();
-        sleep(1500);
+        purchaseOrderField.click();
+        emptyListOfDataInTheCreateWorkOrderModal.shouldNot(Condition.exist);
         purchaseOrderField.setValue(id).pressEnter();
-        sleep(1500);
-        productionField.shouldBe(Condition.visible);
+        noTemplateHint.shouldBe(Condition.visible, Duration.ofSeconds(120));
         productionField.click();
+        emptyListOfDataInTheCreateWorkOrderModal.shouldNot(Condition.exist);
         productionField.setValue(Credentials.USA_PRODUCTION).pressEnter();
         etchingFormatSpan.click();
         etchingFormatField.pressEnter();

@@ -1,5 +1,6 @@
 package pageObject;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
@@ -14,8 +15,10 @@ public class LoginPage extends BasePage {
     @FindBy(how = How.XPATH, using = ".//input[@placeholder='Enter Password']")
     private SelenideElement passwordField;
 
-    @FindBy(how = How.XPATH, using = (".//div[contains(text(), 'Log in')]"))
+    @FindBy(how = How.XPATH, using = ".//div[contains(text(), 'Log in')]")
     private SelenideElement loginButton;
+    @FindBy(how = How.XPATH, using = ".//div[@class='ui-header']//header[text()='Applications']")
+    private SelenideElement popupHeader;
 
     public void setEmail(String email) {
         emailField.setValue(email);
@@ -38,6 +41,7 @@ public class LoginPage extends BasePage {
 
     public BaseProductionSetPage openProductionSetPage() {
         userName.click();
+        popupHeader.should(Condition.visible);
         productionAndOrderFulfillment.click();
         return page(BaseProductionSetPage.class);
     }

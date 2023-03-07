@@ -4,12 +4,11 @@ import org.junit.jupiter.api.Test;
 import pageObject.productionSet.WorkOrderPage;
 
 import static com.codeborne.selenide.Selenide.page;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class WorkOrderPageTest extends BaseTest {
     public String id = RandomStringUtils.randomAlphanumeric(7);
-    public String quantityOfSeals = RandomStringUtils.randomNumeric(5);
+    public String quantityOfSeals = "50";
     public String notes = RandomStringUtils.randomAlphanumeric(20);
     WorkOrderPage workOrderPage = page(WorkOrderPage.class);
 

@@ -62,7 +62,6 @@ public class PurchaseOrderListTest extends BaseTest {
         assertEquals(name, purchaseOrderListPage.getPurchaseOrderBuyer());
     }
 
-    //Change test user
     @Test
     public void checkPurchaseOrderOwner() {
         loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
