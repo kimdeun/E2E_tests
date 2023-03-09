@@ -40,7 +40,7 @@ public class LoginPage extends BasePage {
     }
 
     public BaseProductionSetPage openProductionSetPage() {
-        userName.click();
+        userName.shouldBe(Condition.visible).click();
         popupHeader.should(Condition.visible);
         productionAndOrderFulfillment.click();
         return page(BaseProductionSetPage.class);
