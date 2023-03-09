@@ -101,8 +101,9 @@ public class PurchaseOrderListPage extends BasePage {
     public PurchaseOrderListPage createPurchaseOrderWithSelectedBuyer(String id) {
         ordersButton.click();
         purchaseOrdersButton.click();
+        pageTitle.should(Condition.exist);
         createButton.click();
-        idField.setValue(id);
+        idField.shouldBe(Condition.visible).setValue(id);
         companyField.click();
         testCompany.click();
         buyerField.click();
