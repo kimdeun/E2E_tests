@@ -73,10 +73,13 @@ public class WorkOrderListPage {
     private SelenideElement noTemplateHint;
     @FindBy(how = How.CSS, using = ".no-options")
     private SelenideElement emptyListOfDataInTheCreateWorkOrderModal;
+    @FindBy(how = How.XPATH, using = ".//span[text()='Work orders']")
+    private SelenideElement pageTitle;
 
     public WorkOrderListPage createWorkOrder(String id, String quantity, String notes) {
+        pageTitle.shouldBe(Condition.visible);
         createWorkOrderButton.click();
-        purchaseOrderField.click();
+        purchaseOrderField.shouldBe(Condition.visible).click();
         emptyListOfDataInTheCreateWorkOrderModal.shouldNot(Condition.exist);
         purchaseOrderField.setValue(id).pressEnter();
         noTemplateHint.shouldBe(Condition.visible, Duration.ofSeconds(120));
