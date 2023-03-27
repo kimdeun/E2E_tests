@@ -41,7 +41,8 @@ public class LoginPage extends BasePage {
 
     public BaseProductionSetPage openProductionSetPage() {
         userName.shouldBe(Condition.visible).click();
-        popupHeader.should(Condition.visible);
+        popupHeader.shouldHave(Condition.exactText("Applications"));
+        productionAndOrderFulfillment.shouldBe(Condition.visible);
         productionAndOrderFulfillment.click();
         return page(BaseProductionSetPage.class);
     }
