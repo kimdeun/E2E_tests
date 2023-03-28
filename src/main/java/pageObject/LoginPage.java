@@ -7,6 +7,7 @@ import org.openqa.selenium.support.How;
 import pageObject.productionSet.BaseProductionSetPage;
 
 import static com.codeborne.selenide.Selenide.page;
+import static com.codeborne.selenide.Selenide.sleep;
 
 public class LoginPage extends BasePage {
     @FindBy(how = How.XPATH, using = ".//input[@placeholder='Enter Login']")
@@ -40,6 +41,7 @@ public class LoginPage extends BasePage {
     }
 
     public BaseProductionSetPage openProductionSetPage() {
+        sleep(1500);
         userName.shouldBe(Condition.visible).click();
         popupHeader.shouldHave(Condition.exactText("Applications"));
         productionAndOrderFulfillment.shouldBe(Condition.visible);
