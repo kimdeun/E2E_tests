@@ -3,6 +3,7 @@ import com.codeborne.selenide.Selenide;
 import constants.URLs;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.openqa.selenium.chrome.ChromeOptions;
 import pageObject.LoginPage;
 
 import static com.codeborne.selenide.Selenide.open;

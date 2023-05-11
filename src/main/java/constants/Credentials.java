@@ -28,4 +28,6 @@ public class Credentials {
     public static final String RECEIVED_WITH_A_PROBLEM_STATE = "Received with a problem";
     public static final String PROBLEM_STATE = "PROBLEM";
     public static final String LOST_STATE = "LOST";
+    public static final String COUNTRY_AFGHANISTAN = "Afghanistan";
+    public static final String COUNTRY_ALBANIA = "Albania";
 }
