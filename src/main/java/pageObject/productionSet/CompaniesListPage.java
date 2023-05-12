@@ -9,7 +9,7 @@ import pageObject.BasePage;
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.page;
 
-public class CompaniesListPage extends BasePage {
+public class CompaniesListPage {
     @FindBy(how = How.XPATH, using = ".//button[contains(text(), 'Create')]")
     private SelenideElement createCompanyButton;
     @FindBy(how = How.XPATH, using = ".//input[@placeholder='Enter company name']")

@@ -1,3 +1,6 @@
+package supplySet;
+
+import baseTests.BaseTest;
 import constants.Credentials;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Test;
@@ -5,57 +8,8 @@ import pageObject.productionSet.WarehousePage;
 
 import static com.codeborne.selenide.Selenide.page;
 
-public class TransfersListTest extends BaseTest{
+public class TransferPageTest extends BaseTest {
     WarehousePage warehousePage = page(WarehousePage.class);
-
-    @Test
-    public void checkReceivedStateOfContainerInTheTransfersTable() {
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
-                .openProductionSetPage()
-                .openWarehousePage()
-                .openDetailsTable()
-                .waitForInventoryTableContent();
-
-        int containerIndex = warehousePage.getContainerIndexInTheList();
-
-        warehousePage.createTransfer(containerIndex)
-                .openSupplySet()
-                .openTransfersListPage()
-                .checkReceivedStateOfAContainer();
-    }
-
-    @Test
-    public void checkReceivedWithAProblemStateOfContainerInTheTransfersTableByLostButtonInReceiveTransferModal() {
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
-                .openProductionSetPage()
-                .openWarehousePage()
-                .openDetailsTable()
-                .waitForInventoryTableContent();
-
-        int containerIndex = warehousePage.getContainerIndexInTheList();
-
-        warehousePage.createTransfer(containerIndex)
-                .openSupplySet()
-                .openTransfersListPage()
-                .checkReceivedWithAProblemStateByLostButtonInReceiveTransferModal();
-    }
-
-    @Test
-    public void checkReceivedWithAProblemStateOfContainerInTheTransfersTableByProblemButtonInReceiveTransferModal() {
-        String comment = RandomStringUtils.randomAlphanumeric(7);
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
-                .openProductionSetPage()
-                .openWarehousePage()
-                .openDetailsTable()
-                .waitForInventoryTableContent();
-
-        int containerIndex = warehousePage.getContainerIndexInTheList();
-
-        warehousePage.createTransfer(containerIndex)
-                .openSupplySet()
-                .openTransfersListPage()
-                .checkReceivedWithAProblemStateByProblemButtonInReceiveTransferModal(comment);
-    }
 
     @Test
     public void checkContainerNumberInReceiveTransferModal() {
@@ -71,6 +25,7 @@ public class TransfersListTest extends BaseTest{
         warehousePage.createTransfer(containerIndex)
                 .openSupplySet()
                 .openTransfersListPage()
+                .openTransfersPage()
                 .checkContainerNumberInReceiveTransferModal(containerNumber);
     }
 
@@ -87,6 +42,7 @@ public class TransfersListTest extends BaseTest{
         warehousePage.createTransfer(containerIndex)
                 .openSupplySet()
                 .openTransfersListPage()
+                .openTransfersPage()
                 .checkSealTypeInReceiveTransferModal();
     }
 
@@ -103,6 +59,7 @@ public class TransfersListTest extends BaseTest{
         warehousePage.createTransfer(containerIndex)
                 .openSupplySet()
                 .openTransfersListPage()
+                .openTransfersPage()
                 .checkSealColorInReceiveTransferModal();
     }
 
@@ -120,6 +77,7 @@ public class TransfersListTest extends BaseTest{
         warehousePage.createTransfer(containerIndex)
                 .openSupplySet()
                 .openTransfersListPage()
+                .openTransfersPage()
                 .checkContainersQuantityInReceiveTransferModal(containerQuantity);
     }
 
@@ -136,6 +94,7 @@ public class TransfersListTest extends BaseTest{
 //        warehousePage.createTransfer(containerIndex)
 //                .openSupplySet()
 //                .openTransfersListPage()
+//                .openTransfersPage()
 //                .checkContainerLogoInReceiveTransferModal();
 //    }
 
@@ -153,6 +112,7 @@ public class TransfersListTest extends BaseTest{
         warehousePage.createTransfer(containerIndex)
                 .openSupplySet()
                 .openTransfersListPage()
+                .openTransfersPage()
                 .checkContainersStartNumber(containersStartNumber);
     }
 
@@ -170,11 +130,12 @@ public class TransfersListTest extends BaseTest{
         warehousePage.createTransfer(containerIndex)
                 .openSupplySet()
                 .openTransfersListPage()
+                .openTransfersPage()
                 .checkContainersEndNumber(containersEndNumber);
     }
 
     @Test
-    public void checkContainersLostStateInTheTableOnTheTransferPage() {
+    public void checkReceivedStateOnLabelInTheTopRightCorner() {
         loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
                 .openProductionSetPage()
                 .openWarehousePage()
@@ -186,13 +147,12 @@ public class TransfersListTest extends BaseTest{
         warehousePage.createTransfer(containerIndex)
                 .openSupplySet()
                 .openTransfersListPage()
-                .switchStateToLost()
                 .openTransfersPage()
-                .checkContainersLostStateInTheTable();
+                .checkReceivedStateOnLabelInTheTopRightCorner();
     }
 
     @Test
-    public void checkContainersReceivedWithAProblemStateByLostButtonInTheTopRightCornerOnTheTransferPage() {
+    public void checkReceivedWithAProblemStateOnLabelInTheTopRightCornerByLostButton() {
         loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
                 .openProductionSetPage()
                 .openWarehousePage()
@@ -204,49 +164,12 @@ public class TransfersListTest extends BaseTest{
         warehousePage.createTransfer(containerIndex)
                 .openSupplySet()
                 .openTransfersListPage()
-                .switchStateToLost()
                 .openTransfersPage()
-                .checkReceivedWithAProblemStateInTheTopRightCorner();
+                .checkReceivedWithAProblemStateOnLabelByLostButtonInReceiveTransferModal();
     }
 
     @Test
-    public void checkContainersProblemStateInTheTableOnTheTransferPage() {
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
-                .openProductionSetPage()
-                .openWarehousePage()
-                .openDetailsTable()
-                .waitForInventoryTableContent();
-
-        int containerIndex = warehousePage.getContainerIndexInTheList();
-
-        warehousePage.createTransfer(containerIndex)
-                .openSupplySet()
-                .openTransfersListPage()
-                .switchStateToProblem()
-                .openTransfersPage()
-                .checkContainersProblemStateInTheTable();
-    }
-
-    @Test
-    public void checkContainersReceivedWithAProblemStateByProblemButtonInTheTopRightCornerOnTheTransferPage() {
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
-                .openProductionSetPage()
-                .openWarehousePage()
-                .openDetailsTable()
-                .waitForInventoryTableContent();
-
-        int containerIndex = warehousePage.getContainerIndexInTheList();
-
-        warehousePage.createTransfer(containerIndex)
-                .openSupplySet()
-                .openTransfersListPage()
-                .switchStateToProblem()
-                .openTransfersPage()
-                .checkReceivedWithAProblemStateInTheTopRightCorner();
-    }
-
-    @Test
-    public void checkCommentInTheTableOnTheTransferPage() {
+    public void checkReceivedWithAProblemStateOnLabelInTheTopRightCornerByProblemButton() {
         String comment = RandomStringUtils.randomAlphanumeric(7);
         loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
                 .openProductionSetPage()
@@ -259,8 +182,7 @@ public class TransfersListTest extends BaseTest{
         warehousePage.createTransfer(containerIndex)
                 .openSupplySet()
                 .openTransfersListPage()
-                .switchStateToProblemWithComment(comment)
                 .openTransfersPage()
-                .checkContainersCommentInTheTable(comment);
+                .checkReceivedWithAProblemStateOnLabelByProblemButtonInReceiveTransferModal(comment);
     }
 }

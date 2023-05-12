@@ -14,6 +14,8 @@ public class BaseProductionSetPage {
     private SelenideElement purchaseOrdersButton;
     @FindBy(how = How.XPATH, using = ".//div[@class='ui-header']//a[contains(text(), 'Companies')]")
     private SelenideElement companiesButtonInTheNavMenu;
+    @FindBy(how = How.XPATH, using = ".//div[@class='ui-header']//a[contains(text(), 'Users')]")
+    private SelenideElement usersButtonInTheNavMenu;
 
     public PurchaseOrderListPage openPurchaseOrdersPage() {
         ordersButton.click();
@@ -28,5 +30,10 @@ public class BaseProductionSetPage {
     public CompaniesListPage openCompaniesListPage() {
         companiesButtonInTheNavMenu.click();
         return page(CompaniesListPage.class);
+    }
+
+    public UsersListPage openUsersListPage() {
+        usersButtonInTheNavMenu.click();
+        return page(UsersListPage.class);
     }
 }

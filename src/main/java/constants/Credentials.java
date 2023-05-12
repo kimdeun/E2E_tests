@@ -30,4 +30,12 @@ public class Credentials {
     public static final String LOST_STATE = "LOST";
     public static final String COUNTRY_AFGHANISTAN = "Afghanistan";
     public static final String COUNTRY_ALBANIA = "Albania";
+    public static final String OPERATOR_ROLE = "Operator";
+    public static final String SUPERVISOR_ROLE = "Supervisor";
+    public static final String OFFICER_ROLE = "Officer";
+    public static final String ADMIN_ROLE = "Admin";
+    public static final String NOT_APPROVED_USERS_STATE = "Not Approved";
+//    public static final String PENDING_TRAINING_USERS_STATE = "Pending Training";
+    public static final String PENDING_INITIAL_TRAINING_USERS_STATE = "Pending Initial Training";
+    public static final String ACTIVE_USERS_STATE = "Active";
 }

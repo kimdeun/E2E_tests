@@ -1,3 +1,6 @@
+package productionSet;
+
+import baseTests.BaseTest;
 import constants.Credentials;
 import org.junit.jupiter.api.Test;
 import pageObject.productionSet.WarehousePage;

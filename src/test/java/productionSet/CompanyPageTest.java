@@ -1,3 +1,6 @@
+package productionSet;
+
+import baseTests.BaseTest;
 import constants.Credentials;
 import net.datafaker.Faker;
 import org.junit.jupiter.api.Test;

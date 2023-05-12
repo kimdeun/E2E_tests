@@ -5,6 +5,7 @@ import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import pageObject.productionSet.BaseProductionSetPage;
+import pageObject.supplySet.BaseSupplySetPage;
 
 import static com.codeborne.selenide.Selenide.page;
 import static com.codeborne.selenide.Selenide.sleep;
@@ -49,9 +50,12 @@ public class LoginPage extends BasePage {
         return page(BaseProductionSetPage.class);
     }
 
-//    public BaseProductionSetPage openSupplySetPage() {
-//        userName.click();
-//        warehouseAndInventoryManagement.click();
-//        return page(BaseProductionSetPage.class);
-//    }
+    public BaseSupplySetPage openSupplySetPage() {
+        sleep(1500);
+        userName.shouldBe(Condition.visible).click();
+        popupHeader.shouldHave(Condition.exactText("Applications"));
+        warehouseAndInventoryManagement.shouldBe(Condition.visible);
+        warehouseAndInventoryManagement.click();
+        return page(BaseSupplySetPage.class);
+    }
 }

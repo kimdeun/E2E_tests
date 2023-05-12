@@ -1,3 +1,5 @@
+package baseTests;
+
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import constants.URLs;
@@ -9,7 +11,7 @@ import pageObject.LoginPage;
 import static com.codeborne.selenide.Selenide.open;
 
 public class BaseTest {
-    LoginPage loginPage;
+    protected LoginPage loginPage;
 
     @BeforeEach
     public void setUp() {
