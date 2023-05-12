@@ -10,8 +10,6 @@ import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.page;
 
 public class CompaniesListPage extends BasePage {
-    @FindBy(how = How.XPATH, using = ".//div[@class='ui-header']//a[contains(text(), 'Companies')]")
-    private SelenideElement companiesButtonInTheNavMenu;
     @FindBy(how = How.XPATH, using = ".//button[contains(text(), 'Create')]")
     private SelenideElement createCompanyButton;
     @FindBy(how = How.XPATH, using = ".//input[@placeholder='Enter company name']")
@@ -54,7 +52,6 @@ public class CompaniesListPage extends BasePage {
     }
 
     public CompaniesListPage createCompany(String companyName) {
-        companiesButtonInTheNavMenu.click();
         createCompanyButton.click();
         nameFieldInTheModal.setValue(companyName);
         countrySelectSpanInTheModal.click();
@@ -113,5 +110,10 @@ public class CompaniesListPage extends BasePage {
 
     public void checkNoContentTableAfterDeletingCompany() {
         noContentTable.shouldBe(visible);
+    }
+
+    public CompanyPage openCompanyPage() {
+        companyName.click();
+        return page(CompanyPage.class);
     }
 }
