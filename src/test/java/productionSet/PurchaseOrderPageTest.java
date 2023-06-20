@@ -1,3 +1,6 @@
+package productionSet;
+
+import baseTests.BaseTest;
 import constants.Credentials;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Test;

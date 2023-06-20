@@ -5,6 +5,8 @@ public class Credentials {
     public static final String USER_PASSWORD = "Qq!111111";
     public static final String USER_NAME = "Test User";
     public static final String USERS_COMPANY = "TestCompanyForAutoTests";
+    public static final String RED_FLAG_COMPANY = "Red Flag Cargo Security Systems";
+    public static final String MILWAKEE = "Milwakee, WI";
     public static final String COMPANY_LOCATION = "TestCompanyLocation";
     public static final String STATE_ENTERED = "ENTERED";
     public static final String STATE_CONFIRMED = "CONFIRMED";
@@ -21,4 +23,19 @@ public class Credentials {
     public static final String BOX = "BOX";
     public static final String BAG = "BAG";
     public static final String SEAL = "SEAL";
+    public static final String TRANSIT_STATE = "TRANSIT";
+    public static final String RECEIVED_STATE = "Received";
+    public static final String RECEIVED_WITH_A_PROBLEM_STATE = "Received with a problem";
+    public static final String PROBLEM_STATE = "PROBLEM";
+    public static final String LOST_STATE = "LOST";
+    public static final String COUNTRY_AFGHANISTAN = "Afghanistan";
+    public static final String COUNTRY_ALBANIA = "Albania";
+    public static final String OPERATOR_ROLE = "Operator";
+    public static final String SUPERVISOR_ROLE = "Supervisor";
+    public static final String OFFICER_ROLE = "Officer";
+    public static final String ADMIN_ROLE = "Admin";
+    public static final String NOT_APPROVED_USERS_STATE = "Not Approved";
+//    public static final String PENDING_TRAINING_USERS_STATE = "Pending Training";
+    public static final String PENDING_INITIAL_TRAINING_USERS_STATE = "Pending Initial Training";
+    public static final String ACTIVE_USERS_STATE = "Active";
 }

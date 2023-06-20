@@ -3,6 +3,7 @@ package pageObject.productionSet;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.WebDriverRunner;
+import constants.Credentials;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -17,18 +18,12 @@ import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.page;
 
 public class PurchaseOrderListPage extends BasePage {
-    @FindBy(how = How.XPATH, using = ".//div[@class='ui-header']//a[@id='order__BV_button_']")
-    private SelenideElement ordersButton;
-    @FindBy(how = How.XPATH, using = ".//div[@class='ui-header']//a[contains(text(),'Purchase Orders')]")
-    private SelenideElement purchaseOrdersButton;
     @FindBy(how = How.XPATH, using = ".//button[contains(text(),'Create')]")
     private SelenideElement createButton;
     @FindBy(how = How.XPATH, using = ".//input[@placeholder='Enter purchase order ID']")
     private SelenideElement idField;
     @FindBy(how = How.XPATH, using = ".//input[@placeholder='Select company']")
     private SelenideElement companyField;
-    @FindBy(how = How.XPATH, using = ".//ul[@class='dropdown-menu']/li/a[contains(text(), 'TestCompanyForAutoTests')]")
-    private SelenideElement testCompany;
     @FindBy(how = How.XPATH, using = ".//div[@class='ui-form']/div[4]//input")
     private SelenideElement codeTypeField;
     @FindBy(how = How.XPATH, using = ".//a[contains(text(), 'Custom')]")
@@ -84,12 +79,9 @@ public class PurchaseOrderListPage extends BasePage {
     }
 
     public PurchaseOrderListPage createPurchaseOrderWithSpecifiedBuyer(String id, String name, String phoneNumber, String email) {
-        ordersButton.click();
-        purchaseOrdersButton.click();
         createButton.click();
         idField.setValue(id);
-        companyField.click();
-        testCompany.click();
+        companyField.setValue(Credentials.USERS_COMPANY).pressEnter();
         clickSetBuyerManuallyCheckbox();
         fullNameField.setValue(name);
         phoneNumberField.setValue(phoneNumber);
@@ -99,13 +91,10 @@ public class PurchaseOrderListPage extends BasePage {
     }
 
     public PurchaseOrderListPage createPurchaseOrderWithSelectedBuyer(String id) {
-        ordersButton.click();
-        purchaseOrdersButton.click();
         pageTitle.should(Condition.exist);
         createButton.click();
         idField.shouldBe(Condition.visible).setValue(id);
-        companyField.click();
-        testCompany.click();
+        companyField.setValue(Credentials.USERS_COMPANY).pressEnter();
         buyerField.click();
         firstBuyer.click();
         okButton.click();
@@ -114,12 +103,9 @@ public class PurchaseOrderListPage extends BasePage {
     }
 
     public PurchaseOrderListPage createPurchaseOrderWithCustomCode(String id, String code, String numbersQuantity, String sequenceStartNumber, String totalSealsQuantity) {
-        ordersButton.click();
-        purchaseOrdersButton.click();
         createButton.click();
         idField.setValue(id);
-        companyField.click();
-        testCompany.click();
+        companyField.setValue(Credentials.USERS_COMPANY).pressEnter();
         codeTypeField.click();
         customCode.click();
         codeField.setValue(code);
