@@ -4,7 +4,6 @@ import com.codeborne.selenide.SelenideElement;
 import constants.Credentials;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
-import pageObject.BasePage;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.page;
@@ -74,11 +73,11 @@ public class CompaniesListPage {
         this.companyName.shouldHave(exactText(companyName));
     }
 
-    public void checkCompanysCountryIsAfghanistan() {
+    public void checkCompaniesCountryIsAfghanistan() {
         companiesCountry.shouldHave(exactText(Credentials.COUNTRY_AFGHANISTAN));
     }
 
-    public void checkCompanysCountryIsAlbania() {
+    public void checkCompaniesCountryIsAlbania() {
         companiesCountry.shouldHave(exactText(Credentials.COUNTRY_ALBANIA));
     }
 

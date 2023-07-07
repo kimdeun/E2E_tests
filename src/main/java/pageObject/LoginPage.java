@@ -58,4 +58,8 @@ public class LoginPage extends BasePage {
         warehouseAndInventoryManagement.click();
         return page(BaseSupplySetPage.class);
     }
+
+    public void waitForLoadingPageAfterLogin() {
+        userName.shouldBe(Condition.visible);
+    }
 }

@@ -63,6 +63,8 @@ public class WarehousePage extends BasePage {
     private SelenideElement firstBoxInTheSkidInTheContainersTable;
     @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-content']/div[3]//button[contains(text(), 'Bag')]")
     private SelenideElement firstBagInTheSkidInTheContainersTable;
+    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-content']/div[1]/div[1]/div[3]")
+    private SelenideElement firstContainerNameInTheTable;
 
     public int getContainerIndexInTheList() {
         Random random = new Random();
@@ -108,9 +110,10 @@ public class WarehousePage extends BasePage {
         return page(WarehousePage.class);
     }
 
-    public void unfoldBox() {
+    public WarehousePage unfoldBox() {
         firstBoxInTheSkidInTheContainersTable.click();
         firstBagInTheSkidInTheContainersTable.shouldHave(Condition.text(Credentials.BAG));
+        return page(this);
     }
 
     public WarehousePage createTransfer(int containerIndex) {
@@ -131,5 +134,12 @@ public class WarehousePage extends BasePage {
         userName.click();
         warehouseAndInventoryManagement.click();
         return page(BaseSupplySetPage.class);
+    }
+
+    public WarehousePage searchContainer(String containerNumber) {
+        searchInput.setValue(containerNumber);
+        searchButton.click();
+        firstContainerNameInTheTable.shouldHave(Condition.exactText(containerNumber));
+        return page(this);
     }
 }

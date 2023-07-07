@@ -56,7 +56,7 @@ public class WorkOrderListPage {
     @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-content']/div[1]//span[contains(text(), 'Entered')]")
     private SelenideElement workOrderState;
     @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-content']/div[1]/div[1]/div[5]//a")
-    private SelenideElement purchaseOrderId;
+    private SelenideElement purchaseOrderName;
     @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-content']/div[1]/div[1]/div[6]//a")
     private SelenideElement workOrderCompany;
     @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-content']/div[1]/div[1]/div[7]//a")
@@ -77,7 +77,7 @@ public class WorkOrderListPage {
     private SelenideElement pageTitle;
 
     public WorkOrderListPage createWorkOrder(String id, String quantity, String notes) {
-        pageTitle.shouldBe(Condition.visible);
+        pageTitle.shouldBe(Condition.visible, Duration.ofSeconds(15));
         createWorkOrderButton.click();
         purchaseOrderField.shouldBe(Condition.visible).click();
         emptyListOfDataInTheCreateWorkOrderModal.shouldNot(Condition.exist);
@@ -115,15 +115,15 @@ public class WorkOrderListPage {
     }
 
     public void waitForLoadWorkOrdersPage(String id) {
-        $(byLinkText(id)).should(Condition.exist);
+        $(byLinkText(id)).should(Condition.exist, Duration.ofSeconds(15));
     }
 
     public String getWorkOrderState() {
         return workOrderState.getText();
     }
 
-    public String getPurchaseOrderId() {
-        return purchaseOrderId.getText();
+    public String getPurchaseOrderName() {
+        return purchaseOrderName.getText();
     }
 
     public String getWorkOrderCompany() {

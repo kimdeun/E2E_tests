@@ -18,8 +18,8 @@ public class TransfersPage {
     private SelenideElement containerSealColor;
     @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-row']/div[6]/div[1]/div[1]")
     private SelenideElement containersQuantity;
-//    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-row']/div[7]/span")
-//    private SelenideElement containerLogo;
+    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-row']/div[7]/span")
+    private SelenideElement containerLogo;
     @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-row']/div[8]/span")
     private SelenideElement containersStartNumber;
     @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-row']/div[9]/span")
@@ -50,8 +50,8 @@ public class TransfersPage {
     private SelenideElement containerSealColorInReceiveTransferModal;
     @FindBy(how = How.XPATH, using = ".//div[@class='ui-modal-content']//div[@class='ui-table-row']/div[5]/div[1]/div[1]")
     private SelenideElement containersQuantityInReceiveTransferModal;
-    //    @FindBy(how = How.XPATH, using = ".//div[@class='ui-modal-content']//div[@class='ui-table-row']/div[6]/span")
-//    private SelenideElement containerLogoInReceiveTransferModal;
+    @FindBy(how = How.XPATH, using = ".//div[@class='ui-modal-content']//div[@class='ui-table-row']/div[6]/span")
+    private SelenideElement containerLogoInReceiveTransferModal;
     @FindBy(how = How.XPATH, using = ".//div[@class='ui-modal-content']//div[@class='ui-table-row']/div[7]/span")
     private SelenideElement containersStartNumberInReceiveTransferModal;
     @FindBy(how = How.XPATH, using = ".//div[@class='ui-modal-content']//div[@class='ui-table-row']/div[8]/span")
@@ -73,10 +73,9 @@ public class TransfersPage {
         this.containersQuantity.shouldHave(exactText(containersQuantity));
     }
 
-    // Нужно обновить дамп, удалить test logo
-//    public void checkContainerLogo() {
-//        containerLogo.shouldHave(exactText(Credentials.LOGO));
-//    }
+    public void checkContainerLogo() {
+        containerLogo.shouldHave(exactText(Credentials.LOGO));
+    }
 
     public void checkContainersStartNumber(String containersStartNumber) {
         this.containersStartNumber.shouldHave(exactText(containersStartNumber));
@@ -161,10 +160,10 @@ public class TransfersPage {
         containersQuantityInReceiveTransferModal.shouldHave(exactText(containersQuantity));
     }
 
-//    public void checkContainerLogoInReceiveTransferModal() {
-//        clickStateLabelInTheTopRightCorner();
-//        containerLogoInReceiveTransferModal.shouldHave(exactText(Credentials.LOGO));
-//    }
+    public void checkContainerLogoInReceiveTransferModal() {
+        clickStateLabelInTheTopRightCorner();
+        containerLogoInReceiveTransferModal.shouldHave(exactText(Credentials.LOGO));
+    }
 
     public void checkContainersStartNumberInReceiveTransferModal(String containersStartNumber) {
         clickStateLabelInTheTopRightCorner();

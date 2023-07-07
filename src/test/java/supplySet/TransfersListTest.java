@@ -1,195 +1,390 @@
 package supplySet;
 
+import api.purchaseOrder.*;
+import api.transfer.DeleteTransferRequest;
+import api.workOrder.ChangeWorkOrderStatusRequest;
+import api.workOrder.CreateTransferRequest;
+import api.workOrder.CreateWorkOrderRequest;
+import api.workOrder.GetWorkOrderContainerTableRequest;
 import baseTests.BaseTest;
+import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.Selenide;
 import constants.Credentials;
+import constants.URLs;
+import io.restassured.RestAssured;
+import jsonObjects.purchaseOrder.addSeals.AddSealsJsonObject;
+import jsonObjects.purchaseOrder.addSeals.Quantity;
+import jsonObjects.purchaseOrder.addSeals.SealColor;
+import jsonObjects.purchaseOrder.addSeals.SealType;
+import jsonObjects.purchaseOrder.createPurchaseOrder.*;
+import jsonObjects.purchaseOrder.createPurchaseOrder.Company;
+import jsonObjects.warehouse.Content;
+import jsonObjects.warehouse.CreateTransferJsonObject;
+import jsonObjects.warehouse.Receiver;
+import jsonObjects.workOrder.createWorkOrder.*;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import pageObject.LoginPage;
 import pageObject.productionSet.WarehousePage;
+import pageObject.supplySet.TransfersListPage;
+import pageObject.supplySet.TransfersPage;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.Selenide.page;
 
 public class TransfersListTest extends BaseTest {
     WarehousePage warehousePage = page(WarehousePage.class);
+    TransfersListPage transfersListPage = page(TransfersListPage.class);
+    public Buyer buyer = new Buyer("test@test.test", "", Credentials.USER_ID, null);
+    public Sequence sequence = new Sequence(10, 10, 1);
+    public Type type = new Type("system");
+    public Code code = new Code(sequence, type, "value");
+    public Company company = new Company(Credentials.TEST_COMPANY_ID);
+    public List<ExcludedSymbols> excludedSimbolsList = new ArrayList<>();
+    public String token;
+    public String purchaseOrderName;
+    public List<Integer> purchaseOrderIdList;
+
+    //объекты для добавления пломб
+    Quantity quantity = new Quantity(50);
+    SealColor sealColor = new SealColor(1);
+    SealType sealType = new SealType(8);
+    AddSealsJsonObject addSealsJsonObject = new AddSealsJsonObject(quantity, sealColor, sealType);
+
+    //объекты для создания WO
+    jsonObjects.workOrder.createWorkOrder.Quantity quantity1 = new jsonObjects.workOrder.createWorkOrder.Quantity(2);
+    jsonObjects.workOrder.createWorkOrder.Quantity quantity2 = new jsonObjects.workOrder.createWorkOrder.Quantity(4);
+    EntityType skidEntityType = new EntityType(1);
+    EntityClass skidEntityClass = new EntityClass("skid");
+    EntityType boxEntityType = new EntityType(2);
+    EntityClass boxEntityClass = new EntityClass("box");
+    EntityType bagEntityType = new EntityType(3);
+    EntityClass bagEntityClass = new EntityClass("bag");
+    EntityType sealEntityType = new EntityType(8);
+    EntityClass sealEntityClass = new EntityClass("seal");
+    Source skidSource = new Source(skidEntityType, skidEntityClass);
+    Source boxSource = new Source(boxEntityType, boxEntityClass);
+    Source bagSource = new Source(bagEntityType, bagEntityClass);
+    Target boxTarget = new Target(boxEntityType, boxEntityClass);
+    Target sealTarget = new Target(sealEntityType, sealEntityClass);
+    Capacity skidCapacity = new Capacity(1, quantity1, skidSource, boxTarget);
+    Capacity boxCapacity = new Capacity(12, quantity2, boxSource, sealTarget);
+    Capacity bagCapacity = new Capacity(11, quantity1, bagSource, sealTarget);
+    List<Capacity> capacity = new ArrayList<>(Arrays.asList(skidCapacity, boxCapacity, bagCapacity));
+    EtchingFormat etchingFormat = new EtchingFormat(2);
+    Packing packing = new Packing(1);
+    Production production = new Production(Credentials.PRODUCTION_ID);
+    SealEnumerationMode sealEnumerationMode = new SealEnumerationMode(Credentials.SEAL_ENUM_MODE_SEQUENTIAL);
+    jsonObjects.workOrder.createWorkOrder.Company company1 = new jsonObjects.workOrder.createWorkOrder.Company(Credentials.TEST_COMPANY_ID);
+    Location location = new Location(Credentials.TEST_COMPANY_LOCATION_ID);
+    TargetCompanyLocation targetCompanyLocation = new TargetCompanyLocation(company1, location);
+    Integer workOrderId;
+    List<Integer> skidIds;
+    List<Integer> boxIds;
+
+    List<Integer> transfersId;
+    TransfersPage transferPage = page(TransfersPage.class);
+    List<String> sealStartNumber;
+    List<String> sealEndNumber;
+    List<Integer> sealQuantity;
+    List<String> boxNumbers;
+
+    @Override
+    @BeforeEach
+    public void setUp() {
+        Configuration.browserSize = Credentials.BROWSER_SIZE_1920_1080;
+        loginPage = open(URLs.STAGE_URL, LoginPage.class);
+        RestAssured.baseURI = URLs.BASE_API_URI;
+
+        //вытаскиваем токен
+        token = authRequest.getResponseForUserAuthorization()
+                .extract()
+                .body()
+                .path("content.token");
+
+        //создаём PO и вытаскиваем PO name
+        CreatePurchaseOrderJsonObject createPurchaseOrderJsonObject = new CreatePurchaseOrderJsonObject(buyer, code, company, excludedSimbolsList, faker.onePiece().character());
+        CreatePurchaseOrderRequest createPurchaseOrderRequest = new CreatePurchaseOrderRequest();
+        purchaseOrderName = createPurchaseOrderRequest.getResponseForCreatingPurchaseOrder(token, createPurchaseOrderJsonObject)
+                .extract()
+                .body()
+                .path("name");
+
+        //вытаскиваем PO id
+        GetAllPurchaseOrdersRequest getAllPurchaseOrdersRequest = new GetAllPurchaseOrdersRequest();
+        purchaseOrderIdList = getAllPurchaseOrdersRequest.getResponseWithAllPurchaseOrders(token)
+                .extract()
+                .body()
+                .jsonPath().getList("id");
+
+
+        //добавляем пломбы в PO
+        purchaseOrderIdList = purchaseOrderIdList.stream()
+                .sorted()
+                .collect(Collectors.toList());
+        AddSealGroupRequest addSealGroupRequest = new AddSealGroupRequest();
+        List<Integer> sealGroupIdList = addSealGroupRequest.getResponseForAddSealRequest(token, addSealsJsonObject, purchaseOrderIdList.get(purchaseOrderIdList.size() - 1))
+                .extract()
+                .body()
+                .jsonPath().getList("id");
+        int sealGroupId = sealGroupIdList.get(0);
+
+        //создаем Work Order
+        PurchaseOrder purchaseOrder = new PurchaseOrder(purchaseOrderIdList.get(purchaseOrderIdList.size() - 1));
+        SealGroup sealGroup = new SealGroup(sealGroupId);
+
+        CreateWorkOrderJsonObject createWorkOrderJsonObject = new CreateWorkOrderJsonObject(capacity, 16000, etchingFormat,
+                false, null, packing, production, purchaseOrder,
+                50, sealEnumerationMode, sealGroup, targetCompanyLocation);
+        CreateWorkOrderRequest createWorkOrderRequest = new CreateWorkOrderRequest();
+        workOrderId = createWorkOrderRequest.getResponseForCreatingWorkOrder(token, createWorkOrderJsonObject)
+                .extract()
+                .body()
+                .path("id");
+
+        //меняем статус WO на confirmed, produced
+        ChangeWorkOrderStatusRequest changeWorkOrderStatusRequest = new ChangeWorkOrderStatusRequest();
+        changeWorkOrderStatusRequest.getResponseForChangingWOStatusToConfirmed(token, workOrderId)
+                .getResponseForChangingWOStatusToProduced(token, workOrderId);
+
+        GetWorkOrderContainerTableRequest getWorkOrderContainerTableRequest = new GetWorkOrderContainerTableRequest();
+
+        //получаем id скидов
+        skidIds = getWorkOrderContainerTableRequest.getWorkOrderContainerTableWithSkids(token, workOrderId)
+                .extract()
+                .body()
+                .path("content.id");
+
+        //получаем id коробок
+        boxIds = getWorkOrderContainerTableRequest.getWorkOrderContainerTableWithUnfoldedContainer(token, workOrderId, skidIds.get(0))
+                .extract()
+                .body()
+                .path("content.id");
+
+        //получаем номера коробок
+        boxNumbers = getWorkOrderContainerTableRequest.getWorkOrderContainerTableWithUnfoldedContainer(token, workOrderId, skidIds.get(0))
+                .extract()
+                .body()
+                .path("content.printNumber");
+
+        //объекты для создания трансфера
+        Content boxId = new Content(boxIds.get(0));
+        List<Content> content = new ArrayList<>(Arrays.asList(boxId));
+        Receiver receiver = new Receiver(null, false, null);
+        jsonObjects.warehouse.Company company2 = new jsonObjects.warehouse.Company(Credentials.TEST_COMPANY_ID);
+        jsonObjects.warehouse.Location location2 = new jsonObjects.warehouse.Location(Credentials.TEST_COMPANY_LOCATION_ID);
+        jsonObjects.warehouse.Target target = new jsonObjects.warehouse.Target(company2, location2);
+        CreateTransferJsonObject createTransferJsonObject = new CreateTransferJsonObject(content, null, null, false, receiver, target);
+
+        //получаем start number пломб
+        sealStartNumber = getWorkOrderContainerTableRequest.getWorkOrderContainerTableWithUnfoldedContainer(token, workOrderId, skidIds.get(0))
+                .extract()
+                .body()
+                .path("content.sealGroup.sequence.from");
+
+        //получаем end number пломб
+        sealEndNumber = getWorkOrderContainerTableRequest.getWorkOrderContainerTableWithUnfoldedContainer(token, workOrderId, skidIds.get(0))
+                .extract()
+                .body()
+                .path("content.sealGroup.sequence.to");
+
+        //получаем quantity пломб
+        sealQuantity = getWorkOrderContainerTableRequest.getWorkOrderContainerTableWithUnfoldedContainer(token, workOrderId, skidIds.get(0))
+                .extract()
+                .body()
+                .path("content.quantity");
+
+        //создаем трансфер
+        CreateTransferRequest createTransferRequest = new CreateTransferRequest();
+        transfersId = createTransferRequest.getResponseForCreatingTransfer(token, createTransferJsonObject)
+                .extract()
+                .body()
+                .jsonPath().getList("id");
+    }
+
+    @Override
+    @AfterEach
+    public void tearDown() {
+        //удаляем WO
+        DeleteWorkOrderRequest deleteWorkOrderRequest = new DeleteWorkOrderRequest();
+        deleteWorkOrderRequest.getResponseForDeletingWorkOrder(token, workOrderId);
+        //удаляем PO
+        DeletePurchaseOrderRequest deletePurchaseOrderRequest = new DeletePurchaseOrderRequest();
+        deletePurchaseOrderRequest.getResponseForDeletingPurchaseOrder(token, purchaseOrderIdList.get(purchaseOrderIdList.size() - 1));
+        //удаляем transfer
+        DeleteTransferRequest deleteTransferRequest = new DeleteTransferRequest();
+        deleteTransferRequest.getResponseForDeletingTransfer(token, transfersId.get(0).toString());
+        Selenide.closeWindow();
+    }
+
+    @Test
+    public void checkContainersSenderInTheTransfersListTable() {
+        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+                .waitForLoadingPageAfterLogin();
+        open(URLs.TRANSFERS_LIST_PAGE);
+
+        transfersListPage.checkTransfersSender();
+    }
+
+    @Test
+    public void checkContainersDestinationInTheTransfersListTable() {
+        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+                .waitForLoadingPageAfterLogin();
+        open(URLs.TRANSFERS_LIST_PAGE);
+
+        transfersListPage.checkTransfersDestination();
+    }
+
+    @Test
+    public void checkContainersSourceInTheTransfersListTable() {
+        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+                .waitForLoadingPageAfterLogin();
+        open(URLs.TRANSFERS_LIST_PAGE);
+
+        transfersListPage.checkTransfersSource();
+    }
+
+    @Test
+    public void checkContainersReceiverInTheTransfersListTable() {
+        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+                .waitForLoadingPageAfterLogin();
+        open(URLs.TRANSFERS_LIST_PAGE);
+
+        transfersListPage.checkTransfersReceiver();
+    }
+
+    @Test
+    public void checkContainersOwnerInTheTransfersListTable() {
+        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+                .waitForLoadingPageAfterLogin();
+        open(URLs.TRANSFERS_LIST_PAGE);
+
+        transfersListPage.checkTransfersOwner();
+    }
+
+    @Test
+    public void checkContainersQuantityInTheTransfersListTable() {
+        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+                .waitForLoadingPageAfterLogin();
+        open(URLs.TRANSFERS_LIST_PAGE);
+
+        transfersListPage.checkTransfersContainersQuantity(sealQuantity.get(0).toString());
+    }
+
+    @Test
+    public void checkContainersStateInTheTransfersListTable() {
+        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+                .waitForLoadingPageAfterLogin();
+        open(URLs.TRANSFERS_LIST_PAGE);
+
+        transfersListPage.checkTransfersTransitState();
+    }
 
     @Test
     public void checkReceivedStateOfContainerInTheTransfersTable() {
         loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
-                .openProductionSetPage()
-                .openWarehousePage()
-                .openDetailsTable()
-                .waitForInventoryTableContent();
+                .waitForLoadingPageAfterLogin();
+        open(URLs.TRANSFERS_LIST_PAGE);
 
-        int containerIndex = warehousePage.getContainerIndexInTheList();
-
-        warehousePage.createTransfer(containerIndex)
-                .openSupplySet()
-                .openTransfersListPage()
-                .checkReceivedStateOfAContainer();
+        transfersListPage.checkReceivedStateOfAContainer();
     }
 
     @Test
     public void checkReceivedWithAProblemStateOfContainerInTheTransfersTableByLostButtonInReceiveTransferModal() {
         loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
-                .openProductionSetPage()
-                .openWarehousePage()
-                .openDetailsTable()
-                .waitForInventoryTableContent();
+                .waitForLoadingPageAfterLogin();
+        open(URLs.TRANSFERS_LIST_PAGE);
 
-        int containerIndex = warehousePage.getContainerIndexInTheList();
-
-        warehousePage.createTransfer(containerIndex)
-                .openSupplySet()
-                .openTransfersListPage()
-                .checkReceivedWithAProblemStateByLostButtonInReceiveTransferModal();
+        transfersListPage.checkReceivedWithAProblemStateByLostButtonInReceiveTransferModal();
     }
 
     @Test
     public void checkReceivedWithAProblemStateOfContainerInTheTransfersTableByProblemButtonInReceiveTransferModal() {
-        String comment = RandomStringUtils.randomAlphanumeric(7);
+        String comment = faker.text().text(10, 20);
         loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
-                .openProductionSetPage()
-                .openWarehousePage()
-                .openDetailsTable()
-                .waitForInventoryTableContent();
+                .waitForLoadingPageAfterLogin();
+        open(URLs.TRANSFERS_LIST_PAGE);
 
-        int containerIndex = warehousePage.getContainerIndexInTheList();
-
-        warehousePage.createTransfer(containerIndex)
-                .openSupplySet()
-                .openTransfersListPage()
-                .checkReceivedWithAProblemStateByProblemButtonInReceiveTransferModal(comment);
+        transfersListPage.checkReceivedWithAProblemStateByProblemButtonInReceiveTransferModal(comment);
     }
 
     @Test
     public void checkContainerNumberInReceiveTransferModal() {
         loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
-                .openProductionSetPage()
-                .openWarehousePage()
-                .openDetailsTable()
-                .waitForInventoryTableContent();
+                .waitForLoadingPageAfterLogin();
+        open(URLs.TRANSFERS_LIST_PAGE);
 
-        int containerIndex = warehousePage.getContainerIndexInTheList();
-        String containerNumber = warehousePage.getContainerNumber(containerIndex);
-
-        warehousePage.createTransfer(containerIndex)
-                .openSupplySet()
-                .openTransfersListPage()
-                .checkContainerNumberInReceiveTransferModal(containerNumber);
+        transfersListPage.checkContainerNumberInReceiveTransferModal(boxNumbers.get(0));
     }
 
     @Test
     public void checkSealTypeInReceiveTransferModal() {
         loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
-                .openProductionSetPage()
-                .openWarehousePage()
-                .openDetailsTable()
-                .waitForInventoryTableContent();
+                .waitForLoadingPageAfterLogin();
+        open(URLs.TRANSFERS_LIST_PAGE);
 
-        int containerIndex = warehousePage.getContainerIndexInTheList();
-
-        warehousePage.createTransfer(containerIndex)
-                .openSupplySet()
-                .openTransfersListPage()
-                .checkSealTypeInReceiveTransferModal();
+        transfersListPage.checkSealTypeInReceiveTransferModal();
     }
 
     @Test
     public void checkSealColorInReceiveTransferModal() {
         loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
-                .openProductionSetPage()
-                .openWarehousePage()
-                .openDetailsTable()
-                .waitForInventoryTableContent();
+                .waitForLoadingPageAfterLogin();
+        open(URLs.TRANSFERS_LIST_PAGE);
 
-        int containerIndex = warehousePage.getContainerIndexInTheList();
-
-        warehousePage.createTransfer(containerIndex)
-                .openSupplySet()
-                .openTransfersListPage()
-                .checkSealColorInReceiveTransferModal();
+        transfersListPage.checkSealColorInReceiveTransferModal();
     }
 
     @Test
     public void checkContainersQuantityInReceiveTransferModal() {
         loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
-                .openProductionSetPage()
-                .openWarehousePage()
-                .openDetailsTable()
-                .waitForInventoryTableContent();
+                .waitForLoadingPageAfterLogin();
+        open(URLs.TRANSFERS_LIST_PAGE);
 
-        int containerIndex = warehousePage.getContainerIndexInTheList();
-        String containerQuantity = warehousePage.getContainersQuantity(containerIndex);
-
-        warehousePage.createTransfer(containerIndex)
-                .openSupplySet()
-                .openTransfersListPage()
-                .checkContainersQuantityInReceiveTransferModal(containerQuantity);
+        transfersListPage.checkContainersQuantityInReceiveTransferModal(sealQuantity.get(0).toString());
     }
 
-//    @Test
-//    public void checkContainersLogoInReceiveTransferModal() {
-//        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
-//                .openProductionSetPage()
-//                .openWarehousePage()
-//                .openDetailsTable()
-//                .waitForInventoryTableContent();
-//
-//        int containerIndex = warehousePage.getContainerIndexInTheList();
-//
-//        warehousePage.createTransfer(containerIndex)
-//                .openSupplySet()
-//                .openTransfersListPage()
-//                .checkContainerLogoInReceiveTransferModal();
-//    }
+    @Test
+    public void checkContainersLogoInReceiveTransferModal() {
+        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+                .waitForLoadingPageAfterLogin();
+        open(URLs.TRANSFERS_LIST_PAGE);
+
+        transfersListPage.checkContainerLogoInReceiveTransferModal();
+    }
 
     @Test
     public void checkContainersStartNumberInReceiveTransferModal() {
         loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
-                .openProductionSetPage()
-                .openWarehousePage()
-                .openDetailsTable()
-                .waitForInventoryTableContent();
+                .waitForLoadingPageAfterLogin();
+        open(URLs.TRANSFERS_LIST_PAGE);
 
-        int containerIndex = warehousePage.getContainerIndexInTheList();
-        String containersStartNumber = warehousePage.getContainersStartNumber(containerIndex);
-
-        warehousePage.createTransfer(containerIndex)
-                .openSupplySet()
-                .openTransfersListPage()
-                .checkContainersStartNumber(containersStartNumber);
+        transfersListPage.checkContainersStartNumber(sealStartNumber.get(0));
     }
 
     @Test
     public void checkContainersEndNumberInReceiveTransferModal() {
         loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
-                .openProductionSetPage()
-                .openWarehousePage()
-                .openDetailsTable()
-                .waitForInventoryTableContent();
+                .waitForLoadingPageAfterLogin();
+        open(URLs.TRANSFERS_LIST_PAGE);
 
-        int containerIndex = warehousePage.getContainerIndexInTheList();
-        String containersEndNumber = warehousePage.getContainersEndNumber(containerIndex);
-
-        warehousePage.createTransfer(containerIndex)
-                .openSupplySet()
-                .openTransfersListPage()
-                .checkContainersEndNumber(containersEndNumber);
+        transfersListPage.checkContainersEndNumber(sealEndNumber.get(0));
     }
 
     @Test
     public void checkContainersLostStateInTheTableOnTheTransferPage() {
         loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
-                .openProductionSetPage()
-                .openWarehousePage()
-                .openDetailsTable()
-                .waitForInventoryTableContent();
+                .waitForLoadingPageAfterLogin();
+        open(URLs.TRANSFERS_LIST_PAGE);
 
-        int containerIndex = warehousePage.getContainerIndexInTheList();
-
-        warehousePage.createTransfer(containerIndex)
-                .openSupplySet()
-                .openTransfersListPage()
-                .switchStateToLost()
+        transfersListPage.switchStateToLost()
                 .openTransfersPage()
                 .checkContainersLostStateInTheTable();
     }
@@ -197,17 +392,10 @@ public class TransfersListTest extends BaseTest {
     @Test
     public void checkContainersReceivedWithAProblemStateByLostButtonInTheTopRightCornerOnTheTransferPage() {
         loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
-                .openProductionSetPage()
-                .openWarehousePage()
-                .openDetailsTable()
-                .waitForInventoryTableContent();
+                .waitForLoadingPageAfterLogin();
+        open(URLs.TRANSFERS_LIST_PAGE);
 
-        int containerIndex = warehousePage.getContainerIndexInTheList();
-
-        warehousePage.createTransfer(containerIndex)
-                .openSupplySet()
-                .openTransfersListPage()
-                .switchStateToLost()
+        transfersListPage.switchStateToLost()
                 .openTransfersPage()
                 .checkReceivedWithAProblemStateInTheTopRightCorner();
     }
@@ -215,17 +403,10 @@ public class TransfersListTest extends BaseTest {
     @Test
     public void checkContainersProblemStateInTheTableOnTheTransferPage() {
         loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
-                .openProductionSetPage()
-                .openWarehousePage()
-                .openDetailsTable()
-                .waitForInventoryTableContent();
+                .waitForLoadingPageAfterLogin();
+        open(URLs.TRANSFERS_LIST_PAGE);
 
-        int containerIndex = warehousePage.getContainerIndexInTheList();
-
-        warehousePage.createTransfer(containerIndex)
-                .openSupplySet()
-                .openTransfersListPage()
-                .switchStateToProblem()
+        transfersListPage.switchStateToProblem()
                 .openTransfersPage()
                 .checkContainersProblemStateInTheTable();
     }
@@ -233,36 +414,22 @@ public class TransfersListTest extends BaseTest {
     @Test
     public void checkContainersReceivedWithAProblemStateByProblemButtonInTheTopRightCornerOnTheTransferPage() {
         loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
-                .openProductionSetPage()
-                .openWarehousePage()
-                .openDetailsTable()
-                .waitForInventoryTableContent();
+                .waitForLoadingPageAfterLogin();
+        open(URLs.TRANSFERS_LIST_PAGE);
 
-        int containerIndex = warehousePage.getContainerIndexInTheList();
-
-        warehousePage.createTransfer(containerIndex)
-                .openSupplySet()
-                .openTransfersListPage()
-                .switchStateToProblem()
+        transfersListPage.switchStateToProblem()
                 .openTransfersPage()
                 .checkReceivedWithAProblemStateInTheTopRightCorner();
     }
 
     @Test
     public void checkCommentInTheTableOnTheTransferPage() {
-        String comment = RandomStringUtils.randomAlphanumeric(7);
+        String comment = faker.text().text(10, 20);
         loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
-                .openProductionSetPage()
-                .openWarehousePage()
-                .openDetailsTable()
-                .waitForInventoryTableContent();
+                .waitForLoadingPageAfterLogin();
+        open(URLs.TRANSFERS_LIST_PAGE);
 
-        int containerIndex = warehousePage.getContainerIndexInTheList();
-
-        warehousePage.createTransfer(containerIndex)
-                .openSupplySet()
-                .openTransfersListPage()
-                .switchStateToProblemWithComment(comment)
+        transfersListPage.switchStateToProblemWithComment(comment)
                 .openTransfersPage()
                 .checkContainersCommentInTheTable(comment);
     }

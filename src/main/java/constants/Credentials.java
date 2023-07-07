@@ -38,4 +38,11 @@ public class Credentials {
 //    public static final String PENDING_TRAINING_USERS_STATE = "Pending Training";
     public static final String PENDING_INITIAL_TRAINING_USERS_STATE = "Pending Initial Training";
     public static final String ACTIVE_USERS_STATE = "Active";
+    public static final Integer USER_ID = 88;
+    public static final Integer TEST_COMPANY_ID = 23;
+    public static final Integer TEST_COMPANY_LOCATION_ID = 24;
+    public static final Integer PRODUCTION_ID = 1;
+    public static final String SEAL_ENUM_MODE_SEQUENTIAL = "sequential";
+    public static final String USER_NAME_BUYER_NAME = "userName";
+    public static final String BROWSER_SIZE_1920_1080 = "1920x1080";
 }

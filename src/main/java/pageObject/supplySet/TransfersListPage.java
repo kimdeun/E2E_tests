@@ -50,8 +50,8 @@ public class TransfersListPage {
     private SelenideElement containerSealColorInReceiveTransferModal;
     @FindBy(how = How.XPATH, using = ".//div[@class='ui-modal-content']//div[@class='ui-table-row']/div[5]/div[1]/div[1]")
     private SelenideElement containersQuantityInReceiveTransferModal;
-//    @FindBy(how = How.XPATH, using = ".//div[@class='ui-modal-content']//div[@class='ui-table-row']/div[6]/span")
-//    private SelenideElement containerLogoInReceiveTransferModal;
+    @FindBy(how = How.XPATH, using = ".//div[@class='ui-modal-content']//div[@class='ui-table-row']/div[6]/span")
+    private SelenideElement containerLogoInReceiveTransferModal;
     @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-row']/div[7]/span")
     private SelenideElement containersStartNumberInReceiveTransferModal;
     @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-row']/div[8]/span")
@@ -167,10 +167,10 @@ public class TransfersListPage {
         containersQuantityInReceiveTransferModal.shouldHave(exactText(containersQuantity));
     }
 
-//    public void checkContainerLogoInReceiveTransferModal() {
-//        clickTransfersState();
-//        containerLogoInReceiveTransferModal.shouldHave(exactText(Credentials.LOGO));
-//    }
+    public void checkContainerLogoInReceiveTransferModal() {
+        clickTransfersState();
+        containerLogoInReceiveTransferModal.shouldHave(exactText(Credentials.LOGO));
+    }
 
     public void checkContainersStartNumber(String containersStartNumber) {
         clickTransfersState();

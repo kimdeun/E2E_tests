@@ -130,7 +130,7 @@ public class PurchaseOrderListPage extends BasePage {
     }
 
     public PurchaseOrderListPage waitForLoadPurchaseOrdersPage(String id) {
-        $(byLinkText(id)).should(Condition.exist);
+        $(byLinkText(id)).should(Condition.exist, Duration.ofSeconds(60));
         return page(this);
     }
 
