@@ -1,6 +1,6 @@
 package constants;
 
-public class Credentials {
+public class Entities {
     public static final String USER_LOGIN = "test@test.test";
     public static final String USER_PASSWORD = "Qq!111111";
     public static final String USER_NAME = "Test User";

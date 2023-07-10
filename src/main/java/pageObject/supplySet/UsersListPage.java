@@ -11,7 +11,7 @@ import static com.codeborne.selenide.Condition.exactText;
 import static com.codeborne.selenide.Condition.exist;
 import static com.codeborne.selenide.Selenide.page;
 import static com.codeborne.selenide.Selenide.sleep;
-import static constants.Credentials.*;
+import static constants.Entities.*;
 
 public class UsersListPage {
     @FindBy(how = How.XPATH, using = ".//button[contains(text(), 'Create')]")

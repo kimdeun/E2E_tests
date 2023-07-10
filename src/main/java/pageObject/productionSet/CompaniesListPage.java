@@ -1,7 +1,7 @@
 package pageObject.productionSet;
 
 import com.codeborne.selenide.SelenideElement;
-import constants.Credentials;
+import constants.Entities;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
@@ -74,11 +74,11 @@ public class CompaniesListPage {
     }
 
     public void checkCompaniesCountryIsAfghanistan() {
-        companiesCountry.shouldHave(exactText(Credentials.COUNTRY_AFGHANISTAN));
+        companiesCountry.shouldHave(exactText(Entities.COUNTRY_AFGHANISTAN));
     }
 
     public void checkCompaniesCountryIsAlbania() {
-        companiesCountry.shouldHave(exactText(Credentials.COUNTRY_ALBANIA));
+        companiesCountry.shouldHave(exactText(Entities.COUNTRY_ALBANIA));
     }
 
     public CompaniesListPage editCompanyName(String newCompanyName) {

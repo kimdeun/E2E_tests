@@ -4,7 +4,7 @@ import com.codeborne.selenide.CollectionCondition;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
-import constants.Credentials;
+import constants.Entities;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import pageObject.BasePage;
@@ -93,7 +93,7 @@ public class WarehousePage extends BasePage {
 
     public WarehousePage openDetailsTable() {
         companySelect.click();
-        selectCompanyInput.setValue(Credentials.USERS_COMPANY).pressEnter();
+        selectCompanyInput.setValue(Entities.USERS_COMPANY).pressEnter();
         showInventoryButton.click();
         detailsButton.click();
         return page(this);
@@ -106,13 +106,13 @@ public class WarehousePage extends BasePage {
 
     public WarehousePage unfoldSkid() {
         firstSkidInTheContainersTable.click();
-        firstBoxInTheSkidInTheContainersTable.shouldHave(Condition.text(Credentials.BOX));
+        firstBoxInTheSkidInTheContainersTable.shouldHave(Condition.text(Entities.BOX));
         return page(WarehousePage.class);
     }
 
     public WarehousePage unfoldBox() {
         firstBoxInTheSkidInTheContainersTable.click();
-        firstBagInTheSkidInTheContainersTable.shouldHave(Condition.text(Credentials.BAG));
+        firstBagInTheSkidInTheContainersTable.shouldHave(Condition.text(Entities.BAG));
         return page(this);
     }
 
@@ -122,7 +122,7 @@ public class WarehousePage extends BasePage {
         sleep(1000);
         companyInputInTheCreateTransferModal.click();
         emptyListOfCompaniesInTheCreateTransferModal.shouldNot(Condition.exist);
-        companyInputInTheCreateTransferModal.setValue(Credentials.USERS_COMPANY).pressEnter();
+        companyInputInTheCreateTransferModal.setValue(Entities.USERS_COMPANY).pressEnter();
         locationSelectInTheCreateTransferModal.click();
         emptyListOfLocationsInTheTransferModal.shouldNotBe(Condition.visible);
         testCompanyLocationInTheCreateTransferModal.click();

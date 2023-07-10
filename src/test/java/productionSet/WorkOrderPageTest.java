@@ -5,7 +5,7 @@ import api.workOrder.CreateWorkOrderRequest;
 import baseTests.BaseTest;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
-import constants.Credentials;
+import constants.Entities;
 import constants.URLs;
 import io.restassured.RestAssured;
 import jsonObjects.purchaseOrder.addSeals.AddSealsJsonObject;
@@ -33,11 +33,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class WorkOrderPageTest extends BaseTest {
     WorkOrderPage workOrderPage = page(WorkOrderPage.class);
     //объекты для создания PO
-    public Buyer buyer = new Buyer("test@test.test", "", Credentials.USER_ID, null);
+    public Buyer buyer = new Buyer("test@test.test", "", Entities.USER_ID, null);
     public Sequence sequence = new Sequence(10, 10, 1);
     public Type type = new Type("system");
     public Code code = new Code(sequence, type, "value");
-    public Company company = new Company(Credentials.TEST_COMPANY_ID);
+    public Company company = new Company(Entities.TEST_COMPANY_ID);
     public List<ExcludedSymbols> excludedSimbolsList = new ArrayList<>();
     public String token;
     public String purchaseOrderName;
@@ -70,17 +70,17 @@ public class WorkOrderPageTest extends BaseTest {
     List<Capacity> capacity = new ArrayList<>(Arrays.asList(skidCapacity, boxCapacity, bagCapacity));
     EtchingFormat etchingFormat = new EtchingFormat(2);
     Packing packing = new Packing(1);
-    Production production = new Production(Credentials.PRODUCTION_ID);
-    SealEnumerationMode sealEnumerationMode = new SealEnumerationMode(Credentials.SEAL_ENUM_MODE_SEQUENTIAL);
-    jsonObjects.workOrder.createWorkOrder.Company company1 = new jsonObjects.workOrder.createWorkOrder.Company(Credentials.TEST_COMPANY_ID);
-    Location location = new Location(Credentials.TEST_COMPANY_LOCATION_ID);
+    Production production = new Production(Entities.PRODUCTION_ID);
+    SealEnumerationMode sealEnumerationMode = new SealEnumerationMode(Entities.SEAL_ENUM_MODE_SEQUENTIAL);
+    jsonObjects.workOrder.createWorkOrder.Company company1 = new jsonObjects.workOrder.createWorkOrder.Company(Entities.TEST_COMPANY_ID);
+    Location location = new Location(Entities.TEST_COMPANY_LOCATION_ID);
     TargetCompanyLocation targetCompanyLocation = new TargetCompanyLocation(company1, location);
     Integer workOrderId;
 
     @Override
     @BeforeEach
     public void setUp() {
-        Configuration.browserSize = Credentials.BROWSER_SIZE_1920_1080;
+        Configuration.browserSize = Entities.BROWSER_SIZE_1920_1080;
         loginPage = open(URLs.STAGE_URL, LoginPage.class);
         RestAssured.baseURI = URLs.BASE_API_URI;
 
@@ -145,7 +145,7 @@ public class WorkOrderPageTest extends BaseTest {
 
     @Test
     public void changeStateOfWorkOrderToConfirmed() {
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+        loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .waitForLoadingPageAfterLogin();
         open(URLs.getWorkOrderPageURL(workOrderId.toString()));
         workOrderPage.changeStateOfWorkOrder()
@@ -156,7 +156,7 @@ public class WorkOrderPageTest extends BaseTest {
 
     @Test
     public void changeStateOfWorkOrderToInProduction() {
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+        loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .waitForLoadingPageAfterLogin();
         open(URLs.getWorkOrderPageURL(workOrderId.toString()));
         workOrderPage.changeStateOfWorkOrder()
@@ -168,7 +168,7 @@ public class WorkOrderPageTest extends BaseTest {
 
     @Test
     public void changeStateOfWorkOrderToProduced() {
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+        loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .waitForLoadingPageAfterLogin();
         open(URLs.getWorkOrderPageURL(workOrderId.toString()));
         workOrderPage.changeStateOfWorkOrder()
@@ -181,7 +181,7 @@ public class WorkOrderPageTest extends BaseTest {
 
     @Test
     public void containersTableAppearsAfterChangingStateToConfirmed() {
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+        loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .waitForLoadingPageAfterLogin();
         open(URLs.getWorkOrderPageURL(workOrderId.toString()));
         workOrderPage.changeStateOfWorkOrder()
@@ -192,7 +192,7 @@ public class WorkOrderPageTest extends BaseTest {
 
     @Test
     public void containersStateIsInProductionInTheContainersTableAfterChangingWorkOrderStateToConfirmed() {
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+        loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .waitForLoadingPageAfterLogin();
         open(URLs.getWorkOrderPageURL(workOrderId.toString()));
         workOrderPage.changeStateOfWorkOrder()
@@ -203,7 +203,7 @@ public class WorkOrderPageTest extends BaseTest {
 
     @Test
     public void containersStateIsProducedInTheContainersTableAfterChangingWorkOrderStateToProduced() {
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+        loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .waitForLoadingPageAfterLogin();
         open(URLs.getWorkOrderPageURL(workOrderId.toString()));
         workOrderPage.changeStateOfWorkOrder()
@@ -216,7 +216,7 @@ public class WorkOrderPageTest extends BaseTest {
 
     @Test
     public void boxesStateIsProducedInTheContainersTableAfterChangingSkidStateToProduced() {
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+        loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .waitForLoadingPageAfterLogin();
         open(URLs.getWorkOrderPageURL(workOrderId.toString()));
         workOrderPage.changeStateOfWorkOrder()
@@ -229,7 +229,7 @@ public class WorkOrderPageTest extends BaseTest {
 
     @Test
     public void bagsStateIsProducedInTheContainersTableAfterChangingBoxStateToProduced() {
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+        loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .waitForLoadingPageAfterLogin();
         open(URLs.getWorkOrderPageURL(workOrderId.toString()));
         workOrderPage.changeStateOfWorkOrder()
@@ -242,7 +242,7 @@ public class WorkOrderPageTest extends BaseTest {
 
     @Test
     public void sealsStateIsProducedInTheContainersTableAfterChangingBagStateToProduced() {
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+        loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .waitForLoadingPageAfterLogin();
         open(URLs.getWorkOrderPageURL(workOrderId.toString()));
         workOrderPage.changeStateOfWorkOrder()

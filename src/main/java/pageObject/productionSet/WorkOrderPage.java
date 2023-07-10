@@ -1,7 +1,7 @@
 package pageObject.productionSet;
 
 import com.codeborne.selenide.*;
-import constants.Credentials;
+import constants.Entities;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
@@ -58,15 +58,15 @@ public class WorkOrderPage {
     }
 
     public void stateShouldBeConfirmed() {
-        stateLabel.shouldHave(Condition.text(Credentials.STATE_CONFIRMED));
+        stateLabel.shouldHave(Condition.text(Entities.STATE_CONFIRMED));
     }
 
     public void stateShouldBeInProduction() {
-        stateLabel.shouldHave(Condition.text(Credentials.STATE_IN_PRODUCTION));
+        stateLabel.shouldHave(Condition.text(Entities.STATE_IN_PRODUCTION));
     }
 
     public void stateShouldBeProduced() {
-        stateLabel.shouldHave(Condition.text(Credentials.STATE_PRODUCED), Duration.ofSeconds(300));
+        stateLabel.shouldHave(Condition.text(Entities.STATE_PRODUCED), Duration.ofSeconds(300));
     }
 
     public WorkOrderPage waitForContainersTable() {
@@ -81,14 +81,14 @@ public class WorkOrderPage {
     public void containersStateShouldBeInProduction() {
         containersStateCollectionInTheContainersTable.shouldHave(CollectionCondition.sizeGreaterThan(0));
         for (SelenideElement element : containersStateCollectionInTheContainersTable) {
-            element.shouldHave(Condition.text(Credentials.STATE_IN_PRODUCTION));
+            element.shouldHave(Condition.text(Entities.STATE_IN_PRODUCTION));
         }
     }
 
     public void containersStateShouldBeProduced() {
         containersStateCollectionInTheContainersTable.shouldHave(CollectionCondition.sizeGreaterThan(0));
         for (SelenideElement element : containersStateCollectionInTheContainersTable) {
-            element.shouldHave(Condition.text(Credentials.STATE_PRODUCED), Duration.ofSeconds(300));
+            element.shouldHave(Condition.text(Entities.STATE_PRODUCED), Duration.ofSeconds(300));
         }
     }
 
@@ -99,17 +99,17 @@ public class WorkOrderPage {
     }
 
     public WorkOrderPage firstChildContainerIsBox() {
-        firstBoxInTheSkidInTheContainersTable.shouldHave(Condition.text(Credentials.BOX));
+        firstBoxInTheSkidInTheContainersTable.shouldHave(Condition.text(Entities.BOX));
         return page(this);
     }
 
     public WorkOrderPage firstChildContainerIsBag() {
-        firstBagInTheSkidInTheContainersTable.shouldHave(Condition.text(Credentials.BAG));
+        firstBagInTheSkidInTheContainersTable.shouldHave(Condition.text(Entities.BAG));
         return page(this);
     }
 
     public WorkOrderPage firstChildContainerIsSeal() {
-        firstSealInTheSkidInTheContainersTable.shouldHave(Condition.text(Credentials.SEAL));
+        firstSealInTheSkidInTheContainersTable.shouldHave(Condition.text(Entities.SEAL));
         return page(this);
     }
 
@@ -123,7 +123,7 @@ public class WorkOrderPage {
 
     public WorkOrderPage changeStateOfTheBox() {
         firstSkidInTheContainersTable.click();
-        firstBoxInTheSkidInTheContainersTable.shouldHave(Condition.text(Credentials.BOX));
+        firstBoxInTheSkidInTheContainersTable.shouldHave(Condition.text(Entities.BOX));
         firstBoxStateInTheSkidInTheContainersTable.click();
         okButtonInTheUpdateStateModal.click();
         okButtonInTheUpdateStateModal.shouldNotBe(Condition.visible, Duration.ofSeconds(10));
@@ -134,7 +134,7 @@ public class WorkOrderPage {
     public WorkOrderPage changeStateOfTheBag() {
         firstSkidInTheContainersTable.click();
         firstBoxInTheSkidInTheContainersTable.click();
-        firstBagInTheSkidInTheContainersTable.shouldHave(Condition.text(Credentials.BAG));
+        firstBagInTheSkidInTheContainersTable.shouldHave(Condition.text(Entities.BAG));
         firstBagStateInTheSkidInTheContainersTable.click();
         okButtonInTheUpdateStateModal.click();
         okButtonInTheUpdateStateModal.shouldNotBe(Condition.visible, Duration.ofSeconds(10));

@@ -5,7 +5,7 @@ import api.company.DeleteCompanyRequest;
 import baseTests.BaseTest;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
-import constants.Credentials;
+import constants.Entities;
 import constants.URLs;
 import io.restassured.RestAssured;
 import jsonObjects.company.createCompany.Country;
@@ -34,7 +34,7 @@ public class CompaniesListTest extends BaseTest {
     @Override
     @BeforeEach
     public void setUp() {
-        Configuration.browserSize = Credentials.BROWSER_SIZE_1920_1080;
+        Configuration.browserSize = Entities.BROWSER_SIZE_1920_1080;
         loginPage = open(URLs.STAGE_URL, LoginPage.class);
         RestAssured.baseURI = URLs.BASE_API_URI;
 
@@ -63,7 +63,7 @@ public class CompaniesListTest extends BaseTest {
 
     @Test
     public void createCompany() {
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+        loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .openSupplySetPage();
         open(URLs.SUPPLY_COMPANIES_LIST_PAGE);
         companiesListPage.searchCompany(companyName)
@@ -72,7 +72,7 @@ public class CompaniesListTest extends BaseTest {
 
     @Test
     public void checkCompaniesCountry() {
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+        loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .openSupplySetPage();
         open(URLs.SUPPLY_COMPANIES_LIST_PAGE);
         companiesListPage.searchCompany(companyName)
@@ -81,7 +81,7 @@ public class CompaniesListTest extends BaseTest {
 
     @Test
     public void editCompanyName() {
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+        loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .openSupplySetPage();
         open(URLs.SUPPLY_COMPANIES_LIST_PAGE);
         companiesListPage.searchCompany(companyName)
@@ -92,7 +92,7 @@ public class CompaniesListTest extends BaseTest {
 
     @Test
     public void editCompaniesCountry() {
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+        loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .openSupplySetPage();
         open(URLs.SUPPLY_COMPANIES_LIST_PAGE);
         companiesListPage.searchCompany(companyName)
@@ -103,7 +103,7 @@ public class CompaniesListTest extends BaseTest {
 
     @Test
     public void deleteCompany() {
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+        loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .openSupplySetPage();
         open(URLs.SUPPLY_COMPANIES_LIST_PAGE);
         companiesListPage.searchCompany(companyName)

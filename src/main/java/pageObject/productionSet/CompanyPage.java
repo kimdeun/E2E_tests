@@ -52,16 +52,6 @@ public class CompanyPage {
     private SelenideElement selectLocationsInputInTheCreateFieldOfficeModal;
     @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-content']/div[1]/div[1]/div[3]/span")
     private SelenideElement fieldOfficeNameInTheTable;
-//    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-content']/div[1]/div[1]/div[1]/i")
-//    private SelenideElement locationCheckboxInTheTable;
-//    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-content']/div[2]/div[1]/div[1]/i")
-//    private SelenideElement areaCheckboxInTheTable;
-//    @FindBy(how = How.XPATH, using = ".//button[contains(text(), 'Delete')]")
-//    private SelenideElement deleteButton;
-//    @FindBy(how = How.XPATH, using = ".//div[text()='No content']")
-//    private SelenideElement noContentTable;
-//    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-content']/div[1]/div[1]/div[7]/button")
-//    private SelenideElement editLocationButton;
 
     public CompanyPage openLocationsTab() {
         locationsTab.click();

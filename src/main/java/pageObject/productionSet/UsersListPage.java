@@ -10,7 +10,7 @@ import org.openqa.selenium.support.How;
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.page;
 import static com.codeborne.selenide.Selenide.sleep;
-import static constants.Credentials.*;
+import static constants.Entities.*;
 
 public class UsersListPage {
     @FindBy(how = How.XPATH, using = ".//button[contains(text(), 'Create')]")

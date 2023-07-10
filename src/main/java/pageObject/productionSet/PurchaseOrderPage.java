@@ -2,7 +2,7 @@ package pageObject.productionSet;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
-import constants.Credentials;
+import constants.Entities;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
@@ -98,7 +98,7 @@ public class PurchaseOrderPage {
         addSealsButton.click();
         typeField.click();
         emptyListOfDataInTheCreateWorkOrderModal.shouldNot(Condition.exist);
-        typeField.setValue(Credentials.SEAL_TYPE).pressEnter();
+        typeField.setValue(Entities.SEAL_TYPE).pressEnter();
         colorField.click();
         emptyListOfDataInTheCreateWorkOrderModal.shouldNot(Condition.exist);
         firstColorInTheList.click();
@@ -122,12 +122,12 @@ public class PurchaseOrderPage {
     }
 
     public PurchaseOrderPage waitForConfirmedState() {
-        $(stateLabel).shouldHave(Condition.exactText(Credentials.STATE_CONFIRMED));
+        $(stateLabel).shouldHave(Condition.exactText(Entities.STATE_CONFIRMED));
         return page(this);
     }
 
     public PurchaseOrderPage waitForProducedState() {
-        $(stateLabel).shouldHave(Condition.exactText(Credentials.STATE_PRODUCED));
+        $(stateLabel).shouldHave(Condition.exactText(Entities.STATE_PRODUCED));
         return page(this);
     }
 
@@ -147,15 +147,15 @@ public class PurchaseOrderPage {
         noTemplateHint.shouldBe(Condition.visible, Duration.ofSeconds(120));
         productionField.click();
         emptyListOfDataInTheCreateWorkOrderModal.shouldNot(Condition.exist);
-        productionField.setValue(Credentials.USA_PRODUCTION).pressEnter();
+        productionField.setValue(Entities.USA_PRODUCTION).pressEnter();
         etchingFormatSpan.click();
         etchingFormatField.pressEnter();
         quantityFieldInCreateWorkOrderModal.setValue(quantity);
         companyField.click();
-        companyField.setValue(Credentials.USERS_COMPANY).pressEnter();
+        companyField.setValue(Entities.USERS_COMPANY).pressEnter();
         locationSpan.click();
         locationField.click();
-        locationField.setValue(Credentials.COMPANY_LOCATION).pressEnter();
+        locationField.setValue(Entities.COMPANY_LOCATION).pressEnter();
         notesField.setValue(notes);
         skidField.click();
         skidField.pressEnter();
@@ -163,9 +163,9 @@ public class PurchaseOrderPage {
         boxField.pressEnter();
         bagField.click();
         bagField.pressEnter();
-        boxesInSkidField.setValue(Credentials.BOXES_IN_SKID_FOR_CREATING_WORK_ORDER);
-        sealsInBoxField.setValue(Credentials.SEALS_IN_BOX_FOR_CREATING_WORK_ORDER);
-        sealsInBagField.setValue(Credentials.SEALS_IN_BAG_FOR_CREATING_WORK_ORDER).pressEnter();
+        boxesInSkidField.setValue(Entities.BOXES_IN_SKID_FOR_CREATING_WORK_ORDER);
+        sealsInBoxField.setValue(Entities.SEALS_IN_BOX_FOR_CREATING_WORK_ORDER);
+        sealsInBagField.setValue(Entities.SEALS_IN_BAG_FOR_CREATING_WORK_ORDER).pressEnter();
         enumerationFieldSpan.click();
         enumerationField.pressEnter();
         okButtonInCreateWorkOrderModal.click();
@@ -176,9 +176,8 @@ public class PurchaseOrderPage {
         return $(workOrderId).isDisplayed();
     }
 
-    public PurchaseOrderPage waitForNewWorkOrder() {
-        workOrderId.should(Condition.exist);
-        return this;
+    public void waitForNewWorkOrder() {
+        workOrderId.should(Condition.exist, Duration.ofSeconds(15));
     }
 
     public String getWorkOrderProduction() {

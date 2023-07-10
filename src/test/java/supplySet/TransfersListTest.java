@@ -9,7 +9,7 @@ import api.workOrder.GetWorkOrderContainerTableRequest;
 import baseTests.BaseTest;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
-import constants.Credentials;
+import constants.Entities;
 import constants.URLs;
 import io.restassured.RestAssured;
 import jsonObjects.purchaseOrder.addSeals.AddSealsJsonObject;
@@ -22,7 +22,6 @@ import jsonObjects.warehouse.Content;
 import jsonObjects.warehouse.CreateTransferJsonObject;
 import jsonObjects.warehouse.Receiver;
 import jsonObjects.workOrder.createWorkOrder.*;
-import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -42,11 +41,11 @@ import static com.codeborne.selenide.Selenide.page;
 public class TransfersListTest extends BaseTest {
     WarehousePage warehousePage = page(WarehousePage.class);
     TransfersListPage transfersListPage = page(TransfersListPage.class);
-    public Buyer buyer = new Buyer("test@test.test", "", Credentials.USER_ID, null);
+    public Buyer buyer = new Buyer("test@test.test", "", Entities.USER_ID, null);
     public Sequence sequence = new Sequence(10, 10, 1);
     public Type type = new Type("system");
     public Code code = new Code(sequence, type, "value");
-    public Company company = new Company(Credentials.TEST_COMPANY_ID);
+    public Company company = new Company(Entities.TEST_COMPANY_ID);
     public List<ExcludedSymbols> excludedSimbolsList = new ArrayList<>();
     public String token;
     public String purchaseOrderName;
@@ -80,10 +79,10 @@ public class TransfersListTest extends BaseTest {
     List<Capacity> capacity = new ArrayList<>(Arrays.asList(skidCapacity, boxCapacity, bagCapacity));
     EtchingFormat etchingFormat = new EtchingFormat(2);
     Packing packing = new Packing(1);
-    Production production = new Production(Credentials.PRODUCTION_ID);
-    SealEnumerationMode sealEnumerationMode = new SealEnumerationMode(Credentials.SEAL_ENUM_MODE_SEQUENTIAL);
-    jsonObjects.workOrder.createWorkOrder.Company company1 = new jsonObjects.workOrder.createWorkOrder.Company(Credentials.TEST_COMPANY_ID);
-    Location location = new Location(Credentials.TEST_COMPANY_LOCATION_ID);
+    Production production = new Production(Entities.PRODUCTION_ID);
+    SealEnumerationMode sealEnumerationMode = new SealEnumerationMode(Entities.SEAL_ENUM_MODE_SEQUENTIAL);
+    jsonObjects.workOrder.createWorkOrder.Company company1 = new jsonObjects.workOrder.createWorkOrder.Company(Entities.TEST_COMPANY_ID);
+    Location location = new Location(Entities.TEST_COMPANY_LOCATION_ID);
     TargetCompanyLocation targetCompanyLocation = new TargetCompanyLocation(company1, location);
     Integer workOrderId;
     List<Integer> skidIds;
@@ -99,7 +98,7 @@ public class TransfersListTest extends BaseTest {
     @Override
     @BeforeEach
     public void setUp() {
-        Configuration.browserSize = Credentials.BROWSER_SIZE_1920_1080;
+        Configuration.browserSize = Entities.BROWSER_SIZE_1920_1080;
         loginPage = open(URLs.STAGE_URL, LoginPage.class);
         RestAssured.baseURI = URLs.BASE_API_URI;
 
@@ -178,8 +177,8 @@ public class TransfersListTest extends BaseTest {
         Content boxId = new Content(boxIds.get(0));
         List<Content> content = new ArrayList<>(Arrays.asList(boxId));
         Receiver receiver = new Receiver(null, false, null);
-        jsonObjects.warehouse.Company company2 = new jsonObjects.warehouse.Company(Credentials.TEST_COMPANY_ID);
-        jsonObjects.warehouse.Location location2 = new jsonObjects.warehouse.Location(Credentials.TEST_COMPANY_LOCATION_ID);
+        jsonObjects.warehouse.Company company2 = new jsonObjects.warehouse.Company(Entities.TEST_COMPANY_ID);
+        jsonObjects.warehouse.Location location2 = new jsonObjects.warehouse.Location(Entities.TEST_COMPANY_LOCATION_ID);
         jsonObjects.warehouse.Target target = new jsonObjects.warehouse.Target(company2, location2);
         CreateTransferJsonObject createTransferJsonObject = new CreateTransferJsonObject(content, null, null, false, receiver, target);
 
@@ -226,7 +225,7 @@ public class TransfersListTest extends BaseTest {
 
     @Test
     public void checkContainersSenderInTheTransfersListTable() {
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+        loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .waitForLoadingPageAfterLogin();
         open(URLs.TRANSFERS_LIST_PAGE);
 
@@ -235,7 +234,7 @@ public class TransfersListTest extends BaseTest {
 
     @Test
     public void checkContainersDestinationInTheTransfersListTable() {
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+        loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .waitForLoadingPageAfterLogin();
         open(URLs.TRANSFERS_LIST_PAGE);
 
@@ -244,7 +243,7 @@ public class TransfersListTest extends BaseTest {
 
     @Test
     public void checkContainersSourceInTheTransfersListTable() {
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+        loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .waitForLoadingPageAfterLogin();
         open(URLs.TRANSFERS_LIST_PAGE);
 
@@ -253,7 +252,7 @@ public class TransfersListTest extends BaseTest {
 
     @Test
     public void checkContainersReceiverInTheTransfersListTable() {
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+        loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .waitForLoadingPageAfterLogin();
         open(URLs.TRANSFERS_LIST_PAGE);
 
@@ -262,7 +261,7 @@ public class TransfersListTest extends BaseTest {
 
     @Test
     public void checkContainersOwnerInTheTransfersListTable() {
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+        loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .waitForLoadingPageAfterLogin();
         open(URLs.TRANSFERS_LIST_PAGE);
 
@@ -271,7 +270,7 @@ public class TransfersListTest extends BaseTest {
 
     @Test
     public void checkContainersQuantityInTheTransfersListTable() {
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+        loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .waitForLoadingPageAfterLogin();
         open(URLs.TRANSFERS_LIST_PAGE);
 
@@ -280,7 +279,7 @@ public class TransfersListTest extends BaseTest {
 
     @Test
     public void checkContainersStateInTheTransfersListTable() {
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+        loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .waitForLoadingPageAfterLogin();
         open(URLs.TRANSFERS_LIST_PAGE);
 
@@ -289,7 +288,7 @@ public class TransfersListTest extends BaseTest {
 
     @Test
     public void checkReceivedStateOfContainerInTheTransfersTable() {
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+        loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .waitForLoadingPageAfterLogin();
         open(URLs.TRANSFERS_LIST_PAGE);
 
@@ -298,7 +297,7 @@ public class TransfersListTest extends BaseTest {
 
     @Test
     public void checkReceivedWithAProblemStateOfContainerInTheTransfersTableByLostButtonInReceiveTransferModal() {
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+        loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .waitForLoadingPageAfterLogin();
         open(URLs.TRANSFERS_LIST_PAGE);
 
@@ -308,7 +307,7 @@ public class TransfersListTest extends BaseTest {
     @Test
     public void checkReceivedWithAProblemStateOfContainerInTheTransfersTableByProblemButtonInReceiveTransferModal() {
         String comment = faker.text().text(10, 20);
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+        loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .waitForLoadingPageAfterLogin();
         open(URLs.TRANSFERS_LIST_PAGE);
 
@@ -317,7 +316,7 @@ public class TransfersListTest extends BaseTest {
 
     @Test
     public void checkContainerNumberInReceiveTransferModal() {
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+        loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .waitForLoadingPageAfterLogin();
         open(URLs.TRANSFERS_LIST_PAGE);
 
@@ -326,7 +325,7 @@ public class TransfersListTest extends BaseTest {
 
     @Test
     public void checkSealTypeInReceiveTransferModal() {
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+        loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .waitForLoadingPageAfterLogin();
         open(URLs.TRANSFERS_LIST_PAGE);
 
@@ -335,7 +334,7 @@ public class TransfersListTest extends BaseTest {
 
     @Test
     public void checkSealColorInReceiveTransferModal() {
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+        loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .waitForLoadingPageAfterLogin();
         open(URLs.TRANSFERS_LIST_PAGE);
 
@@ -344,7 +343,7 @@ public class TransfersListTest extends BaseTest {
 
     @Test
     public void checkContainersQuantityInReceiveTransferModal() {
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+        loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .waitForLoadingPageAfterLogin();
         open(URLs.TRANSFERS_LIST_PAGE);
 
@@ -353,7 +352,7 @@ public class TransfersListTest extends BaseTest {
 
     @Test
     public void checkContainersLogoInReceiveTransferModal() {
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+        loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .waitForLoadingPageAfterLogin();
         open(URLs.TRANSFERS_LIST_PAGE);
 
@@ -362,7 +361,7 @@ public class TransfersListTest extends BaseTest {
 
     @Test
     public void checkContainersStartNumberInReceiveTransferModal() {
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+        loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .waitForLoadingPageAfterLogin();
         open(URLs.TRANSFERS_LIST_PAGE);
 
@@ -371,7 +370,7 @@ public class TransfersListTest extends BaseTest {
 
     @Test
     public void checkContainersEndNumberInReceiveTransferModal() {
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+        loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .waitForLoadingPageAfterLogin();
         open(URLs.TRANSFERS_LIST_PAGE);
 
@@ -380,7 +379,7 @@ public class TransfersListTest extends BaseTest {
 
     @Test
     public void checkContainersLostStateInTheTableOnTheTransferPage() {
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+        loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .waitForLoadingPageAfterLogin();
         open(URLs.TRANSFERS_LIST_PAGE);
 
@@ -391,7 +390,7 @@ public class TransfersListTest extends BaseTest {
 
     @Test
     public void checkContainersReceivedWithAProblemStateByLostButtonInTheTopRightCornerOnTheTransferPage() {
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+        loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .waitForLoadingPageAfterLogin();
         open(URLs.TRANSFERS_LIST_PAGE);
 
@@ -402,7 +401,7 @@ public class TransfersListTest extends BaseTest {
 
     @Test
     public void checkContainersProblemStateInTheTableOnTheTransferPage() {
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+        loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .waitForLoadingPageAfterLogin();
         open(URLs.TRANSFERS_LIST_PAGE);
 
@@ -413,7 +412,7 @@ public class TransfersListTest extends BaseTest {
 
     @Test
     public void checkContainersReceivedWithAProblemStateByProblemButtonInTheTopRightCornerOnTheTransferPage() {
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+        loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .waitForLoadingPageAfterLogin();
         open(URLs.TRANSFERS_LIST_PAGE);
 
@@ -425,7 +424,7 @@ public class TransfersListTest extends BaseTest {
     @Test
     public void checkCommentInTheTableOnTheTransferPage() {
         String comment = faker.text().text(10, 20);
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+        loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .waitForLoadingPageAfterLogin();
         open(URLs.TRANSFERS_LIST_PAGE);
 

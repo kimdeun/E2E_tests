@@ -1,12 +1,11 @@
 package productionSet;
 
-import api.auth.AuthRequest;
 import api.purchaseOrder.*;
 import api.workOrder.CreateWorkOrderRequest;
 import baseTests.BaseTest;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
-import constants.Credentials;
+import constants.Entities;
 import constants.URLs;
 import io.restassured.RestAssured;
 import jsonObjects.purchaseOrder.addSeals.AddSealsJsonObject;
@@ -20,7 +19,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pageObject.LoginPage;
-import pageObject.productionSet.PurchaseOrderListPage;
 import pageObject.productionSet.PurchaseOrderPage;
 import pageObject.productionSet.WorkOrderListPage;
 
@@ -41,11 +39,11 @@ public class WorkOrderListTest extends BaseTest {
     PurchaseOrderPage purchaseOrderPage = page(PurchaseOrderPage.class);
 
     //объекты для создания PO
-    public Buyer buyer = new Buyer("test@test.test", "", Credentials.USER_ID, null);
+    public Buyer buyer = new Buyer("test@test.test", "", Entities.USER_ID, null);
     public Sequence sequence = new Sequence(10, 10, 1);
     public Type type = new Type("system");
     public Code code = new Code(sequence, type, "value");
-    public Company company = new Company(Credentials.TEST_COMPANY_ID);
+    public Company company = new Company(Entities.TEST_COMPANY_ID);
     public List<ExcludedSymbols> excludedSimbolsList = new ArrayList<>();
     public String token;
     public String purchaseOrderName;
@@ -79,17 +77,17 @@ public class WorkOrderListTest extends BaseTest {
     List<Capacity> capacity = new ArrayList<>(Arrays.asList(skidCapacity, boxCapacity, bagCapacity));
     EtchingFormat etchingFormat = new EtchingFormat(2);
     Packing packing = new Packing(1);
-    Production production = new Production(Credentials.PRODUCTION_ID);
-    SealEnumerationMode sealEnumerationMode = new SealEnumerationMode(Credentials.SEAL_ENUM_MODE_SEQUENTIAL);
-    jsonObjects.workOrder.createWorkOrder.Company company1 = new jsonObjects.workOrder.createWorkOrder.Company(Credentials.TEST_COMPANY_ID);
-    Location location = new Location(Credentials.TEST_COMPANY_LOCATION_ID);
+    Production production = new Production(Entities.PRODUCTION_ID);
+    SealEnumerationMode sealEnumerationMode = new SealEnumerationMode(Entities.SEAL_ENUM_MODE_SEQUENTIAL);
+    jsonObjects.workOrder.createWorkOrder.Company company1 = new jsonObjects.workOrder.createWorkOrder.Company(Entities.TEST_COMPANY_ID);
+    Location location = new Location(Entities.TEST_COMPANY_LOCATION_ID);
     TargetCompanyLocation targetCompanyLocation = new TargetCompanyLocation(company1, location);
     Integer workOrderId;
 
     @Override
     @BeforeEach
     public void setUp() {
-        Configuration.browserSize = Credentials.BROWSER_SIZE_1920_1080;
+        Configuration.browserSize = Entities.BROWSER_SIZE_1920_1080;
         loginPage = open(URLs.STAGE_URL, LoginPage.class);
         RestAssured.baseURI = URLs.BASE_API_URI;
 
@@ -163,17 +161,17 @@ public class WorkOrderListTest extends BaseTest {
 
     @Test
     public void checkWorkOrderState() {
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+        loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .waitForLoadingPageAfterLogin();
         open(URLs.WORK_ORDERS_LIST_PAGE);
         workOrderListPage.waitForLoadWorkOrdersPage(purchaseOrderName);
 
-        assertEquals(Credentials.STATE_ENTERED, workOrderListPage.getWorkOrderState());
+        assertEquals(Entities.STATE_ENTERED, workOrderListPage.getWorkOrderState());
     }
 
     @Test
     public void checkPurchaseOrderNameInTheTable() {
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+        loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .waitForLoadingPageAfterLogin();
         open(URLs.WORK_ORDERS_LIST_PAGE);
         workOrderListPage.waitForLoadWorkOrdersPage(purchaseOrderName);
@@ -183,131 +181,131 @@ public class WorkOrderListTest extends BaseTest {
 
     @Test
     public void checkWorkOrderCompany() {
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+        loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .waitForLoadingPageAfterLogin();
         open(URLs.WORK_ORDERS_LIST_PAGE);
         workOrderListPage.waitForLoadWorkOrdersPage(purchaseOrderName);
 
-        assertEquals(Credentials.USERS_COMPANY, workOrderListPage.getWorkOrderCompany());
+        assertEquals(Entities.USERS_COMPANY, workOrderListPage.getWorkOrderCompany());
     }
 
     @Test
     public void checkWorkOrderOwner() {
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+        loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .waitForLoadingPageAfterLogin();
         open(URLs.WORK_ORDERS_LIST_PAGE);
         workOrderListPage.waitForLoadWorkOrdersPage(purchaseOrderName);
 
-        assertEquals(Credentials.USER_NAME, workOrderListPage.getWorkOrderOwner());
+        assertEquals(Entities.USER_NAME, workOrderListPage.getWorkOrderOwner());
     }
 
     @Test
     public void checkWorkOrderSealType() {
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+        loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .waitForLoadingPageAfterLogin();
         open(URLs.WORK_ORDERS_LIST_PAGE);
         workOrderListPage.waitForLoadWorkOrdersPage(purchaseOrderName);
 
-        assertEquals(Credentials.SEAL_TYPE, workOrderListPage.getWorkOrderSealType());
+        assertEquals(Entities.SEAL_TYPE, workOrderListPage.getWorkOrderSealType());
     }
 
     @Test
     public void checkWorkOrderSealColor() {
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+        loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .waitForLoadingPageAfterLogin();
         open(URLs.WORK_ORDERS_LIST_PAGE);
         workOrderListPage.waitForLoadWorkOrdersPage(purchaseOrderName);
 
-        assertEquals(Credentials.GRAY_COLOR_OF_THE_SEAL, workOrderListPage.getWorkOrderSealColor());
+        assertEquals(Entities.GRAY_COLOR_OF_THE_SEAL, workOrderListPage.getWorkOrderSealColor());
     }
 
     @Test
     public void checkWorkOrderEtchingFormat() {
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+        loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .waitForLoadingPageAfterLogin();
         open(URLs.WORK_ORDERS_LIST_PAGE);
         workOrderListPage.waitForLoadWorkOrdersPage(purchaseOrderName);
 
-        assertEquals(Credentials.ETCHING_FORMAT, workOrderListPage.getWorkOrderEtchingFormat());
+        assertEquals(Entities.ETCHING_FORMAT, workOrderListPage.getWorkOrderEtchingFormat());
     }
 
     @Test
     public void checkWorkOrderLogo() {
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+        loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .waitForLoadingPageAfterLogin();
         open(URLs.WORK_ORDERS_LIST_PAGE);
         workOrderListPage.waitForLoadWorkOrdersPage(purchaseOrderName);
 
-        assertEquals(Credentials.LOGO, workOrderListPage.getWorkOrderLogo());
+        assertEquals(Entities.LOGO, workOrderListPage.getWorkOrderLogo());
     }
 
     @Test
     public void checkWorkOrderProductionOnThePurchaseOrderPage() {
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+        loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .waitForLoadingPageAfterLogin();
         open(URLs.getPurchaseOrderPageURL(purchaseOrderIdList.get(purchaseOrderIdList.size() - 1).toString()));
         purchaseOrderPage.waitForNewWorkOrder();
 
-        assertEquals(Credentials.USA_PRODUCTION, purchaseOrderPage.getWorkOrderProduction());
+        assertEquals(Entities.USA_PRODUCTION, purchaseOrderPage.getWorkOrderProduction());
     }
 
     @Test
     public void checkWorkOrderStateOnThePurchaseOrderPage() {
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+        loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .waitForLoadingPageAfterLogin();
         open(URLs.getPurchaseOrderPageURL(purchaseOrderIdList.get(purchaseOrderIdList.size() - 1).toString()));
         purchaseOrderPage.waitForNewWorkOrder();
 
-        assertEquals(Credentials.STATE_ENTERED, purchaseOrderPage.getWorkOrderState());
+        assertEquals(Entities.STATE_ENTERED, purchaseOrderPage.getWorkOrderState());
     }
 
     @Test
     public void checkWorkOrderOwnerOnThePurchaseOrderPage() {
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+        loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .waitForLoadingPageAfterLogin();
         open(URLs.getPurchaseOrderPageURL(purchaseOrderIdList.get(purchaseOrderIdList.size() - 1).toString()));
         purchaseOrderPage.waitForNewWorkOrder();
 
-        assertEquals(Credentials.USER_NAME, purchaseOrderPage.getWorkOrderOwner());
+        assertEquals(Entities.USER_NAME, purchaseOrderPage.getWorkOrderOwner());
     }
 
     @Test
     public void checkWorkOrderSealTypeOnThePurchaseOrderPage() {
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+        loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .waitForLoadingPageAfterLogin();
         open(URLs.getPurchaseOrderPageURL(purchaseOrderIdList.get(purchaseOrderIdList.size() - 1).toString()));
         purchaseOrderPage.waitForNewWorkOrder();
 
-        assertEquals(Credentials.SEAL_TYPE, purchaseOrderPage.getWorkOrderSealType());
+        assertEquals(Entities.SEAL_TYPE, purchaseOrderPage.getWorkOrderSealType());
     }
 
     @Test
     public void checkWorkOrderSealColorOnThePurchaseOrderPage() {
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+        loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .waitForLoadingPageAfterLogin();
         open(URLs.getPurchaseOrderPageURL(purchaseOrderIdList.get(purchaseOrderIdList.size() - 1).toString()));
         purchaseOrderPage.waitForNewWorkOrder();
 
-        assertEquals(Credentials.GRAY_COLOR_OF_THE_SEAL, purchaseOrderPage.getWorkOrderSealColor());
+        assertEquals(Entities.GRAY_COLOR_OF_THE_SEAL, purchaseOrderPage.getWorkOrderSealColor());
     }
 
     @Test
     public void checkWorkOrderEtchingFormatOnThePurchaseOrderPage() {
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+        loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .waitForLoadingPageAfterLogin();
         open(URLs.getPurchaseOrderPageURL(purchaseOrderIdList.get(purchaseOrderIdList.size() - 1).toString()));
         purchaseOrderPage.waitForNewWorkOrder();
 
-        assertEquals(Credentials.ETCHING_FORMAT, purchaseOrderPage.getWorkOrderEtchingFormat());
+        assertEquals(Entities.ETCHING_FORMAT, purchaseOrderPage.getWorkOrderEtchingFormat());
     }
 
     @Test
     public void checkWorkOrderLogoOnThePurchaseOrderPage() {
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+        loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .waitForLoadingPageAfterLogin();
         open(URLs.getPurchaseOrderPageURL(purchaseOrderIdList.get(purchaseOrderIdList.size() - 1).toString()));
         purchaseOrderPage.waitForNewWorkOrder();
 
-        assertEquals(Credentials.LOGO, purchaseOrderPage.getWorkOrderLogo());
+        assertEquals(Entities.LOGO, purchaseOrderPage.getWorkOrderLogo());
     }
 }

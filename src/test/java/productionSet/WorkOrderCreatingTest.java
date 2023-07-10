@@ -4,7 +4,7 @@ import api.purchaseOrder.*;
 import baseTests.BaseTest;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
-import constants.Credentials;
+import constants.Entities;
 import constants.URLs;
 import io.restassured.RestAssured;
 import jsonObjects.purchaseOrder.addSeals.AddSealsJsonObject;
@@ -34,11 +34,11 @@ public class WorkOrderCreatingTest extends BaseTest {
     PurchaseOrderPage purchaseOrderPage = page(PurchaseOrderPage.class);
 
     //объекты для создания PO
-    public Buyer buyer = new Buyer("test@test.test", "", Credentials.USER_ID, null);
+    public Buyer buyer = new Buyer("test@test.test", "", Entities.USER_ID, null);
     public Sequence sequence = new Sequence(10, 10, 1);
     public Type type = new Type("system");
     public Code code = new Code(sequence, type, "value");
-    public Company company = new Company(Credentials.TEST_COMPANY_ID);
+    public Company company = new Company(Entities.TEST_COMPANY_ID);
     public List<ExcludedSymbols> excludedSimbolsList = new ArrayList<>();
     public String token;
     public String purchaseOrderName;
@@ -54,7 +54,7 @@ public class WorkOrderCreatingTest extends BaseTest {
     @Override
     @BeforeEach
     public void setUp() {
-        Configuration.browserSize = Credentials.BROWSER_SIZE_1920_1080;
+        Configuration.browserSize = Entities.BROWSER_SIZE_1920_1080;
         loginPage = open(URLs.STAGE_URL, LoginPage.class);
         RestAssured.baseURI = URLs.BASE_API_URI;
 
@@ -114,7 +114,7 @@ public class WorkOrderCreatingTest extends BaseTest {
 
     @Test
     public void createWorkOrder() {
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+        loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .waitForLoadingPageAfterLogin();
         open(URLs.WORK_ORDERS_LIST_PAGE);
         workOrderListPage.createWorkOrder(purchaseOrderName, quantityOfSeals, notes)
@@ -126,7 +126,7 @@ public class WorkOrderCreatingTest extends BaseTest {
 
     @Test
     public void createWorkOrderFromPurchaseOrderPage() {
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+        loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .waitForLoadingPageAfterLogin();
         open(URLs.getPurchaseOrderPageURL(purchaseOrderIdList.get(purchaseOrderIdList.size() - 1).toString()));
         purchaseOrderPage.createWorkOrder(quantityOfSeals, notes)

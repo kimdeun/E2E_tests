@@ -4,7 +4,7 @@ import api.user.CreateUserRequest;
 import api.user.DeleteUserRequest;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
-import constants.Credentials;
+import constants.Entities;
 import constants.URLs;
 import io.restassured.RestAssured;
 import jsonObjects.user.Company;
@@ -24,7 +24,7 @@ import java.util.List;
 
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.Selenide.page;
-import static constants.Credentials.*;
+import static constants.Entities.*;
 
 public class UserListPageTest extends BaseTest {
     Faker faker = new Faker();
@@ -46,7 +46,7 @@ public class UserListPageTest extends BaseTest {
     @Override
     @BeforeEach
     public void setUp() {
-        Configuration.browserSize = Credentials.BROWSER_SIZE_1920_1080;
+        Configuration.browserSize = Entities.BROWSER_SIZE_1920_1080;
         loginPage = open(URLs.STAGE_URL, LoginPage.class);
         RestAssured.baseURI = URLs.BASE_API_URI;
 
@@ -75,7 +75,7 @@ public class UserListPageTest extends BaseTest {
 
     @Test
     public void checkUserName() {
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+        loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .openSupplySetPage();
         open(URLs.SUPPLY_USERS_LIST_PAGE);
         usersListPage.searchUser(userName)
@@ -84,7 +84,7 @@ public class UserListPageTest extends BaseTest {
 
     @Test
     public void checkUserCompany() {
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+        loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .openSupplySetPage();
         open(URLs.SUPPLY_USERS_LIST_PAGE);
         usersListPage.searchUser(userName)
@@ -93,7 +93,7 @@ public class UserListPageTest extends BaseTest {
 
     @Test
     public void checkUserPosition() {
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+        loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .openSupplySetPage();
         open(URLs.SUPPLY_USERS_LIST_PAGE);
         usersListPage.searchUser(userName)
@@ -102,7 +102,7 @@ public class UserListPageTest extends BaseTest {
 
     @Test
     public void checkUserEmail() {
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+        loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .openSupplySetPage();
         open(URLs.SUPPLY_USERS_LIST_PAGE);
         usersListPage.searchUser(userName)
@@ -111,7 +111,7 @@ public class UserListPageTest extends BaseTest {
 
     @Test
     public void checkNotApprovedUserState() {
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+        loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .openSupplySetPage();
         open(URLs.SUPPLY_USERS_LIST_PAGE);
         usersListPage.searchUser(userName)
@@ -120,7 +120,7 @@ public class UserListPageTest extends BaseTest {
 
     @Test
     public void changeUserStateToPendingTraining() {
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+        loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .openSupplySetPage();
         open(URLs.SUPPLY_USERS_LIST_PAGE);
         usersListPage.searchUser(userName)
@@ -130,7 +130,7 @@ public class UserListPageTest extends BaseTest {
 
     @Test
     public void changeUserStateToActive() {
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+        loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .openSupplySetPage();
         open(URLs.SUPPLY_USERS_LIST_PAGE);
         usersListPage.searchUser(userName)

@@ -2,7 +2,7 @@ package pageObject.productionSet;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
-import constants.Credentials;
+import constants.Entities;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
@@ -85,15 +85,15 @@ public class WorkOrderListPage {
         noTemplateHint.shouldBe(Condition.visible, Duration.ofSeconds(120));
         productionField.click();
         emptyListOfDataInTheCreateWorkOrderModal.shouldNot(Condition.exist);
-        productionField.setValue(Credentials.USA_PRODUCTION).pressEnter();
+        productionField.setValue(Entities.USA_PRODUCTION).pressEnter();
         etchingFormatSpan.click();
         etchingFormatField.pressEnter();
         quantityField.setValue(quantity);
         companyField.click();
-        companyField.setValue(Credentials.USERS_COMPANY).pressEnter();
+        companyField.setValue(Entities.USERS_COMPANY).pressEnter();
         locationSpan.click();
         locationField.click();
-        locationField.setValue(Credentials.COMPANY_LOCATION).pressEnter();
+        locationField.setValue(Entities.COMPANY_LOCATION).pressEnter();
         notesField.setValue(notes);
         skidField.click();
         skidField.pressEnter();
@@ -101,9 +101,9 @@ public class WorkOrderListPage {
         boxField.pressEnter();
         bagField.click();
         bagField.pressEnter();
-        boxesInSkidField.setValue(Credentials.BOXES_IN_SKID_FOR_CREATING_WORK_ORDER);
-        sealsInBoxField.setValue(Credentials.SEALS_IN_BOX_FOR_CREATING_WORK_ORDER);
-        sealsInBagField.setValue(Credentials.SEALS_IN_BAG_FOR_CREATING_WORK_ORDER).pressEnter();
+        boxesInSkidField.setValue(Entities.BOXES_IN_SKID_FOR_CREATING_WORK_ORDER);
+        sealsInBoxField.setValue(Entities.SEALS_IN_BOX_FOR_CREATING_WORK_ORDER);
+        sealsInBagField.setValue(Entities.SEALS_IN_BAG_FOR_CREATING_WORK_ORDER).pressEnter();
         enumerationFieldSpan.click();
         enumerationField.pressEnter();
         okButtonInCreateWorkOrderModal.click();

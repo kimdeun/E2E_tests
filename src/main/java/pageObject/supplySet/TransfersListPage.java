@@ -1,7 +1,7 @@
 package pageObject.supplySet;
 
 import com.codeborne.selenide.SelenideElement;
-import constants.Credentials;
+import constants.Entities;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
@@ -63,23 +63,23 @@ public class TransfersListPage {
     }
 
     public void checkTransfersSender() {
-        transfersSender.shouldHave(exactText(Credentials.RED_FLAG_COMPANY));
+        transfersSender.shouldHave(exactText(Entities.RED_FLAG_COMPANY));
     }
 
     public void checkTransfersDestination() {
-        transfersDestination.shouldHave(exactText(Credentials.COMPANY_LOCATION));
+        transfersDestination.shouldHave(exactText(Entities.COMPANY_LOCATION));
     }
 
     public void checkTransfersSource() {
-        transfersSource.shouldHave(exactText(Credentials.MILWAKEE));
+        transfersSource.shouldHave(exactText(Entities.MILWAKEE));
     }
 
     public void checkTransfersReceiver() {
-        transfersReceiver.shouldHave(exactText(Credentials.USERS_COMPANY));
+        transfersReceiver.shouldHave(exactText(Entities.USERS_COMPANY));
     }
 
     public void checkTransfersOwner() {
-        transfersOwner.shouldHave(exactText(Credentials.USER_NAME));
+        transfersOwner.shouldHave(exactText(Entities.USER_NAME));
     }
 
     public void checkTransfersContainersQuantity(String containersQuantity) {
@@ -87,13 +87,13 @@ public class TransfersListPage {
     }
 
     public void checkTransfersTransitState() {
-        transfersState.shouldHave(exactText(Credentials.TRANSIT_STATE));
+        transfersState.shouldHave(exactText(Entities.TRANSIT_STATE));
     }
     private void checkTransfersReceivedState() {
-        transfersState.shouldHave(exactText(Credentials.RECEIVED_STATE));
+        transfersState.shouldHave(exactText(Entities.RECEIVED_STATE));
     }
     private void checkTransfersReceivedWithAProblemState() {
-        transfersState.shouldHave(exactText(Credentials.RECEIVED_WITH_A_PROBLEM_STATE));
+        transfersState.shouldHave(exactText(Entities.RECEIVED_WITH_A_PROBLEM_STATE));
     }
 
     private void clickTransfersState() {
@@ -154,12 +154,12 @@ public class TransfersListPage {
 
     public void checkSealTypeInReceiveTransferModal() {
         clickTransfersState();
-        containerSealTypeInReceiveTransferModal.shouldHave(exactText(Credentials.SEAL_TYPE));
+        containerSealTypeInReceiveTransferModal.shouldHave(exactText(Entities.SEAL_TYPE));
     }
 
     public void checkSealColorInReceiveTransferModal() {
         clickTransfersState();
-        containerSealColorInReceiveTransferModal.shouldHave(attribute("style", Credentials.GRAY_COLOR_OF_THE_SEAL));
+        containerSealColorInReceiveTransferModal.shouldHave(attribute("style", Entities.GRAY_COLOR_OF_THE_SEAL));
     }
 
     public void checkContainersQuantityInReceiveTransferModal(String containersQuantity) {
@@ -169,7 +169,7 @@ public class TransfersListPage {
 
     public void checkContainerLogoInReceiveTransferModal() {
         clickTransfersState();
-        containerLogoInReceiveTransferModal.shouldHave(exactText(Credentials.LOGO));
+        containerLogoInReceiveTransferModal.shouldHave(exactText(Entities.LOGO));
     }
 
     public void checkContainersStartNumber(String containersStartNumber) {

@@ -1,7 +1,7 @@
 package pageObject.supplySet;
 
 import com.codeborne.selenide.SelenideElement;
-import constants.Credentials;
+import constants.Entities;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
@@ -62,11 +62,11 @@ public class TransfersPage {
     }
 
     public void checkContainerSealType() {
-        containerSealType.shouldHave(exactText(Credentials.SEAL_TYPE));
+        containerSealType.shouldHave(exactText(Entities.SEAL_TYPE));
     }
 
     public void checkContainerColor() {
-        containerSealColor.shouldHave(attribute("style", Credentials.GRAY_COLOR_OF_THE_SEAL));
+        containerSealColor.shouldHave(attribute("style", Entities.GRAY_COLOR_OF_THE_SEAL));
     }
 
     public void checkContainersQuantity(String containersQuantity) {
@@ -74,7 +74,7 @@ public class TransfersPage {
     }
 
     public void checkContainerLogo() {
-        containerLogo.shouldHave(exactText(Credentials.LOGO));
+        containerLogo.shouldHave(exactText(Entities.LOGO));
     }
 
     public void checkContainersStartNumber(String containersStartNumber) {
@@ -86,15 +86,15 @@ public class TransfersPage {
     }
 
     public void checkContainersTransitStateInTheTable() {
-        containersStateInTheTable.shouldHave(exactText(Credentials.TRANSIT_STATE));
+        containersStateInTheTable.shouldHave(exactText(Entities.TRANSIT_STATE));
     }
 
     public void checkContainersProblemStateInTheTable() {
-        containersStateInTheTable.shouldHave(exactText(Credentials.PROBLEM_STATE));
+        containersStateInTheTable.shouldHave(exactText(Entities.PROBLEM_STATE));
     }
 
     public void checkContainersLostStateInTheTable() {
-        containersStateInTheTable.shouldHave(exactText(Credentials.LOST_STATE));
+        containersStateInTheTable.shouldHave(exactText(Entities.LOST_STATE));
     }
 
     public void checkContainersCommentInTheTable(String comment) {
@@ -102,15 +102,15 @@ public class TransfersPage {
     }
 
     public void checkTransitStateInTheTopRightCorner() {
-        containersStateInTheTopRightCorner.shouldHave((exactText(Credentials.TRANSIT_STATE)));
+        containersStateInTheTopRightCorner.shouldHave((exactText(Entities.TRANSIT_STATE)));
     }
 
     public void checkReceivedStateInTheTopRightCorner() {
-        containersStateInTheTopRightCorner.shouldHave((exactText(Credentials.TRANSIT_STATE)));
+        containersStateInTheTopRightCorner.shouldHave((exactText(Entities.TRANSIT_STATE)));
     }
 
     public void checkReceivedWithAProblemStateInTheTopRightCorner() {
-        containersStateInTheTopRightCorner.shouldHave((exactText(Credentials.RECEIVED_WITH_A_PROBLEM_STATE)));
+        containersStateInTheTopRightCorner.shouldHave((exactText(Entities.RECEIVED_WITH_A_PROBLEM_STATE)));
     }
 
     private void clickStateLabelInTheTopRightCorner() {
@@ -147,12 +147,12 @@ public class TransfersPage {
 
     public void checkSealTypeInReceiveTransferModal() {
         clickStateLabelInTheTopRightCorner();
-        containerSealTypeInReceiveTransferModal.shouldHave(exactText(Credentials.SEAL_TYPE));
+        containerSealTypeInReceiveTransferModal.shouldHave(exactText(Entities.SEAL_TYPE));
     }
 
     public void checkSealColorInReceiveTransferModal() {
         clickStateLabelInTheTopRightCorner();
-        containerSealColorInReceiveTransferModal.shouldHave(attribute("style", Credentials.GRAY_COLOR_OF_THE_SEAL));
+        containerSealColorInReceiveTransferModal.shouldHave(attribute("style", Entities.GRAY_COLOR_OF_THE_SEAL));
     }
 
     public void checkContainersQuantityInReceiveTransferModal(String containersQuantity) {
@@ -162,7 +162,7 @@ public class TransfersPage {
 
     public void checkContainerLogoInReceiveTransferModal() {
         clickStateLabelInTheTopRightCorner();
-        containerLogoInReceiveTransferModal.shouldHave(exactText(Credentials.LOGO));
+        containerLogoInReceiveTransferModal.shouldHave(exactText(Entities.LOGO));
     }
 
     public void checkContainersStartNumberInReceiveTransferModal(String containersStartNumber) {

@@ -1,13 +1,12 @@
 package productionSet;
 
-import api.auth.AuthRequest;
 import api.purchaseOrder.CreatePurchaseOrderRequest;
 import api.purchaseOrder.DeletePurchaseOrderRequest;
 import api.purchaseOrder.GetAllPurchaseOrdersRequest;
 import baseTests.BaseTest;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
-import constants.Credentials;
+import constants.Entities;
 import constants.URLs;
 import io.restassured.RestAssured;
 import jsonObjects.purchaseOrder.createPurchaseOrder.*;
@@ -26,11 +25,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PurchaseOrderListTest extends BaseTest {
     //объекты для создания PO
-    public Buyer buyer = new Buyer("test@test.test", "", Credentials.USER_ID, null);
+    public Buyer buyer = new Buyer("test@test.test", "", Entities.USER_ID, null);
     public Sequence sequence = new Sequence(10, 10, 1);
     public Type type = new Type("system");
     public Code code = new Code(sequence, type, "value");
-    public Company company = new Company(Credentials.TEST_COMPANY_ID);
+    public Company company = new Company(Entities.TEST_COMPANY_ID);
     public List<ExcludedSymbols> excludedSimbolsList = new ArrayList<>();
     public String token;
     public String purchaseOrderName;
@@ -40,7 +39,7 @@ public class PurchaseOrderListTest extends BaseTest {
     @Override
     @BeforeEach
     public void setUp() {
-        Configuration.browserSize = Credentials.BROWSER_SIZE_1920_1080;
+        Configuration.browserSize = Entities.BROWSER_SIZE_1920_1080;
         loginPage = open(URLs.STAGE_URL, LoginPage.class);
         RestAssured.baseURI = URLs.BASE_API_URI;
 
@@ -77,42 +76,42 @@ public class PurchaseOrderListTest extends BaseTest {
 
     @Test
     public void checkPurchaseOrderState() {
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+        loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .waitForLoadingPageAfterLogin();
         open(URLs.PURCHASE_ORDER_LIST_PAGE);
         purchaseOrderListPage.waitForLoadPurchaseOrdersPage(purchaseOrderName);
 
-        assertEquals(Credentials.STATE_ENTERED, purchaseOrderListPage.getPurchaseOrderState());
+        assertEquals(Entities.STATE_ENTERED, purchaseOrderListPage.getPurchaseOrderState());
     }
 
     @Test
     public void checkPurchaseOrderCompany() {
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+        loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .waitForLoadingPageAfterLogin();
         open(URLs.PURCHASE_ORDER_LIST_PAGE);
         purchaseOrderListPage.waitForLoadPurchaseOrdersPage(purchaseOrderName);
 
-        assertEquals(Credentials.USERS_COMPANY, purchaseOrderListPage.getPurchaseOrderCompany());
+        assertEquals(Entities.USERS_COMPANY, purchaseOrderListPage.getPurchaseOrderCompany());
     }
 
     @Test
     public void checkPurchaseOrderBuyer() {
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+        loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .waitForLoadingPageAfterLogin();
         open(URLs.PURCHASE_ORDER_LIST_PAGE);
         purchaseOrderListPage.waitForLoadPurchaseOrdersPage(purchaseOrderName);
 
-        assertEquals(Credentials.USER_NAME_BUYER_NAME, purchaseOrderListPage.getPurchaseOrderBuyer());
+        assertEquals(Entities.USER_NAME_BUYER_NAME, purchaseOrderListPage.getPurchaseOrderBuyer());
     }
 
     @Test
     public void checkPurchaseOrderOwner() {
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+        loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .waitForLoadingPageAfterLogin();
         open(URLs.PURCHASE_ORDER_LIST_PAGE);
         purchaseOrderListPage.waitForLoadPurchaseOrdersPage(purchaseOrderName);
 
-        assertEquals(Credentials.USER_NAME, purchaseOrderListPage.getPurchaseOrderOwner());
+        assertEquals(Entities.USER_NAME, purchaseOrderListPage.getPurchaseOrderOwner());
     }
 }
 

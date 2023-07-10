@@ -5,7 +5,7 @@ import api.purchaseOrder.GetAllPurchaseOrdersRequest;
 import baseTests.BaseTest;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
-import constants.Credentials;
+import constants.Entities;
 import constants.URLs;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.AfterEach;
@@ -35,7 +35,7 @@ public class PurchaseOrderCreatingTest extends BaseTest {
     @Override
     @BeforeEach
     public void setUp() {
-        Configuration.browserSize = Credentials.BROWSER_SIZE_1920_1080;
+        Configuration.browserSize = Entities.BROWSER_SIZE_1920_1080;
         loginPage = open(URLs.STAGE_URL, LoginPage.class);
         RestAssured.baseURI = URLs.BASE_API_URI;
 
@@ -63,7 +63,7 @@ public class PurchaseOrderCreatingTest extends BaseTest {
 
     @Test
     public void createPurchaseOrderWithSpecifiedBuyer() {
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+        loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .openProductionSetPage()
                 .openPurchaseOrdersPage()
                 .createPurchaseOrderWithSpecifiedBuyer(id, name, phoneNumber, email)
@@ -74,7 +74,7 @@ public class PurchaseOrderCreatingTest extends BaseTest {
 
     @Test
     public void createPurchaseOrderWithSelectedBuyer() {
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+        loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .openProductionSetPage()
                 .openPurchaseOrdersPage()
                 .createPurchaseOrderWithSelectedBuyer(id)
@@ -85,7 +85,7 @@ public class PurchaseOrderCreatingTest extends BaseTest {
 
     @Test
     public void createPurchaseOrderWithCustomCode() {
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+        loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .openProductionSetPage()
                 .openPurchaseOrdersPage()
                 .createPurchaseOrderWithCustomCode(id, customCode, numbersQuantity, sequenceStartNumber, totalSealsQuantity)

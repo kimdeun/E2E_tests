@@ -6,7 +6,7 @@ import api.company.DeleteCompanyRequest;
 import baseTests.BaseTest;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
-import constants.Credentials;
+import constants.Entities;
 import constants.URLs;
 import io.restassured.RestAssured;
 import jsonObjects.company.createCompany.Country;
@@ -43,7 +43,7 @@ public class CompanyPageTest extends BaseTest {
     @Override
     @BeforeEach
     public void setUp() {
-        Configuration.browserSize = Credentials.BROWSER_SIZE_1920_1080;
+        Configuration.browserSize = Entities.BROWSER_SIZE_1920_1080;
         loginPage = open(URLs.STAGE_URL, LoginPage.class);
         RestAssured.baseURI = URLs.BASE_API_URI;
 
@@ -72,7 +72,7 @@ public class CompanyPageTest extends BaseTest {
 
     @Test
     public void createLocation() {
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+        loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .waitForLoadingPageAfterLogin();
         open(URLs.PRODUCTION_COMPANIES_LIST_PAGE);
         companiesListPage.searchCompany(companyName)
@@ -94,7 +94,7 @@ public class CompanyPageTest extends BaseTest {
         CreateLocationRequest createLocationRequest = new CreateLocationRequest();
         createLocationRequest.getResponseForCreatingLocationRequest(token, createLocationJsonObject);
 
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+        loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .waitForLoadingPageAfterLogin();
         open(URLs.PRODUCTION_COMPANIES_LIST_PAGE);
         companiesListPage.searchCompany(companyName)
@@ -116,7 +116,7 @@ public class CompanyPageTest extends BaseTest {
         CreateLocationRequest createLocationRequest = new CreateLocationRequest();
         createLocationRequest.getResponseForCreatingLocationRequest(token, createLocationJsonObject);
 
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+        loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .waitForLoadingPageAfterLogin();
         open(URLs.PRODUCTION_COMPANIES_LIST_PAGE);
         companiesListPage.searchCompany(companyName)
@@ -137,7 +137,7 @@ public class CompanyPageTest extends BaseTest {
         CreateLocationRequest createLocationRequest = new CreateLocationRequest();
         createLocationRequest.getResponseForCreatingLocationRequest(token, createLocationJsonObject);
 
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+        loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .waitForLoadingPageAfterLogin();
         open(URLs.PRODUCTION_COMPANIES_LIST_PAGE);
         companiesListPage.searchCompany(companyName)

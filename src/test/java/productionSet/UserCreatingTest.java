@@ -5,7 +5,7 @@ import api.user.GetAllUsersRequest;
 import baseTests.BaseTest;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
-import constants.Credentials;
+import constants.Entities;
 import constants.URLs;
 import io.restassured.RestAssured;
 import net.datafaker.Faker;
@@ -18,8 +18,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.codeborne.selenide.Selenide.open;
-import static constants.Credentials.*;
-import static constants.Credentials.ADMIN_ROLE;
+import static constants.Entities.*;
+import static constants.Entities.ADMIN_ROLE;
 
 public class UserCreatingTest extends BaseTest {
     Faker faker = new Faker();
@@ -32,7 +32,7 @@ public class UserCreatingTest extends BaseTest {
     @Override
     @BeforeEach
     public void setUp() {
-        Configuration.browserSize = Credentials.BROWSER_SIZE_1920_1080;
+        Configuration.browserSize = Entities.BROWSER_SIZE_1920_1080;
         loginPage = open(URLs.STAGE_URL, LoginPage.class);
         RestAssured.baseURI = URLs.BASE_API_URI;
 
@@ -62,7 +62,7 @@ public class UserCreatingTest extends BaseTest {
 
     @Test
     public void createOperator() {
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+        loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .openProductionSetPage()
                 .openUsersListPage()
                 .createOperator(userName, position, email)
@@ -72,7 +72,7 @@ public class UserCreatingTest extends BaseTest {
 
     @Test
     public void createSupervisor() {
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+        loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .openProductionSetPage()
                 .openUsersListPage()
                 .createSupervisor(userName, position, email)
@@ -82,7 +82,7 @@ public class UserCreatingTest extends BaseTest {
 
     @Test
     public void createOfficer() {
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+        loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .openProductionSetPage()
                 .openUsersListPage()
                 .createOfficer(userName, position, email)
@@ -93,7 +93,7 @@ public class UserCreatingTest extends BaseTest {
 
     @Test
     public void createAdmin() {
-        loginPage.login(Credentials.USER_LOGIN, Credentials.USER_PASSWORD)
+        loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .openProductionSetPage()
                 .openUsersListPage()
                 .createAdmin(userName, position, email)
