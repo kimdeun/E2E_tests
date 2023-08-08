@@ -78,7 +78,6 @@
     <build>
         <plugins>
             <plugin>
-                <!-- настройка плагина maven-surefire-plugin -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven-surefire-plugin}</version>
@@ -95,7 +94,6 @@
                     </properties>
                     <systemProperties>
                         <property>
-                            <!-- папка, в которую будут генерироваться отчёты Allure -->
                             <name>allure.results.directory</name>
                             <value>${project.build.directory}/allure-results</value>
                         </property>
@@ -109,7 +107,6 @@
                     </dependency>
                 </dependencies>
             </plugin>
-            <!-- подключение плагина allure-maven для вызова функций Allure с помощью Maven -->
             <plugin>
                 <groupId>io.qameta.allure</groupId>
                 <artifactId>allure-maven</artifactId>
