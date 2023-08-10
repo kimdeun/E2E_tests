@@ -16,7 +16,7 @@
         <junit.jupiter.version>5.9.2</junit.jupiter.version>
         <junit.platform.version>1.8.1</junit.platform.version>
         <aspectj.version>1.9.7</aspectj.version>
-        <allure.version>2.15.0</allure.version>
+        <allure.version>2.23.0</allure.version>
         <allure-maven>2.10.0</allure-maven>
         <selenide.version>6.14.0</selenide.version>
         <datafaker.version>1.9.0</datafaker.version>

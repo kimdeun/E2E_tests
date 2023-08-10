@@ -12,7 +12,7 @@ Navigate to the desired directory in the terminal and clone the project using
 
 or download the archive from gitlab
 
-![img.png](img.png)
+![img.png](images/img.png)
 # Usage
 ## Tests running
 ### Tests running with terminal
@@ -35,15 +35,15 @@ To run a single method use. Before the hash sign is the name of the class, after
 ### Tests running with IDEA
 To run all the tests, use test step in the maven lifecycle
 
-![img_1.png](img_1.png)
+![img_1.png](images/img_1.png)
 
 To run a single test class use Run test button
 
-![img_2.png](img_2.png)
+![img_2.png](images/img_2.png)
 
 To run a single method use Run test button
 
-![img_3.png](img_3.png)
+![img_3.png](images/img_3.png)
 
 ## Dependencies 
 
