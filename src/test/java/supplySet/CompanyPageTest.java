@@ -34,7 +34,7 @@ public class CompanyPageTest extends BaseTest {
     String companyName = faker.company().name();
     pageObject.supplySet.CompaniesListPage companiesListPage = page(CompaniesListPage.class);
 
-    //объекты для создания компании
+    //objects for company creation
     Country country = new Country(4);
     ObjectType objectType = new ObjectType("simpleCompany");
     CreateCompanyJsonObject createCompanyJsonObject = new CreateCompanyJsonObject(country, companyName, objectType);
@@ -47,13 +47,13 @@ public class CompanyPageTest extends BaseTest {
         loginPage = open(URLs.STAGE_URL, LoginPage.class);
         RestAssured.baseURI = URLs.BASE_API_URI;
 
-        //вытаскиваем токен
+        //get a token
         token = authRequest.getResponseForUserAuthorization()
                 .extract()
                 .body()
                 .path("content.token");
 
-        //cоздаем компанию и вытаскиваем id компании
+        //create a company and get the company id
         CreateCompanyRequest createCompanyRequest = new CreateCompanyRequest();
         companyId = createCompanyRequest.getResponseForCreatingCompanyRequest(token, createCompanyJsonObject)
                 .extract()
@@ -64,7 +64,7 @@ public class CompanyPageTest extends BaseTest {
     @Override
     @AfterEach
     public void tearDown() {
-        //удаляем компанию
+        //delete company
         DeleteCompanyRequest deleteCompanyRequest = new DeleteCompanyRequest();
         deleteCompanyRequest.getResponseForDeletingCompanyRequest(token, companyId.toString());
         Selenide.closeWindow();
@@ -84,12 +84,12 @@ public class CompanyPageTest extends BaseTest {
 
     @Test
     public void createArea() {
-        //объекты для создания локации
+        //objects for location creation
         Company company = new Company(companyId);;
         IsShippingDestination isShippingDestination = new IsShippingDestination(false);
         CreateLocationJsonObject createLocationJsonObject = new CreateLocationJsonObject(locationAddress, company, isShippingDestination, 54.6, 83.4, locationName);
 
-        //создаем локацию
+        //create location
         CreateLocationRequest createLocationRequest = new CreateLocationRequest();
         createLocationRequest.getResponseForCreatingLocationRequest(token, createLocationJsonObject);
 
@@ -106,12 +106,12 @@ public class CompanyPageTest extends BaseTest {
 
     @Test
     public void createFieldOffice() {
-        //объекты для создания локации
+        //objects for location creation
         Company company = new Company(companyId);;
         IsShippingDestination isShippingDestination = new IsShippingDestination(false);
         CreateLocationJsonObject createLocationJsonObject = new CreateLocationJsonObject(locationAddress, company, isShippingDestination, 54.6, 83.4, locationName);
 
-        //создаем локацию
+        //create location
         CreateLocationRequest createLocationRequest = new CreateLocationRequest();
         createLocationRequest.getResponseForCreatingLocationRequest(token, createLocationJsonObject);
 
@@ -127,12 +127,12 @@ public class CompanyPageTest extends BaseTest {
 
     @Test
     public void checkLocationAddressInTheTable() {
-        //объекты для создания локации
+        //objects for location creation
         Company company = new Company(companyId);;
         IsShippingDestination isShippingDestination = new IsShippingDestination(false);
         CreateLocationJsonObject createLocationJsonObject = new CreateLocationJsonObject(locationAddress, company, isShippingDestination, 54.6, 83.4, locationName);
 
-        //создаем локацию
+        //create location
         CreateLocationRequest createLocationRequest = new CreateLocationRequest();
         createLocationRequest.getResponseForCreatingLocationRequest(token, createLocationJsonObject);
 

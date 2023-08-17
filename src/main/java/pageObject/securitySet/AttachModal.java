@@ -1,4 +1,61 @@
 package pageObject.securitySet;
 
+import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.SelenideElement;
+import constants.Entities;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.How;
+
+import static com.codeborne.selenide.Selenide.page;
+
 public class AttachModal {
+    @FindBy(how = How.XPATH, using = ".//div[@class='ui-header']//li[4]//a[contains(text(), 'Attach')]")
+    public SelenideElement attachButtonInNavMenu;
+    @FindBy(how = How.XPATH, using = ".//div[@class='ui-header']//li[2]//a[contains(text(), 'Conveyances')]")
+    public SelenideElement conveyancesButtonInNavMenu;
+    @FindBy(how = How.XPATH, using = ".//input[@placeholder = 'Location']")
+    public SelenideElement locationInput;
+    @FindBy(how = How.XPATH, using = ".//input[@placeholder = 'Enter container number']")
+    public SelenideElement enterContainerNumberInput;
+    @FindBy(how = How.XPATH, using = ".//input[@placeholder = 'Bag or Seal?']")
+    public SelenideElement bagOrSealInput;
+    @FindBy(how = How.XPATH, using = ".//input[@placeholder = 'Enter seal numbers one by one']")
+    public SelenideElement attachSealsInput;
+    @FindBy(how = How.XPATH, using = ".//div[contains(text(), 'Attach')]")
+    public SelenideElement attachButtonInModal;
+    @FindBy(how = How.XPATH, using = ".//div[contains(text(), 'Close')]")
+    public SelenideElement closeButtonInModal;
+    @FindBy(how = How.CSS, using = ".no-options")
+    private SelenideElement emptyListOfDataInTheCreateWorkOrderModal;
+
+    public ConveyancesListPage openConveyancesListPage() {
+        conveyancesButtonInNavMenu.click();
+        return page(ConveyancesListPage.class);
+    }
+
+    public AttachModal attachSeal(String containerNumber, String  sealNumber) {
+        attachButtonInNavMenu.click();
+        locationInput.setValue(Entities.COMPANY_LOCATION);
+        emptyListOfDataInTheCreateWorkOrderModal.shouldNot(Condition.exist);
+        locationInput.pressEnter();
+        enterContainerNumberInput.setValue(containerNumber);
+        bagOrSealInput.setValue(Entities.SEAL).pressEnter();
+        attachSealsInput.setValue(sealNumber);
+        attachButtonInModal.click();
+        closeButtonInModal.click();
+        return page(this);
+    }
+
+    public AttachModal attachBag(String containerNumber, String bagNumber) {
+        attachButtonInNavMenu.click();
+        locationInput.setValue(Entities.COMPANY_LOCATION);
+        emptyListOfDataInTheCreateWorkOrderModal.shouldNot(Condition.exist);
+        locationInput.pressEnter();
+        enterContainerNumberInput.setValue(containerNumber);
+        bagOrSealInput.setValue(Entities.BAG).pressEnter();
+        attachSealsInput.setValue(bagNumber);
+        attachButtonInModal.click();
+        closeButtonInModal.click();
+        return page(this);
+    }
 }

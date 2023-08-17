@@ -5,6 +5,8 @@ public class Entities {
     public static final String USER_PASSWORD = "Qq!111111";
     public static final String USER_NAME = "Test User";
     public static final String USERS_COMPANY = "TestCompanyForAutoTests";
+    public static final String ALPACA_COMPANY = "Alpaca CO";
+    public static final String ALPACA_PAVLOVSK_LOCATION = "Павловск";
     public static final String RED_FLAG_COMPANY = "Red Flag Cargo Security Systems";
     public static final String MILWAKEE = "Milwakee, WI";
     public static final String COMPANY_LOCATION = "TestCompanyLocation";
@@ -41,8 +43,12 @@ public class Entities {
     public static final Integer USER_ID = 88;
     public static final Integer TEST_COMPANY_ID = 23;
     public static final Integer TEST_COMPANY_LOCATION_ID = 24;
+    public static final Integer ALPACA_COMPANY_ID = 3;
+    public static final Integer ALPACA_PAVLOVSK_LOCATION_ID = 7;
+    public static final Integer TEST_USER_ID = 17;
     public static final Integer PRODUCTION_ID = 1;
     public static final String SEAL_ENUM_MODE_SEQUENTIAL = "sequential";
     public static final String USER_NAME_BUYER_NAME = "userName";
     public static final String BROWSER_SIZE_1920_1080 = "1920x1080";
+    public static final String CONTAINER_STATE_IN_STOCK = "In Stock";
 }

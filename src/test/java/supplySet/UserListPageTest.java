@@ -33,7 +33,7 @@ public class UserListPageTest extends BaseTest {
     String email = faker.internet().emailAddress();
     UsersListPage usersListPage = page(UsersListPage.class);
 
-    //объекты для создания пользователя
+    //objects for user creation
     Company company = new Company(TEST_COMPANY_ID);
     Contacts contact = new Contacts(true, "email", email);
     List<Contacts> contacts = new ArrayList<>(List.of(contact));
@@ -50,13 +50,13 @@ public class UserListPageTest extends BaseTest {
         loginPage = open(URLs.STAGE_URL, LoginPage.class);
         RestAssured.baseURI = URLs.BASE_API_URI;
 
-        //вытаскиваем токен
+        //get a token
         token = authRequest.getResponseForUserAuthorization()
                 .extract()
                 .body()
                 .path("content.token");
 
-        //cоздаем пользователя и вытаскиваем id
+        //create user and get id
         CreateUserRequest createUserRequest = new CreateUserRequest();
         userId = createUserRequest.getResponseForCreatingUserRequest(token, createUserJsonObject)
                 .extract()
@@ -67,7 +67,7 @@ public class UserListPageTest extends BaseTest {
     @Override
     @AfterEach
     public void tearDown() {
-        //удаляем пользователя
+        //delete user
         DeleteUserRequest deleteUserRequest = new DeleteUserRequest();
         deleteUserRequest.getResponseForDeletingUserRequest(token, userId.toString());
         Selenide.closeWindow();

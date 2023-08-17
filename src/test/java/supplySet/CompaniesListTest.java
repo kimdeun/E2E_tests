@@ -25,7 +25,7 @@ public class CompaniesListTest extends BaseTest {
     String newCompanyName = faker.company().name();
     pageObject.supplySet.CompaniesListPage companiesListPage = page(CompaniesListPage.class);
 
-    //объекты для создания компании
+    //objects for company creation
     Country country = new Country(4);
     ObjectType objectType = new ObjectType("simpleCompany");
     CreateCompanyJsonObject createCompanyJsonObject = new CreateCompanyJsonObject(country, companyName, objectType);
@@ -38,13 +38,13 @@ public class CompaniesListTest extends BaseTest {
         loginPage = open(URLs.STAGE_URL, LoginPage.class);
         RestAssured.baseURI = URLs.BASE_API_URI;
 
-        //вытаскиваем токен
+        //get a token
         token = authRequest.getResponseForUserAuthorization()
                 .extract()
                 .body()
                 .path("content.token");
 
-        //cоздаем компанию и вытаскиваем id компании
+        //create a company and get the company id
         CreateCompanyRequest createCompanyRequest = new CreateCompanyRequest();
         companyIds = createCompanyRequest.getResponseForCreatingCompanyRequest(token, createCompanyJsonObject)
                 .extract()
@@ -55,7 +55,7 @@ public class CompaniesListTest extends BaseTest {
     @Override
     @AfterEach
     public void tearDown() {
-        //удаляем компанию
+        //delete company
         DeleteCompanyRequest deleteCompanyRequest = new DeleteCompanyRequest();
         deleteCompanyRequest.getResponseForDeletingCompanyRequest(token, companyIds.toString());
         Selenide.closeWindow();

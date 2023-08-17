@@ -13,4 +13,8 @@ public class Json {
     public static String CHANGE_WORK_ORDER_STATE_TO_PRODUCED = "{" +
             "  \"status\": \"produced\"" +
             "}";
+
+    public static String CHANGE_TRANSFER_STATUS_TO_RECEIVED = "{" +
+            "  \"status\": \"received\"" +
+            "}";
 }

@@ -14,7 +14,7 @@ public class TransfersListPage {
     private SelenideElement transfersButtonInTheNavigationMenu;
     @FindBy(how = How.XPATH, using = ".//div[@class='ui-header']//ul[@class='nav ui-navigation-navs']/li[3]/a[contains(text(), 'Warehouse')]")
     private SelenideElement warehouseButtonInTheNavigationMenu;
-    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-content']/div[1]/div/div[2]/a")
+    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-content']/div[1]/div/div[2]//a")
     private SelenideElement transfersId;
     @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-content']/div[1]/div/div[3]/a")
     private SelenideElement transfersSender;
@@ -56,6 +56,12 @@ public class TransfersListPage {
     private SelenideElement containersStartNumberInReceiveTransferModal;
     @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-row']/div[8]/span")
     private SelenideElement containersEndNumberInReceiveTransferModal;
+    @FindBy(how = How.XPATH, using = ".//div[@class='ui-header']//a[@class='nav-link' and contains(text(), 'Warehouse')]")
+    private SelenideElement warehouseButtonInTheNavMenu;
+    @FindBy(how = How.XPATH, using = ".//div[@class='ui-header']//a[@id='session__BV_toggle_']")
+    protected SelenideElement userName;
+    @FindBy(how = How.XPATH, using = ".//div[@class='ui-header']//a[contains(text(), 'Warehouse & Inventory Management')]")
+    protected SelenideElement warehouseAndInventoryManagement;
 
     public TransfersPage openTransfersPage() {
         transfersId.click();
@@ -204,5 +210,18 @@ public class TransfersListPage {
         clickOkButtonInCommentModal();
         clickReceiveButtonInReceivedTransferModal();
         return page(this);
+    }
+
+    public TransfersListPage switchStateToReceive() {
+        clickTransfersState();
+        clickReceivedStateButtonInReceiveTransferModal();
+        clickReceiveButtonInReceivedTransferModal();
+        return page(this);
+    }
+
+    public BaseSupplySetPage openSupplySet() {
+        userName.click();
+        warehouseAndInventoryManagement.click();
+        return page(BaseSupplySetPage.class);
     }
 }

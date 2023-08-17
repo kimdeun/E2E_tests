@@ -39,7 +39,7 @@ public class PurchaseOrderCreatingTest extends BaseTest {
         loginPage = open(URLs.STAGE_URL, LoginPage.class);
         RestAssured.baseURI = URLs.BASE_API_URI;
 
-        //вытаскиваем токен
+        //get a token
         token = authRequest.getResponseForUserAuthorization()
                 .extract()
                 .body()
@@ -49,13 +49,13 @@ public class PurchaseOrderCreatingTest extends BaseTest {
     @Override
     @AfterEach
     public void tearDown() {
-        //вытаскиваем PO id
+        //get PO id
         GetAllPurchaseOrdersRequest getAllPurchaseOrdersRequest = new GetAllPurchaseOrdersRequest();
         purchaseOrderId = getAllPurchaseOrdersRequest.getResponseWithAllPurchaseOrders(token)
                 .extract()
                 .body()
                 .jsonPath().getList("id");
-        //удаляем PO
+        //delete PO
         DeletePurchaseOrderRequest deletePurchaseOrderRequest = new DeletePurchaseOrderRequest();
         deletePurchaseOrderRequest.getResponseForDeletingPurchaseOrder(token, purchaseOrderId.get(purchaseOrderId.size() - 1));
         Selenide.closeWindow();

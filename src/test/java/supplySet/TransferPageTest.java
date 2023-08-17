@@ -3,7 +3,7 @@ package supplySet;
 import api.purchaseOrder.*;
 import api.transfer.DeleteTransferRequest;
 import api.workOrder.ChangeWorkOrderStatusRequest;
-import api.workOrder.CreateTransferRequest;
+import api.transfer.CreateTransferRequest;
 import api.workOrder.CreateWorkOrderRequest;
 import api.workOrder.GetWorkOrderContainerTableRequest;
 import baseTests.BaseTest;
@@ -26,7 +26,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pageObject.LoginPage;
-import pageObject.productionSet.WarehousePage;
 import pageObject.supplySet.TransfersPage;
 
 import java.util.ArrayList;
@@ -38,7 +37,6 @@ import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.Selenide.page;
 
 public class TransferPageTest extends BaseTest {
-    WarehousePage warehousePage = page(WarehousePage.class);
     public Buyer buyer = new Buyer("test@test.test", "", Entities.USER_ID, null);
     public Sequence sequence = new Sequence(10, 10, 1);
     public Type type = new Type("system");
@@ -49,13 +47,13 @@ public class TransferPageTest extends BaseTest {
     public String purchaseOrderName;
     public List<Integer> purchaseOrderIdList;
 
-    //объекты для добавления пломб
+    //objects for adding seals
     Quantity quantity = new Quantity(50);
     SealColor sealColor = new SealColor(1);
     SealType sealType = new SealType(8);
     AddSealsJsonObject addSealsJsonObject = new AddSealsJsonObject(quantity, sealColor, sealType);
 
-    //объекты для создания WO
+    //objects for WO creation
     jsonObjects.workOrder.createWorkOrder.Quantity quantity1 = new jsonObjects.workOrder.createWorkOrder.Quantity(2);
     jsonObjects.workOrder.createWorkOrder.Quantity quantity2 = new jsonObjects.workOrder.createWorkOrder.Quantity(4);
     EntityType skidEntityType = new EntityType(1);
@@ -100,13 +98,13 @@ public class TransferPageTest extends BaseTest {
         loginPage = open(URLs.STAGE_URL, LoginPage.class);
         RestAssured.baseURI = URLs.BASE_API_URI;
 
-        //вытаскиваем токен
+        //get token
         token = authRequest.getResponseForUserAuthorization()
                 .extract()
                 .body()
                 .path("content.token");
 
-        //создаём PO и вытаскиваем PO name
+        //create PO and get PO name
         CreatePurchaseOrderJsonObject createPurchaseOrderJsonObject = new CreatePurchaseOrderJsonObject(buyer, code, company, excludedSimbolsList, faker.onePiece().character());
         CreatePurchaseOrderRequest createPurchaseOrderRequest = new CreatePurchaseOrderRequest();
         purchaseOrderName = createPurchaseOrderRequest.getResponseForCreatingPurchaseOrder(token, createPurchaseOrderJsonObject)
@@ -114,7 +112,7 @@ public class TransferPageTest extends BaseTest {
                 .body()
                 .path("name");
 
-        //вытаскиваем PO id
+        //get PO id
         GetAllPurchaseOrdersRequest getAllPurchaseOrdersRequest = new GetAllPurchaseOrdersRequest();
         purchaseOrderIdList = getAllPurchaseOrdersRequest.getResponseWithAllPurchaseOrders(token)
                 .extract()
@@ -122,7 +120,7 @@ public class TransferPageTest extends BaseTest {
                 .jsonPath().getList("id");
 
 
-        //добавляем пломбы в PO
+        //add seals in PO
         purchaseOrderIdList = purchaseOrderIdList.stream()
                 .sorted()
                 .collect(Collectors.toList());
@@ -133,7 +131,7 @@ public class TransferPageTest extends BaseTest {
                 .jsonPath().getList("id");
         int sealGroupId = sealGroupIdList.get(0);
 
-        //создаем Work Order
+        //create Work Order
         PurchaseOrder purchaseOrder = new PurchaseOrder(purchaseOrderIdList.get(purchaseOrderIdList.size() - 1));
         SealGroup sealGroup = new SealGroup(sealGroupId);
 
@@ -146,32 +144,32 @@ public class TransferPageTest extends BaseTest {
                 .body()
                 .path("id");
 
-        //меняем статус WO на confirmed, produced
+        //change WO state to confirmed, produced
         ChangeWorkOrderStatusRequest changeWorkOrderStatusRequest = new ChangeWorkOrderStatusRequest();
         changeWorkOrderStatusRequest.getResponseForChangingWOStatusToConfirmed(token, workOrderId)
                 .getResponseForChangingWOStatusToProduced(token, workOrderId);
 
         GetWorkOrderContainerTableRequest getWorkOrderContainerTableRequest = new GetWorkOrderContainerTableRequest();
 
-        //получаем id скидов
+        //get skid ids
         skidIds = getWorkOrderContainerTableRequest.getWorkOrderContainerTableWithSkids(token, workOrderId)
                 .extract()
                 .body()
                 .path("content.id");
 
-        //получаем номера коробок
+        //get box numbers
         boxNumbers = getWorkOrderContainerTableRequest.getWorkOrderContainerTableWithUnfoldedContainer(token, workOrderId, skidIds.get(0))
                 .extract()
                 .body()
                 .path("content.printNumber");
 
-        //получаем id коробок
+        //get box ids
         boxIds = getWorkOrderContainerTableRequest.getWorkOrderContainerTableWithUnfoldedContainer(token, workOrderId, skidIds.get(0))
                 .extract()
                 .body()
                 .path("content.id");
 
-        //объекты для создания трансфера
+        //objects for transfer creation
         Content boxId = new Content(boxIds.get(0));
         List<Content> content = new ArrayList<>(Arrays.asList(boxId));
         Receiver receiver = new Receiver(null, false, null);
@@ -180,25 +178,25 @@ public class TransferPageTest extends BaseTest {
         jsonObjects.warehouse.Target target = new jsonObjects.warehouse.Target(company2, location2);
         CreateTransferJsonObject createTransferJsonObject = new CreateTransferJsonObject(content, null, null, false, receiver, target);
 
-        //получаем start number пломб
+        //get seal start number
         sealStartNumber = getWorkOrderContainerTableRequest.getWorkOrderContainerTableWithUnfoldedContainer(token, workOrderId, skidIds.get(0))
                 .extract()
                 .body()
                 .path("content.sealGroup.sequence.from");
 
-        //получаем end number пломб
+        //get seal end number
         sealEndNumber = getWorkOrderContainerTableRequest.getWorkOrderContainerTableWithUnfoldedContainer(token, workOrderId, skidIds.get(0))
                 .extract()
                 .body()
                 .path("content.sealGroup.sequence.to");
 
-        //получаем quantity пломб
+        //get seal quantity
         sealQuantity = getWorkOrderContainerTableRequest.getWorkOrderContainerTableWithUnfoldedContainer(token, workOrderId, skidIds.get(0))
                 .extract()
                 .body()
                 .path("content.quantity");
 
-        //создаем трансфер
+        //create transfer
         CreateTransferRequest createTransferRequest = new CreateTransferRequest();
         transfersId = createTransferRequest.getResponseForCreatingTransfer(token, createTransferJsonObject)
                 .extract()
@@ -209,13 +207,13 @@ public class TransferPageTest extends BaseTest {
     @Override
     @AfterEach
     public void tearDown() {
-        //удаляем WO
+        //delete WO
         DeleteWorkOrderRequest deleteWorkOrderRequest = new DeleteWorkOrderRequest();
         deleteWorkOrderRequest.getResponseForDeletingWorkOrder(token, workOrderId);
-        //удаляем PO
+        //delete PO
         DeletePurchaseOrderRequest deletePurchaseOrderRequest = new DeletePurchaseOrderRequest();
         deletePurchaseOrderRequest.getResponseForDeletingPurchaseOrder(token, purchaseOrderIdList.get(purchaseOrderIdList.size() - 1));
-        //удаляем transfer
+        //delete transfer
         DeleteTransferRequest deleteTransferRequest = new DeleteTransferRequest();
         deleteTransferRequest.getResponseForDeletingTransfer(token, transfersId.get(0).toString());
         Selenide.closeWindow();
@@ -382,5 +380,19 @@ public class TransferPageTest extends BaseTest {
         open(URLs.getTransferPage(transfersId.get(0).toString()));
 
         transferPage.checkReceivedWithAProblemStateOnLabelByProblemButtonInReceiveTransferModal(comment);
+    }
+
+    @Test
+    public void checkReceivedContainerInTheWarehouse() {
+        loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
+                .waitForLoadingPageAfterLogin();
+        open(URLs.getTransferPage(transfersId.get(0).toString()));
+
+        transferPage.switchStateToReceive()
+                .openSupplySet()
+                .openWarehousePage()
+                .openDetailsTable()
+                .waitForInventoryTableContent()
+                .searchContainer(boxNumbers.get(0));
     }
 }

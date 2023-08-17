@@ -38,7 +38,7 @@ public class WorkOrderListTest extends BaseTest {
     WorkOrderListPage workOrderListPage = page(WorkOrderListPage.class);
     PurchaseOrderPage purchaseOrderPage = page(PurchaseOrderPage.class);
 
-    //объекты для создания PO
+    //objects for PO creation
     public Buyer buyer = new Buyer("test@test.test", "", Entities.USER_ID, null);
     public Sequence sequence = new Sequence(10, 10, 1);
     public Type type = new Type("system");
@@ -50,13 +50,13 @@ public class WorkOrderListTest extends BaseTest {
     public List<Integer> purchaseOrderIdList;
     public List<Integer> workOrderIdList;
 
-    //объекты для добавления пломб
+    //objects for adding seals
     Quantity quantity = new Quantity(50);
     SealColor sealColor = new SealColor(1);
     SealType sealType = new SealType(8);
     AddSealsJsonObject addSealsJsonObject = new AddSealsJsonObject(quantity, sealColor,sealType);
 
-    //объекты для создания WO
+    //objects for WO creation
     jsonObjects.workOrder.createWorkOrder.Quantity quantity1 = new jsonObjects.workOrder.createWorkOrder.Quantity(2);
     EntityType skidEntityType = new EntityType(1);
     EntityClass skidEntityClass = new EntityClass("skid");
@@ -91,13 +91,13 @@ public class WorkOrderListTest extends BaseTest {
         loginPage = open(URLs.STAGE_URL, LoginPage.class);
         RestAssured.baseURI = URLs.BASE_API_URI;
 
-        //вытаскиваем токен
+        //get a token
         token = authRequest.getResponseForUserAuthorization()
                 .extract()
                 .body()
                 .path("content.token");
 
-        //вытаскиваем PO name
+        //get PO name
         CreatePurchaseOrderJsonObject createPurchaseOrderJsonObject = new CreatePurchaseOrderJsonObject(buyer, code, company, excludedSimbolsList, faker.idNumber().valid());
         CreatePurchaseOrderRequest createPurchaseOrderRequest = new CreatePurchaseOrderRequest();
         purchaseOrderName = createPurchaseOrderRequest.getResponseForCreatingPurchaseOrder(token, createPurchaseOrderJsonObject)
@@ -105,7 +105,7 @@ public class WorkOrderListTest extends BaseTest {
                 .body()
                 .path("name");
 
-        //вытаскиваем PO id
+        //get PO id
         GetAllPurchaseOrdersRequest getAllPurchaseOrdersRequest = new GetAllPurchaseOrdersRequest();
         purchaseOrderIdList = getAllPurchaseOrdersRequest.getResponseWithAllPurchaseOrders(token)
                 .extract()
@@ -113,7 +113,7 @@ public class WorkOrderListTest extends BaseTest {
                 .jsonPath().getList("id");
 
 
-        //добавляем пломбы в PO
+        //add seals in PO
         purchaseOrderIdList = purchaseOrderIdList.stream()
                 .sorted()
                 .collect(Collectors.toList());
@@ -124,7 +124,7 @@ public class WorkOrderListTest extends BaseTest {
                 .jsonPath().getList("id");
         int sealGroupId = sealGroupIdList.get(0);
 
-        //создаем Work Order
+        //create WO
         PurchaseOrder purchaseOrder = new PurchaseOrder(purchaseOrderIdList.get(purchaseOrderIdList.size() - 1));
         SealGroup sealGroup = new SealGroup(sealGroupId);
 
@@ -141,18 +141,18 @@ public class WorkOrderListTest extends BaseTest {
     @Override
     @AfterEach
     public void tearDown() {
-        //вытаскиваем WO id
+        //get WO id
         GetAllWorkOrdersRequest getAllWorkOrdersRequest = new GetAllWorkOrdersRequest();
         workOrderIdList = getAllWorkOrdersRequest.getResponseWithAllPurchaseOrders(token)
                 .extract()
                 .body()
                 .jsonPath().getList("id");
 
-        //удаляем WO
+        //delete WO
         DeleteWorkOrderRequest deleteWorkOrderRequest = new DeleteWorkOrderRequest();
         deleteWorkOrderRequest.getResponseForDeletingWorkOrder(token, workOrderId);
 
-        //удаляем PO
+        //delete PO
         DeletePurchaseOrderRequest deletePurchaseOrderRequest = new DeletePurchaseOrderRequest();
         deletePurchaseOrderRequest.getResponseForDeletingPurchaseOrder(token, purchaseOrderIdList.get(purchaseOrderIdList.size() - 1));
 

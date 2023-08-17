@@ -56,6 +56,10 @@ public class TransfersPage {
     private SelenideElement containersStartNumberInReceiveTransferModal;
     @FindBy(how = How.XPATH, using = ".//div[@class='ui-modal-content']//div[@class='ui-table-row']/div[8]/span")
     private SelenideElement containersEndNumberInReceiveTransferModal;
+    @FindBy(how = How.XPATH, using = ".//div[@class='ui-header']//a[@id='session__BV_toggle_']")
+    protected SelenideElement userName;
+    @FindBy(how = How.XPATH, using = ".//div[@class='ui-header']//a[contains(text(), 'Warehouse & Inventory Management')]")
+    protected SelenideElement warehouseAndInventoryManagement;
 
     public void checkContainerNumber(String containerNumber) {
         this.containerNumber.shouldHave(exactText(containerNumber));
@@ -196,5 +200,18 @@ public class TransfersPage {
         clickOkButtonInCommentModal();
         clickReceiveButtonInReceivedTransferModal();
         checkReceivedWithAProblemStateInTheTopRightCorner();
+    }
+
+    public TransfersPage switchStateToReceive() {
+        clickStateLabelInTheTopRightCorner();
+        clickReceivedStateButtonInReceiveTransferModal();
+        clickReceiveButtonInReceivedTransferModal();
+        return page(this);
+    }
+
+    public BaseSupplySetPage openSupplySet() {
+        userName.click();
+        warehouseAndInventoryManagement.click();
+        return page(BaseSupplySetPage.class);
     }
 }

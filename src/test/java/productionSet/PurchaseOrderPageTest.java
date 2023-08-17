@@ -31,7 +31,7 @@ public class PurchaseOrderPageTest extends BaseTest {
     PurchaseOrderPage purchaseOrderPage = page(PurchaseOrderPage.class);
     public AuthRequest authRequest = new AuthRequest();
 
-    //объекты для создания PO
+    //objects for PO creation
     public Buyer buyer = new Buyer("test@test.test", "", Entities.USER_ID, null);
     public Sequence sequence = new Sequence(10, 10, 1);
     public Type type = new Type("system");
@@ -50,13 +50,13 @@ public class PurchaseOrderPageTest extends BaseTest {
         loginPage = open(URLs.STAGE_URL, LoginPage.class);
         RestAssured.baseURI = URLs.BASE_API_URI;
 
-        //вытаскиваем токен
+        //get a token
         token = authRequest.getResponseForUserAuthorization()
                 .extract()
                 .body()
                 .path("content.token");
 
-        //вытаскиваем PO name
+        //get PO name
         CreatePurchaseOrderJsonObject createPurchaseOrderJsonObject = new CreatePurchaseOrderJsonObject(buyer, code, company, excludedSimbolsList, faker.onePiece().character());
         CreatePurchaseOrderRequest createPurchaseOrderRequest = new CreatePurchaseOrderRequest();
         purchaseOrderName = createPurchaseOrderRequest.getResponseForCreatingPurchaseOrder(token, createPurchaseOrderJsonObject)
@@ -64,7 +64,7 @@ public class PurchaseOrderPageTest extends BaseTest {
                 .body()
                 .path("name");
 
-        //вытаскиваем PO id
+        //get PO id
         GetAllPurchaseOrdersRequest getAllPurchaseOrdersRequest = new GetAllPurchaseOrdersRequest();
         purchaseOrderIdList = getAllPurchaseOrdersRequest.getResponseWithAllPurchaseOrders(token)
                 .extract()
@@ -75,7 +75,7 @@ public class PurchaseOrderPageTest extends BaseTest {
     @Override
     @AfterEach
     public void tearDown() {
-        //удаляем PO
+        //delete PO
         DeletePurchaseOrderRequest deletePurchaseOrderRequest = new DeletePurchaseOrderRequest();
         deletePurchaseOrderRequest.getResponseForDeletingPurchaseOrder(token, purchaseOrderIdList.get(purchaseOrderIdList.size() - 1));
         Selenide.closeWindow();

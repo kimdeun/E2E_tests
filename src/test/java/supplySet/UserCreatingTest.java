@@ -25,7 +25,6 @@ public class UserCreatingTest extends BaseTest {
     String userName = faker.name().fullName();
     String position = faker.company().profession();
     String email = faker.internet().emailAddress();
-
     List<Integer> userId;
 
     @Override
@@ -35,7 +34,7 @@ public class UserCreatingTest extends BaseTest {
         loginPage = open(URLs.STAGE_URL, LoginPage.class);
         RestAssured.baseURI = URLs.BASE_API_URI;
 
-        //вытаскиваем токен
+        //get a token
         token = authRequest.getResponseForUserAuthorization()
                 .extract()
                 .body()
@@ -53,7 +52,7 @@ public class UserCreatingTest extends BaseTest {
         userId = userId.stream()
                 .sorted()
                 .collect(Collectors.toList());
-        //удаляем пользователя
+        //delete user
         DeleteUserRequest deleteUserRequest = new DeleteUserRequest();
         deleteUserRequest.getResponseForDeletingUserRequest(token, userId.get(userId.size() - 1).toString());
         Selenide.closeWindow();

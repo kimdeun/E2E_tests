@@ -33,7 +33,7 @@ public class WorkOrderCreatingTest extends BaseTest {
     WorkOrderListPage workOrderListPage = page(WorkOrderListPage.class);
     PurchaseOrderPage purchaseOrderPage = page(PurchaseOrderPage.class);
 
-    //объекты для создания PO
+    //objects for PO creation
     public Buyer buyer = new Buyer("test@test.test", "", Entities.USER_ID, null);
     public Sequence sequence = new Sequence(10, 10, 1);
     public Type type = new Type("system");
@@ -45,7 +45,7 @@ public class WorkOrderCreatingTest extends BaseTest {
     public List<Integer> purchaseOrderIdList;
     public List<Integer> workOrderIdList;
 
-    //объекты для добавления пломб
+    //objects for adding seals in PO
     Quantity quantity = new Quantity(50);
     SealColor sealColor = new SealColor(1);
     SealType sealType = new SealType(8);
@@ -58,13 +58,13 @@ public class WorkOrderCreatingTest extends BaseTest {
         loginPage = open(URLs.STAGE_URL, LoginPage.class);
         RestAssured.baseURI = URLs.BASE_API_URI;
 
-        //вытаскиваем токен
+        //get a token
         token = authRequest.getResponseForUserAuthorization()
                 .extract()
                 .body()
                 .path("content.token");
 
-        //вытаскиваем PO name
+        //get PO name
         CreatePurchaseOrderJsonObject createPurchaseOrderJsonObject = new CreatePurchaseOrderJsonObject(buyer, code, company, excludedSimbolsList, faker.idNumber().valid());
         CreatePurchaseOrderRequest createPurchaseOrderRequest = new CreatePurchaseOrderRequest();
         purchaseOrderName = createPurchaseOrderRequest.getResponseForCreatingPurchaseOrder(token, createPurchaseOrderJsonObject)
@@ -72,7 +72,7 @@ public class WorkOrderCreatingTest extends BaseTest {
                 .body()
                 .path("name");
 
-        //вытаскиваем PO id
+        //get PO id
         GetAllPurchaseOrdersRequest getAllPurchaseOrdersRequest = new GetAllPurchaseOrdersRequest();
         purchaseOrderIdList = getAllPurchaseOrdersRequest.getResponseWithAllPurchaseOrders(token)
                 .extract()
@@ -80,7 +80,7 @@ public class WorkOrderCreatingTest extends BaseTest {
                 .jsonPath().getList("id");
 
 
-        //добавляем пломбы в PO
+        //add seals in PO
         purchaseOrderIdList = purchaseOrderIdList.stream()
                 .sorted()
                 .collect(Collectors.toList());
@@ -91,21 +91,21 @@ public class WorkOrderCreatingTest extends BaseTest {
     @Override
     @AfterEach
     public void tearDown() {
-        //вытаскиваем WO id
+        //get WO id
         GetAllWorkOrdersRequest getAllWorkOrdersRequest = new GetAllWorkOrdersRequest();
         workOrderIdList = getAllWorkOrdersRequest.getResponseWithAllPurchaseOrders(token)
                 .extract()
                 .body()
                 .jsonPath().getList("id");
 
-        //удаляем WO
+        //delete WO
         workOrderIdList = workOrderIdList.stream()
                 .sorted()
                 .collect(Collectors.toList());
         DeleteWorkOrderRequest deleteWorkOrderRequest = new DeleteWorkOrderRequest();
         deleteWorkOrderRequest.getResponseForDeletingWorkOrder(token, workOrderIdList.get(workOrderIdList.size() - 1));
 
-        //удаляем PO
+        //delete PO
         DeletePurchaseOrderRequest deletePurchaseOrderRequest = new DeletePurchaseOrderRequest();
         deletePurchaseOrderRequest.getResponseForDeletingPurchaseOrder(token, purchaseOrderIdList.get(purchaseOrderIdList.size() - 1));
 

@@ -1,9 +1,8 @@
-package api.workOrder;
+package api.transfer;
 
 import constants.EndPoints;
 import io.restassured.response.ValidatableResponse;
 import jsonObjects.warehouse.CreateTransferJsonObject;
-import jsonObjects.workOrder.createWorkOrder.CreateWorkOrderJsonObject;
 
 import static io.restassured.RestAssured.given;
 

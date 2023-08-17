@@ -21,6 +21,7 @@ public class EndPoints {
     public static final String CREATE_USER = "/rest/production/user";
     public static final String DELETE_USER = "/rest/production/user?ids=%s";
     public static final String GET_ALL_USERS = "/rest/production/user";
+    public static final String CHANGE_TRANSFER_STATUS = "/rest/production/transfer/%s/status";
 
     public static String addSealsEndPoint(String purchaseOrderId) {
         return String.format(ADD_SEALS_END_POINT, purchaseOrderId);
@@ -56,5 +57,9 @@ public class EndPoints {
 
     public static String getDeleteUserEndPoint(String userId) {
         return String.format(DELETE_USER, userId);
+    }
+
+    public static String getChangeTransferStatusEndPoint(String transferId) {
+        return String.format(CHANGE_TRANSFER_STATUS, transferId);
     }
 }

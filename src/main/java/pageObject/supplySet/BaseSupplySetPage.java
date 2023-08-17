@@ -4,7 +4,6 @@ import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import pageObject.productionSet.CompaniesListPage;
-import pageObject.productionSet.UsersListPage;
 
 import static com.codeborne.selenide.Selenide.page;
 
@@ -15,8 +14,13 @@ public class BaseSupplySetPage {
     private SelenideElement usersButtonInTheNavMenu;
     @FindBy(how = How.XPATH, using = ".//div[@class='ui-header']//a[contains(text(), 'Companies')]")
     private SelenideElement companiesButtonInTheNavMenu;
+    @FindBy(how = How.XPATH, using = ".//div[@class='ui-header']//a[contains(text(), 'Find seals')]")
+    private SelenideElement findSealsButtonInTheNavMenu;
+    @FindBy(how = How.XPATH, using = ".//div[@class='ui-header']//a[@class='nav-link' and contains(text(), 'Warehouse')]")
+    private SelenideElement warehouseButtonInTheNavMenu;
 
     public WarehousePage openWarehousePage() {
+        warehouseButtonInTheNavMenu.click();
         return page(WarehousePage.class);
     }
 
@@ -25,7 +29,7 @@ public class BaseSupplySetPage {
         return page(TransfersListPage.class);
     }
 
-    public pageObject.productionSet.UsersListPage openUsersListPage() {
+    public UsersListPage openUsersListPage() {
         usersButtonInTheNavMenu.click();
         return page(UsersListPage.class);
     }
@@ -33,5 +37,10 @@ public class BaseSupplySetPage {
     public CompaniesListPage openCompaniesListPage() {
         companiesButtonInTheNavMenu.click();
         return page(CompaniesListPage.class);
+    }
+
+    public FindSealsPage openFindSealsPage() {
+        findSealsButtonInTheNavMenu.click();
+        return page(FindSealsPage.class);
     }
 }

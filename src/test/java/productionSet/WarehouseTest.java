@@ -34,8 +34,7 @@ import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.Selenide.page;
 
 public class WarehouseTest extends BaseTest {
-    WarehousePage warehousePage = page(WarehousePage.class);
-    //объекты для создания PO
+    //objects for PO creation
     public Buyer buyer = new Buyer("test@test.test", "", Entities.USER_ID, null);
     public Sequence sequence = new Sequence(10, 10, 1);
     public Type type = new Type("system");
@@ -46,13 +45,13 @@ public class WarehouseTest extends BaseTest {
     public String purchaseOrderName;
     public List<Integer> purchaseOrderIdList;
 
-    //объекты для добавления пломб
+    //objects for adding seals
     Quantity quantity = new Quantity(50);
     SealColor sealColor = new SealColor(1);
     SealType sealType = new SealType(8);
     AddSealsJsonObject addSealsJsonObject = new AddSealsJsonObject(quantity, sealColor, sealType);
 
-    //объекты для создания WO
+    //objects for WO creation
     jsonObjects.workOrder.createWorkOrder.Quantity quantity1 = new jsonObjects.workOrder.createWorkOrder.Quantity(2);
     jsonObjects.workOrder.createWorkOrder.Quantity quantity2 = new jsonObjects.workOrder.createWorkOrder.Quantity(4);
     EntityType skidEntityType = new EntityType(1);
@@ -94,13 +93,13 @@ public class WarehouseTest extends BaseTest {
         loginPage = open(URLs.STAGE_URL, LoginPage.class);
         RestAssured.baseURI = URLs.BASE_API_URI;
 
-        //вытаскиваем токен
+        //get a token
         token = authRequest.getResponseForUserAuthorization()
                 .extract()
                 .body()
                 .path("content.token");
 
-        //создаём PO и вытаскиваем PO name
+        //create PO and get PO name
         CreatePurchaseOrderJsonObject createPurchaseOrderJsonObject = new CreatePurchaseOrderJsonObject(buyer, code, company, excludedSimbolsList, faker.onePiece().character());
         CreatePurchaseOrderRequest createPurchaseOrderRequest = new CreatePurchaseOrderRequest();
         purchaseOrderName = createPurchaseOrderRequest.getResponseForCreatingPurchaseOrder(token, createPurchaseOrderJsonObject)
@@ -108,7 +107,7 @@ public class WarehouseTest extends BaseTest {
                 .body()
                 .path("name");
 
-        //вытаскиваем PO id
+        //get PO id
         GetAllPurchaseOrdersRequest getAllPurchaseOrdersRequest = new GetAllPurchaseOrdersRequest();
         purchaseOrderIdList = getAllPurchaseOrdersRequest.getResponseWithAllPurchaseOrders(token)
                 .extract()
@@ -116,7 +115,7 @@ public class WarehouseTest extends BaseTest {
                 .jsonPath().getList("id");
 
 
-        //добавляем пломбы в PO
+        //add seals in PO
         purchaseOrderIdList = purchaseOrderIdList.stream()
                 .sorted()
                 .collect(Collectors.toList());
@@ -127,7 +126,7 @@ public class WarehouseTest extends BaseTest {
                 .jsonPath().getList("id");
         int sealGroupId = sealGroupIdList.get(0);
 
-        //создаем Work Order
+        //create WO
         PurchaseOrder purchaseOrder = new PurchaseOrder(purchaseOrderIdList.get(purchaseOrderIdList.size() - 1));
         SealGroup sealGroup = new SealGroup(sealGroupId);
 
@@ -140,37 +139,37 @@ public class WarehouseTest extends BaseTest {
                 .body()
                 .path("id");
 
-        //меняем статус WO на confirmed, produced
+        //change WO state to confirmed, produced
         ChangeWorkOrderStatusRequest changeWorkOrderStatusRequest = new ChangeWorkOrderStatusRequest();
         changeWorkOrderStatusRequest.getResponseForChangingWOStatusToConfirmed(token, workOrderId)
                 .getResponseForChangingWOStatusToProduced(token, workOrderId);
 
-        //получаем номера скидов
+        //get skid numbers
         GetWorkOrderContainerTableRequest getWorkOrderContainerTableRequest = new GetWorkOrderContainerTableRequest();
         skidNumbers = getWorkOrderContainerTableRequest.getWorkOrderContainerTableWithSkids(token, workOrderId)
                 .extract()
                 .body()
                 .path("content.printNumber");
 
-        //получаем id скидов
+        //get skid ids
         skidIds = getWorkOrderContainerTableRequest.getWorkOrderContainerTableWithSkids(token, workOrderId)
                 .extract()
                 .body()
                 .path("content.id");
 
-        //получаем номера коробок
+        //get box numbers
         boxNumbers = getWorkOrderContainerTableRequest.getWorkOrderContainerTableWithUnfoldedContainer(token, workOrderId, skidIds.get(0))
                 .extract()
                 .body()
                 .path("content.printNumber");
 
-        //получаем id коробок
+        //get box ids
         boxIds = getWorkOrderContainerTableRequest.getWorkOrderContainerTableWithUnfoldedContainer(token, workOrderId, skidIds.get(0))
                 .extract()
                 .body()
                 .path("content.id");
 
-        //получаем номера бэгов
+        //get bag numbers
         bagNumbers = getWorkOrderContainerTableRequest.getWorkOrderContainerTableWithUnfoldedContainer(token, workOrderId, boxIds.get(0))
                 .extract()
                 .body()
@@ -180,13 +179,13 @@ public class WarehouseTest extends BaseTest {
     @Override
     @AfterEach
     public void tearDown() {
-        //удаляем WO
+        //delete WO
         DeleteWorkOrderRequest deleteWorkOrderRequest = new DeleteWorkOrderRequest();
         deleteWorkOrderRequest.getResponseForDeletingWorkOrder(token, workOrderId);
-        //удаляем PO
+        //delete PO
         DeletePurchaseOrderRequest deletePurchaseOrderRequest = new DeletePurchaseOrderRequest();
         deletePurchaseOrderRequest.getResponseForDeletingPurchaseOrder(token, purchaseOrderIdList.get(purchaseOrderIdList.size() - 1));
-        //удаляем transfer
+        //delete transfer
         GetAllTransfersRequest getAllTransfersRequest = new GetAllTransfersRequest();
         transferIds = getAllTransfersRequest.getResponseWithAllTransfer(token)
                 .extract()
@@ -206,9 +205,8 @@ public class WarehouseTest extends BaseTest {
                 .openProductionSetPage()
                 .openWarehousePage()
                 .openDetailsTable()
-                .waitForInventoryTableContent();
-
-        warehousePage.searchContainer(skidNumbers.get(0))
+                .waitForInventoryTableContent()
+                .searchContainer(skidNumbers.get(0))
                 .createTransfer(0)
                 .openSupplySet()
                 .openTransfersListPage()
@@ -222,9 +220,8 @@ public class WarehouseTest extends BaseTest {
                 .openProductionSetPage()
                 .openWarehousePage()
                 .openDetailsTable()
-                .waitForInventoryTableContent();
-
-        warehousePage.searchContainer(skidNumbers.get(0))
+                .waitForInventoryTableContent()
+                .searchContainer(skidNumbers.get(0))
                 .unfoldSkid()
                 .createTransfer(0)
                 .openSupplySet()
@@ -239,9 +236,8 @@ public class WarehouseTest extends BaseTest {
                 .openProductionSetPage()
                 .openWarehousePage()
                 .openDetailsTable()
-                .waitForInventoryTableContent();
-
-        warehousePage.searchContainer(skidNumbers.get(0))
+                .waitForInventoryTableContent()
+                .searchContainer(skidNumbers.get(0))
                 .unfoldSkid()
                 .unfoldBox()
                 .createTransfer(0)
