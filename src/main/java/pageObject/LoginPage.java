@@ -8,6 +8,8 @@ import pageObject.productionSet.BaseProductionSetPage;
 import pageObject.securitySet.BaseSecuritySetPage;
 import pageObject.supplySet.BaseSupplySetPage;
 
+import java.time.Duration;
+
 import static com.codeborne.selenide.Selenide.page;
 import static com.codeborne.selenide.Selenide.sleep;
 
@@ -41,8 +43,7 @@ public class LoginPage extends BasePage {
     }
 
     public BaseProductionSetPage openProductionSetPage() {
-        sleep(1500);
-        userName.shouldBe(Condition.visible).click();
+        userName.shouldBe(Condition.visible, Duration.ofSeconds(3)).click();
         popupHeader.shouldHave(Condition.exactText("Applications"));
         productionAndOrderFulfillment.shouldBe(Condition.visible);
         productionAndOrderFulfillment.click();
@@ -50,8 +51,7 @@ public class LoginPage extends BasePage {
     }
 
     public BaseSupplySetPage openSupplySetPage() {
-        sleep(1500);
-        userName.shouldBe(Condition.visible).click();
+        userName.shouldBe(Condition.visible, Duration.ofSeconds(3)).click();
         popupHeader.shouldHave(Condition.exactText("Applications"));
         warehouseAndInventoryManagement.shouldBe(Condition.visible);
         warehouseAndInventoryManagement.click();
@@ -59,8 +59,7 @@ public class LoginPage extends BasePage {
     }
 
     public BaseSecuritySetPage openSecuritySetPage() {
-        sleep(1500);
-        userName.shouldBe(Condition.visible).click();
+        userName.shouldBe(Condition.visible, Duration.ofSeconds(3)).click();
         popupHeader.shouldHave(Condition.exactText("Applications"));
         securityTransitManagement.shouldBe(Condition.visible);
         securityTransitManagement.click();
