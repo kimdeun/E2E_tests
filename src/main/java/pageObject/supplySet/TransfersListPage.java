@@ -12,23 +12,21 @@ import static com.codeborne.selenide.Selenide.page;
 public class TransfersListPage {
     @FindBy(how = How.XPATH, using = ".//div[@class='ui-header']//a[contains(text(), 'Transfers')]")
     private SelenideElement transfersButtonInTheNavigationMenu;
-    @FindBy(how = How.XPATH, using = ".//div[@class='ui-header']//ul[@class='nav ui-navigation-navs']/li[3]/a[contains(text(), 'Warehouse')]")
-    private SelenideElement warehouseButtonInTheNavigationMenu;
-    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-content']/div[1]/div/div[2]//a")
+    @FindBy(how = How.CSS, using = "div.ui-table-row-wrapper:nth-child(1) a.ui-link[href^='#/supply/transfer/']")
     private SelenideElement transfersId;
-    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-content']/div[1]/div/div[3]/a")
+    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-row-wrapper' and position()=1]/div[1]/div[3]//a")
     private SelenideElement transfersSender;
-    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-content']/div[1]/div/div[4]/a")
+    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-row-wrapper' and position()=1]/div/div[4]//a[@href='javascript:void(0)']")
     private SelenideElement transfersSource;
-    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-content']/div[1]/div/div[5]/a")
+    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-row-wrapper' and position()=1]/div/div[5]//a[@href='javascript:void(0)']")
     private SelenideElement transfersDestination;
-    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-content']/div[1]/div/div[6]/a")
+    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-row-wrapper' and position()=1]/div[1]/div[6]//a")
     private SelenideElement transfersReceiver;
-    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-content']/div[1]/div/div[7]/a")
+    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-row-wrapper' and position()=1]/div[1]/div[7]//a")
     private SelenideElement transfersOwner;
-    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-content']/div[1]/div/div[8]//div[@class='ui-table-number-cell-value']")
+    @FindBy(how = How.CSS, using = "div.ui-table-row-wrapper:nth-child(1) .ui-table-number-cell-value")
     private SelenideElement transfersContainersQuantity;
-    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-content']/div[1]/div/div[9]/button")
+    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-row-wrapper' and position()=1]/div[1]/div[9]//button")
     private SelenideElement transfersState;
     @FindBy(how = How.CSS, using = ".ui-table-cell.ui-table-btn-group-cell>button:nth-of-type(1)")
     private SelenideElement lostStateButtonInReceiveTransferModal;
@@ -46,19 +44,17 @@ public class TransfersListPage {
     private SelenideElement containerNumberInReceiveTransferModal;
     @FindBy(how = How.XPATH, using = ".//div[@class='ui-modal-content']//div[@class='ui-table-content']/div/div[1]/div[3]/span")
     private SelenideElement containerSealTypeInReceiveTransferModal;
-    @FindBy(how = How.XPATH, using = ".//div[@class='ui-modal-content']//div[@class='ui-table-content']/div/div[1]/div[4]/span")
+    @FindBy(how = How.CSS, using = ".ui-color-sign")
     private SelenideElement containerSealColorInReceiveTransferModal;
-    @FindBy(how = How.XPATH, using = ".//div[@class='ui-modal-content']//div[@class='ui-table-row']/div[5]/div[1]/div[1]")
+    @FindBy(how = How.CSS, using = "div.ui-modal-content .ui-table-number-cell-value")
     private SelenideElement containersQuantityInReceiveTransferModal;
     @FindBy(how = How.XPATH, using = ".//div[@class='ui-modal-content']//div[@class='ui-table-row']/div[6]/span")
     private SelenideElement containerLogoInReceiveTransferModal;
-    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-row']/div[7]/span")
+    @FindBy(how = How.XPATH, using = ".//div[@class='ui-modal-content']//div[@class='ui-table-row']/div[7]/span")
     private SelenideElement containersStartNumberInReceiveTransferModal;
-    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-row']/div[8]/span")
+    @FindBy(how = How.XPATH, using = ".//div[@class='ui-modal-content']//div[@class='ui-table-row']/div[8]/span")
     private SelenideElement containersEndNumberInReceiveTransferModal;
-    @FindBy(how = How.XPATH, using = ".//div[@class='ui-header']//a[@class='nav-link' and contains(text(), 'Warehouse')]")
-    private SelenideElement warehouseButtonInTheNavMenu;
-    @FindBy(how = How.XPATH, using = ".//div[@class='ui-header']//a[@id='session__BV_toggle_']")
+    @FindBy(how = How.XPATH, using = ".//div[@class='ui-header']//span[text()='Test User']")
     protected SelenideElement userName;
     @FindBy(how = How.XPATH, using = ".//div[@class='ui-header']//a[contains(text(), 'Warehouse & Inventory Management')]")
     protected SelenideElement warehouseAndInventoryManagement;

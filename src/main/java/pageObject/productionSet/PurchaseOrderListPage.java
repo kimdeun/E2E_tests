@@ -24,13 +24,13 @@ public class PurchaseOrderListPage extends BasePage {
     private SelenideElement idField;
     @FindBy(how = How.XPATH, using = ".//input[@placeholder='Select company']")
     private SelenideElement companyField;
-    @FindBy(how = How.XPATH, using = ".//div[@class='ui-form']/div[4]//input")
+    @FindBy(how = How.XPATH, using = ".//div[contains(text(), 'Code type')]//following-sibling::div[@dir='auto']//input")
     private SelenideElement codeTypeField;
     @FindBy(how = How.XPATH, using = ".//a[contains(text(), 'Custom')]")
     private SelenideElement customCode;
     @FindBy(how = How.XPATH, using = ".//a[contains(text(), 'System')]")
     private SelenideElement systemCode;
-    @FindBy(how = How.XPATH, using = ".//div[@class='ui-form']/div[5]//input")
+    @FindBy(how = How.XPATH, using = ".//div[contains(text(), 'Excluded signs')]//following-sibling::div[@dir='auto']//input")
     private SelenideElement excludedSigns;
     @FindBy(how = How.XPATH, using = ".//input[@placeholder='Enter code']")
     private SelenideElement codeField;
@@ -50,19 +50,19 @@ public class PurchaseOrderListPage extends BasePage {
     private SelenideElement emailField;
     @FindBy(how = How.XPATH, using = ".//input[@placeholder='Select a buyer']")
     private SelenideElement buyerField;
-    @FindBy(how = How.XPATH, using = ".//ul[@class='dropdown-menu']/li[1]")
+    @FindBy(how = How.CSS, using = "ul[role='listbox'] > li:nth-child(1)")
     private SelenideElement firstBuyer;
     @FindBy(how = How.XPATH, using = ".//div[contains(text(), 'Ok')]")
     private SelenideElement okButton;
     @FindBy(how = How.XPATH, using = ".//span[text()='Purchase orders']")
     private SelenideElement pageTitle;
-    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-content']/div[1]//span[contains(text(), 'Entered')]")
+    @FindBy(how = How.CSS, using = ".ui-table-row-wrapper:nth-child(1) span[title='Entered']")
     private SelenideElement purchaseOrderState;
-    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-content']/div[1]//a[text()='TestCompanyForAutoTests']")
+    @FindBy(how = How.CSS, using = ".ui-table-row-wrapper:nth-child(1) a[title='TestCompanyForAutoTests']")
     private SelenideElement purchaseOrderCompany;
-    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-content']/div[1]/div/div[4]/span")
+    @FindBy(how = How.CSS, using = ".ui-table-row-wrapper:nth-child(1) > .ui-table-row > div:nth-child(4) span")
     private SelenideElement purchaseOrderBuyer;
-    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-content']/div[1]//a[text()='Test User']")
+    @FindBy(how = How.CSS, using = ".ui-table-row-wrapper:nth-child(1) a[title='Test User']")
     private SelenideElement purchaseOrderOwner;
     @FindBy(how = How.XPATH, using = ".//input[@placeholder='Search']")
     private SelenideElement searchInput;
@@ -130,7 +130,7 @@ public class PurchaseOrderListPage extends BasePage {
     }
 
     public PurchaseOrderListPage waitForLoadPurchaseOrdersPage(String id) {
-        $(byLinkText(id)).should(Condition.exist, Duration.ofSeconds(60));
+        $(byLinkText(id)).should(Condition.exist, Duration.ofSeconds(10));
         return page(this);
     }
 

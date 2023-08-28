@@ -23,7 +23,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pageObject.LoginPage;
-import pageObject.productionSet.WarehousePage;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -35,7 +34,7 @@ import static com.codeborne.selenide.Selenide.page;
 
 public class WarehouseTest extends BaseTest {
     //objects for PO creation
-    public Buyer buyer = new Buyer("test@test.test", "", Entities.USER_ID, null);
+    public Buyer buyer = new Buyer("test@test.test", "", Entities.BUYER_ID, null);
     public Sequence sequence = new Sequence(10, 10, 1);
     public Type type = new Type("system");
     public Code code = new Code(sequence, type, "value");

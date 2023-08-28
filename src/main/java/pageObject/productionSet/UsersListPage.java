@@ -41,17 +41,17 @@ public class UsersListPage {
     private SelenideElement searchInput;
     @FindBy(how = How.XPATH, using = ".//button[text()='Search ']")
     private SelenideElement searchButton;
-    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-content']/div[1]/div[1]/div[2]/a")
+    @FindBy(how = How.CSS, using = "a.ui-link[href^='#/supply/user/']")
     private SelenideElement userNameInTheTable;
-    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-content']/div[1]/div[1]/div[3]//a")
+    @FindBy(how = How.CSS, using = "a.ui-link[href^='#/supply/company/']")
     private SelenideElement companyNameInTheTable;
-    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-content']/div[1]/div[1]/div[4]//span")
+    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-row-wrapper' and position()=1]/div[1]/div[4]//span")
     private SelenideElement positionNameInTheTable;
-    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-content']/div[1]/div[1]/div[5]//span")
+    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-row-wrapper' and position()=1]/div[1]/div[5]//span")
     private ElementsCollection userRolesCollection;
-    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-content']/div[1]/div[1]/div[6]//span")
+    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-row-wrapper' and position()=1]//span[contains(text(), '@')]")
     private SelenideElement emailInTheTable;
-    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-content']/div[1]/div[1]/div[7]//button")
+    @FindBy(how = How.CSS, using = ".ui-table-row-wrapper:nth-child(1) .btn.ui-btn")
     private SelenideElement usersStateButton;
     @FindBy(how = How.CSS, using = ".no-options")
     private SelenideElement emptyListOfDataInTheModal;

@@ -12,7 +12,7 @@ import static com.codeborne.selenide.Selenide.page;
 public class UserPage {
     @FindBy(how = How.CSS, using = ".ui-page-parameter-label")
     private ElementsCollection userRolesCollection;
-    @FindBy(how = How.XPATH, using = ".//div[@class='ui-page-header']/div[1]/div[2]//span")
+    @FindBy(how = How.CSS, using = ".ui-btn-label")
     private SelenideElement userStateLabel;
     @FindBy(how = How.CSS, using = ".multiselect__placeholder")
     private SelenideElement userStatusSelectSpanInTheEditStatusUserModal;

@@ -25,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PurchaseOrderListTest extends BaseTest {
     //objects for PO creation
-    public Buyer buyer = new Buyer("test@test.test", "", Entities.USER_ID, null);
+    public Buyer buyer = new Buyer("test@test.test", "", Entities.BUYER_ID, null);
     public Sequence sequence = new Sequence(10, 10, 1);
     public Type type = new Type("system");
     public Code code = new Code(sequence, type, "value");
@@ -101,7 +101,7 @@ public class PurchaseOrderListTest extends BaseTest {
         open(URLs.PURCHASE_ORDER_LIST_PAGE);
         purchaseOrderListPage.waitForLoadPurchaseOrdersPage(purchaseOrderName);
 
-        assertEquals(Entities.USER_NAME_BUYER_NAME, purchaseOrderListPage.getPurchaseOrderBuyer());
+        assertEquals(Entities.BUYER_NAME, purchaseOrderListPage.getPurchaseOrderBuyer());
     }
 
     @Test

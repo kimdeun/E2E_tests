@@ -33,7 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class WorkOrderPageTest extends BaseTest {
     WorkOrderPage workOrderPage = page(WorkOrderPage.class);
     //objects for PO creation
-    public Buyer buyer = new Buyer("test@test.test", "", Entities.USER_ID, null);
+    public Buyer buyer = new Buyer("test@test.test", "", Entities.BUYER_ID, null);
     public Sequence sequence = new Sequence(10, 10, 1);
     public Type type = new Type("system");
     public Code code = new Code(sequence, type, "value");
@@ -148,7 +148,7 @@ public class WorkOrderPageTest extends BaseTest {
         loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .waitForLoadingPageAfterLogin();
         open(URLs.getWorkOrderPageURL(workOrderId.toString()));
-        workOrderPage.changeStateOfWorkOrder()
+        workOrderPage.changeStateOfWorkOrderToConfirmed()
                 .waitForContainersTable();
 
         workOrderPage.stateShouldBeConfirmed();
@@ -159,7 +159,7 @@ public class WorkOrderPageTest extends BaseTest {
         loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .waitForLoadingPageAfterLogin();
         open(URLs.getWorkOrderPageURL(workOrderId.toString()));
-        workOrderPage.changeStateOfWorkOrder()
+        workOrderPage.changeStateOfWorkOrderToConfirmed()
                 .waitForContainersTable()
                 .changeStateOfWorkOrderToInProduction();
 
@@ -171,10 +171,9 @@ public class WorkOrderPageTest extends BaseTest {
         loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .waitForLoadingPageAfterLogin();
         open(URLs.getWorkOrderPageURL(workOrderId.toString()));
-        workOrderPage.changeStateOfWorkOrder()
+        workOrderPage.changeStateOfWorkOrderToConfirmed()
                 .waitForContainersTable()
-                .changeStateOfWorkOrder()
-                .clickOkButtonInTheUpdateWorOrderStateConfirmationModal();
+                .changeStateOfWorkOrderToProduced();
 
         workOrderPage.stateShouldBeProduced();
     }
@@ -184,7 +183,7 @@ public class WorkOrderPageTest extends BaseTest {
         loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .waitForLoadingPageAfterLogin();
         open(URLs.getWorkOrderPageURL(workOrderId.toString()));
-        workOrderPage.changeStateOfWorkOrder()
+        workOrderPage.changeStateOfWorkOrderToConfirmed()
                 .waitForContainersTable();
 
         assertTrue(workOrderPage.containersTableIsDisplayed());
@@ -195,7 +194,7 @@ public class WorkOrderPageTest extends BaseTest {
         loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .waitForLoadingPageAfterLogin();
         open(URLs.getWorkOrderPageURL(workOrderId.toString()));
-        workOrderPage.changeStateOfWorkOrder()
+        workOrderPage.changeStateOfWorkOrderToConfirmed()
                 .waitForContainersTable();
 
         workOrderPage.containersStateShouldBeInProduction();
@@ -206,10 +205,9 @@ public class WorkOrderPageTest extends BaseTest {
         loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .waitForLoadingPageAfterLogin();
         open(URLs.getWorkOrderPageURL(workOrderId.toString()));
-        workOrderPage.changeStateOfWorkOrder()
+        workOrderPage.changeStateOfWorkOrderToConfirmed()
                 .waitForContainersTable()
-                .changeStateOfWorkOrder()
-                .clickOkButtonInTheUpdateWorOrderStateConfirmationModal();
+                .changeStateOfWorkOrderToProduced();
 
         workOrderPage.containersStateShouldBeProduced();
     }
@@ -219,7 +217,7 @@ public class WorkOrderPageTest extends BaseTest {
         loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .waitForLoadingPageAfterLogin();
         open(URLs.getWorkOrderPageURL(workOrderId.toString()));
-        workOrderPage.changeStateOfWorkOrder()
+        workOrderPage.changeStateOfWorkOrderToConfirmed()
                 .waitForContainersTable()
                 .changeStateOfTheSkid()
                 .firstChildContainerIsBox();
@@ -232,7 +230,7 @@ public class WorkOrderPageTest extends BaseTest {
         loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .waitForLoadingPageAfterLogin();
         open(URLs.getWorkOrderPageURL(workOrderId.toString()));
-        workOrderPage.changeStateOfWorkOrder()
+        workOrderPage.changeStateOfWorkOrderToConfirmed()
                 .waitForContainersTable()
                 .changeStateOfTheBox()
                 .firstChildContainerIsBag();
@@ -245,7 +243,7 @@ public class WorkOrderPageTest extends BaseTest {
         loginPage.login(Entities.USER_LOGIN, Entities.USER_PASSWORD)
                 .waitForLoadingPageAfterLogin();
         open(URLs.getWorkOrderPageURL(workOrderId.toString()));
-        workOrderPage.changeStateOfWorkOrder()
+        workOrderPage.changeStateOfWorkOrderToConfirmed()
                 .waitForContainersTable()
                 .changeStateOfTheBag()
                 .firstChildContainerIsSeal();

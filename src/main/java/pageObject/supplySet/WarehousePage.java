@@ -21,7 +21,7 @@ public class WarehousePage extends BasePage {
     private SelenideElement searchInput;
     @FindBy(how = How.XPATH, using = ".//button[text()='Search ']")
     private SelenideElement searchButton;
-    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-row']/div/i")
+    @FindBy(how = How.CSS, using = ".ui-table-row-wrapper div.ui-table-checkbox-cell .fa-circle")
     private SelenideElement containerCheckBox;
     @FindBy(how = How.XPATH, using = ".//div[contains(text(), 'Create Transfer')]")
     private SelenideElement createTransferButton;
@@ -31,7 +31,7 @@ public class WarehousePage extends BasePage {
     private SelenideElement locationInputInTheCreateTransferModal;
     @FindBy(how = How.XPATH, using = ".//div[@class='ui-modal-footer clearfix']/div[contains(text(), 'Create')]")
     private SelenideElement createButtonInTheCreateTransferModal;
-    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-content']/div[1]/div[1]/div[3]")
+    @FindBy(how = How.CSS, using = ".ui-table-row-wrapper:nth-child(1) .ui-link-incorrect-url")
     private SelenideElement firstContainerNameInTheTable;
     @FindBy(how = How.CSS, using = ".no-options")
     private SelenideElement emptyListOfCompaniesAndLocationsInTheCreateTransferModal;

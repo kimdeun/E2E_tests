@@ -9,22 +9,22 @@ import org.openqa.selenium.support.How;
 import static com.codeborne.selenide.Selenide.page;
 
 public class AttachModal {
-    @FindBy(how = How.XPATH, using = ".//div[@class='ui-header']//li[4]//a[contains(text(), 'Attach')]")
-    public SelenideElement attachButtonInNavMenu;
-    @FindBy(how = How.XPATH, using = ".//div[@class='ui-header']//li[2]//a[contains(text(), 'Conveyances')]")
-    public SelenideElement conveyancesButtonInNavMenu;
+    @FindBy(how = How.XPATH, using = ".//div[@class='ui-header']//a[contains(text(), 'Attach')]")
+    private SelenideElement attachButtonInNavMenu;
+    @FindBy(how = How.XPATH, using = ".//div[@class='ui-header']//a[contains(text(), 'Conveyances')]")
+    private SelenideElement conveyancesButtonInNavMenu;
     @FindBy(how = How.XPATH, using = ".//input[@placeholder = 'Location']")
-    public SelenideElement locationInput;
+    private SelenideElement locationInput;
     @FindBy(how = How.XPATH, using = ".//input[@placeholder = 'Enter container number']")
-    public SelenideElement enterContainerNumberInput;
+    private SelenideElement enterContainerNumberInput;
     @FindBy(how = How.XPATH, using = ".//input[@placeholder = 'Bag or Seal?']")
-    public SelenideElement bagOrSealInput;
+    private SelenideElement bagOrSealInput;
     @FindBy(how = How.XPATH, using = ".//input[@placeholder = 'Enter seal numbers one by one']")
-    public SelenideElement attachSealsInput;
+    private SelenideElement attachSealsInput;
     @FindBy(how = How.XPATH, using = ".//div[contains(text(), 'Attach')]")
-    public SelenideElement attachButtonInModal;
+    private SelenideElement attachButtonInModal;
     @FindBy(how = How.XPATH, using = ".//div[contains(text(), 'Close')]")
-    public SelenideElement closeButtonInModal;
+    private SelenideElement closeButtonInModal;
     @FindBy(how = How.CSS, using = ".no-options")
     private SelenideElement emptyListOfDataInTheCreateWorkOrderModal;
 

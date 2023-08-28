@@ -39,7 +39,7 @@ import static com.codeborne.selenide.Selenide.page;
 
 public class TransfersListTest extends BaseTest {
     TransfersListPage transfersListPage = page(TransfersListPage.class);
-    public Buyer buyer = new Buyer("test@test.test", "", Entities.USER_ID, null);
+    public Buyer buyer = new Buyer("test@test.test", "", Entities.BUYER_ID, null);
     public Sequence sequence = new Sequence(10, 10, 1);
     public Type type = new Type("system");
     public Code code = new Code(sequence, type, "value");

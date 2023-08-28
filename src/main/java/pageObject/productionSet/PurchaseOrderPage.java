@@ -17,7 +17,7 @@ public class PurchaseOrderPage {
     private SelenideElement typeField;
     @FindBy(how = How.XPATH, using = ".//input[@placeholder='Select color']")
     private SelenideElement colorField;
-    @FindBy(how = How.XPATH, using = ".//div[@class='ui-form']/div[2]//li[1]")
+    @FindBy(how = How.CSS, using = "ul[role='listbox'] > li:nth-child(1)")
     private SelenideElement firstColorInTheList;
     @FindBy(how = How.XPATH, using = ".//input[@placeholder='Quantity']")
     private SelenideElement quantityField;
@@ -25,17 +25,17 @@ public class PurchaseOrderPage {
     private SelenideElement okButtonInTheAddSealGroupModal;
     @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-row']")
     private SelenideElement contentInTheTable;
-    @FindBy(how = How.XPATH, using = ".//div[@class='ui-page-label ml-auto']/span")
+    @FindBy(how = How.CSS, using = ".ui-btn-label")
     private SelenideElement stateLabel;
     @FindBy(how = How.XPATH, using = ".//input[@placeholder='Mark as']")
     private SelenideElement markAsInput;
-    @FindBy(how = How.XPATH, using = ".//div[@class='ui-form-group']//a")
+    @FindBy(how = How.CSS, using = "ul[role='listbox'] > li:nth-child(1) a")
     private SelenideElement newStateOfPurchaseOrder;
     @FindBy(how = How.XPATH, using = ".//div[contains(text(), 'Ok')]")
     private SelenideElement okButtonInTheUpdateStateModal;
     @FindBy(how = How.XPATH, using = ".//button[contains(text(), 'Create work order')]")
     private SelenideElement createWorkOrderButton;
-    @FindBy(how = How.XPATH, using = ".//div[@class='ui-header']//a[@id='order__BV_button_']")
+    @FindBy(how = How.XPATH, using = "div.ui-header a[href='#order']")
     private SelenideElement ordersButton;
     @FindBy(how = How.XPATH, using = ".//div[@class='ui-header']//a[contains(text(),'Work Orders')]")
     private SelenideElement workOrdersButton;
@@ -61,11 +61,11 @@ public class PurchaseOrderPage {
     private SelenideElement boxField;
     @FindBy(how = How.XPATH, using = ".//input[@placeholder='Select Bag type']")
     private SelenideElement bagField;
-    @FindBy(how = How.XPATH, using = ".//div[@class='col-md-6']/div[2]/input[@placeholder='Enter quantity']")
+    @FindBy(how = How.XPATH, using = ".//div[contains(text(), 'Boxes in') and contains(text(), 'Skid')]//following-sibling::input")
     private SelenideElement boxesInSkidField;
-    @FindBy(how = How.XPATH, using = ".//div[@class='col-md-6']/div[3]/input[@placeholder='Enter quantity']")
+    @FindBy(how = How.XPATH, using = ".//div[contains(text(), 'Seals in') and contains(text(), 'Box')]//following-sibling::input")
     private SelenideElement sealsInBoxField;
-    @FindBy(how = How.XPATH, using = ".//div[@class='col-md-6']/div[5]/input[@placeholder='Enter quantity']")
+    @FindBy(how = How.XPATH, using = ".//div[contains(text(), 'Seals in') and contains(text(), 'Bag')]//following-sibling::input")
     private SelenideElement sealsInBagField;
     @FindBy(how = How.XPATH, using = ".//span[contains(text(), 'Select enumeration mode')]")
     private SelenideElement enumerationFieldSpan;
@@ -73,21 +73,21 @@ public class PurchaseOrderPage {
     private SelenideElement enumerationField;
     @FindBy(how = How.XPATH, using = ".//div[contains(text(), 'Ok')]")
     private SelenideElement okButtonInCreateWorkOrderModal;
-    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-content']/div[1]/div[1]/div[1]/a")
+    @FindBy(how = How.CSS, using = "a.ui-link[href^='#/production/workOrder/']")
     private SelenideElement workOrderId;
-    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-content']/div[1]/div[1]/div[2]/a")
+    @FindBy(how = How.CSS, using = "a.ui-link[href^='#/production/production/']")
     private SelenideElement workOrderProduction;
-    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-content']/div[1]/div[1]/div[3]/span")
+    @FindBy(how = How.CSS, using = "div.ui-table-label-cell span.ui-btn-label")
     private SelenideElement workOrderState;
-    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-content']/div[1]/div[1]/div[4]/a")
+    @FindBy(how = How.CSS, using = "a.ui-link[href^='#/production/user/']")
     private SelenideElement workOrderOwner;
-    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-content']/div[1]/div[1]/div[5]/span")
+    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-row-wrapper' and position()=1]/div[1]/div[5]/span")
     private SelenideElement workOrderSealType;
-    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-content']/div[1]/div[1]/div[6]/span")
+    @FindBy(how = How.CSS, using = "div.col-md-9 > div.ui-table-wrapper span.ui-color-sign")
     private SelenideElement workOrderSealColor;
-    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-content']/div[1]/div[1]/div[9]/span")
+    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-row-wrapper' and position()=1]/div[1]/div[9]/span")
     private SelenideElement workOrderEtchingFormat;
-    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-content']/div[1]/div[1]/div[10]/span")
+    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-row-wrapper' and position()=1]/div[1]/div[10]/span")
     private SelenideElement workOrderLogo;
     @FindBy(how = How.CSS, using = ".ui-app-hint.container.ui-error")
     private SelenideElement noTemplateHint;

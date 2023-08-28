@@ -34,23 +34,23 @@ public class CompanyPage {
     private SelenideElement searchButton;
     @FindBy(how = How.ID, using = "ui-map")
     private SelenideElement googleMap;
-    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-content']/div[1]/div[1]/div[2]/span")
+    @FindBy(how = How.CSS, using = "div.ui-table-string-cell > span")
     private SelenideElement locationNameInTheTable;
-    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-content']/div[1]/div[1]/div[4]/a")
+    @FindBy(how = How.CSS, using = "i.fa-location-dot ~ .ui-link")
     private SelenideElement locationAddressInTheTable;
     @FindBy(how = How.XPATH, using = ".//input[@placeholder='Enter name']")
     private SelenideElement nameInputInTheCreateAreaAndFieldOfficeModal;
     @FindBy(how = How.XPATH, using = ".//input[@placeholder='Select location']")
     private SelenideElement locationSelectInTheCreateAreaModal;
-    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-content']/div[1]/div[1]/div[6]/button")
+    @FindBy(how = How.CSS, using = "button.ui-table-quantity-button-container")
     private SelenideElement areasCounterButton;
-    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-content']/div[2]/div[1]/div[2]/span")
+    @FindBy(how = How.CSS, using = "div.ui-table-row-wrapper:nth-child(2) div.ui-table-string-cell > span")
     private SelenideElement areaNameInTheTable;
     @FindBy(how = How.XPATH, using = ".//span[contains(text(), 'Select locations')]")
     private SelenideElement selectLocationsSpanInTheCreateFieldOfficeModal;
     @FindBy(how = How.XPATH, using = ".//input[@placeholder='Select locations']")
     private SelenideElement selectLocationsInputInTheCreateFieldOfficeModal;
-    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-content']/div[1]/div[1]/div[3]/span")
+    @FindBy(how = How.CSS, using = "div.ui-table-link-cell > span")
     private SelenideElement fieldOfficeNameInTheTable;
 
     public CompanyPage openLocationsTab() {

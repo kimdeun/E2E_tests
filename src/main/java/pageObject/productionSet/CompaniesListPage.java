@@ -25,17 +25,17 @@ public class CompaniesListPage {
     private SelenideElement searchInput;
     @FindBy(how = How.XPATH, using = ".//button[text()='Search ']")
     private SelenideElement searchButton;
-    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-content']/div[1]/div[1]/div[1]/a")
+    @FindBy(how = How.CSS, using = "a[href^='#/production/company/']")
     private SelenideElement companyName;
-    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-content']/div[1]/div[1]/div[2]/span")
+    @FindBy(how = How.CSS, using = "div.ui-table-country-cell > span")
     private SelenideElement companiesCountry;
     @FindBy(how = How.XPATH, using = ".//span[text()='List is empty.']")
     private SelenideElement emptyListOfCountriesInTheCreateCompanyModal;
-    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-content']/div[1]//button[text()='Actions']")
+    @FindBy(how = How.XPATH, using = ".//button[text()='Actions']")
     private SelenideElement actionsButton;
-    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-content']/div[1]//a[text()='Edit']")
+    @FindBy(how = How.XPATH, using = ".//a[text()='Edit']")
     private SelenideElement editButtonInTheActionsDropdown;
-    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-content']/div[1]//a[text()='Delete']")
+    @FindBy(how = How.XPATH, using = ".//a[text()='Delete']")
     private SelenideElement deleteButtonInTheActionsDropdown;
     @FindBy(how = How.XPATH, using = ".//span[contains(text(), 'Albania')]")
     private SelenideElement albaniaInTheCountriesSelect;

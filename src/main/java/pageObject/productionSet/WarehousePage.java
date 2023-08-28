@@ -29,7 +29,7 @@ public class WarehousePage extends BasePage {
     private SelenideElement searchInput;
     @FindBy(how = How.XPATH, using = ".//button[text()='Search ']")
     private SelenideElement searchButton;
-    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-row']/div/i")
+    @FindBy(how = How.CSS, using = "div.ui-table-checkbox-cell .fa-circle")
     private SelenideElement containerCheckBox;
     @FindBy(how = How.XPATH, using = ".//div[contains(text(), 'Create transfer')]")
     private SelenideElement createTransferButton;
@@ -45,25 +45,17 @@ public class WarehousePage extends BasePage {
     private SelenideElement createButtonInTheCreateTransferModal;
     @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-row']//i[@class='fa fa-circle']")
     private ElementsCollection checkboxCollectionInTheInventoryTable;
-    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-row']/div[3]/span")
-    private ElementsCollection containerNumbersCollectionInTheInventoryTable;
-    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-row']/div[8]/div[1]/div[1]")
-    private ElementsCollection containersQuantityCollectionInTheInventoryTable;
-    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-row']/div[10]/span")
-    private ElementsCollection containersStartNumberCollectionInTheInventoryTable;
-    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-row']/div[11]/span")
-    private ElementsCollection containersEndNumberCollectionInTheInventoryTable;
     @FindBy(how = How.CSS, using = ".no-options")
     private SelenideElement emptyListOfCompaniesInTheCreateTransferModal;
-    @FindBy(how = How.XPATH, using = ".//div[@class='ui-form']/div[6]//span[text()='No elements found. Consider changing the search query.']")
+    @FindBy(how = How.XPATH, using = ".//div[text()='Location']//following-sibling::div//span[text()='No elements found. Consider changing the search query.']")
     private SelenideElement emptyListOfLocationsInTheTransferModal;
-    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-content']/div[1]//button[contains(text(), 'Skid')]")
+    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-row-wrapper' and position()=1]//button[contains(text(), 'Skid')]")
     private SelenideElement firstSkidInTheContainersTable;
-    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-content']/div[2]//button[contains(text(), 'Box')]")
+    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-row-wrapper' and position()=2]//button[contains(text(), 'Box')]")
     private SelenideElement firstBoxInTheSkidInTheContainersTable;
-    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-content']/div[3]//button[contains(text(), 'Bag')]")
+    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-row-wrapper' and position()=3]//button[contains(text(), 'Bag')]")
     private SelenideElement firstBagInTheSkidInTheContainersTable;
-    @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-content']/div[1]/div[1]/div[3]")
+    @FindBy(how = How.CSS, using = "div.ui-table-row-wrapper:nth-child(1) span.ui-link-incorrect-url")
     private SelenideElement firstContainerNameInTheTable;
 
     public int getContainerIndexInTheList() {
@@ -73,22 +65,6 @@ public class WarehousePage extends BasePage {
 
     public SelenideElement getContainerCheckbox(int containerIndex) {
         return checkboxCollectionInTheInventoryTable.get(containerIndex);
-    }
-
-    public String getContainerNumber(int containerIndex) {
-        return containerNumbersCollectionInTheInventoryTable.get(containerIndex).getText();
-    }
-
-    public String getContainersQuantity(int containerIndex) {
-        return containersQuantityCollectionInTheInventoryTable.get(containerIndex).getText();
-    }
-
-    public String getContainersStartNumber(int containerIndex) {
-        return containersStartNumberCollectionInTheInventoryTable.get(containerIndex).getText();
-    }
-
-    public String getContainersEndNumber(int containerIndex) {
-        return containersEndNumberCollectionInTheInventoryTable.get(containerIndex).getText();
     }
 
     public WarehousePage openDetailsTable() {

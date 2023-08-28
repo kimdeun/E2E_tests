@@ -34,7 +34,7 @@ public class WorkOrderCreatingTest extends BaseTest {
     PurchaseOrderPage purchaseOrderPage = page(PurchaseOrderPage.class);
 
     //objects for PO creation
-    public Buyer buyer = new Buyer("test@test.test", "", Entities.USER_ID, null);
+    public Buyer buyer = new Buyer("test@test.test", "", Entities.BUYER_ID, null);
     public Sequence sequence = new Sequence(10, 10, 1);
     public Type type = new Type("system");
     public Code code = new Code(sequence, type, "value");

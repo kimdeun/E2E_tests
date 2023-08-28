@@ -5,7 +5,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
 public class BasePage {
-    @FindBy(how = How.XPATH, using = ".//div[@class='ui-header']//a[@id='session__BV_toggle_']")
+    @FindBy(how = How.XPATH, using = ".//div[@class='ui-header']//span[text()='Test User']")
     protected SelenideElement userName;
 
     @FindBy(how = How.XPATH, using = ".//div[@class='ui-header']//a[contains(text(), 'Production & Order Fulfillment')]")
