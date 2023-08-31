@@ -41,7 +41,7 @@ public class UsersListPage {
     private SelenideElement searchInput;
     @FindBy(how = How.XPATH, using = ".//button[text()='Search ']")
     private SelenideElement searchButton;
-    @FindBy(how = How.CSS, using = "a.ui-link[href^='#/supply/user/']")
+    @FindBy(how = How.CSS, using = "a.ui-link[href^='#/production/user/']")
     private SelenideElement userNameInTheTable;
     @FindBy(how = How.CSS, using = "a.ui-link[href^='#/supply/company/']")
     private SelenideElement companyNameInTheTable;
@@ -76,7 +76,7 @@ public class UsersListPage {
         return page(this);
     }
 
-    public UsersListPage createOperator(String name, String position, String email) {
+    private void addUserInfo(String name, String position, String email) {
         createUserButton.click();
         nameInput.setValue(name);
         positionInput.setValue(position);
@@ -88,6 +88,10 @@ public class UsersListPage {
         addRoleButton.click();
         roleSelect.click();
         waitForListOfDateInTheModal();
+    }
+
+    public UsersListPage createOperator(String name, String position, String email) {
+        addUserInfo(name, position, email);
         roleSelect.setValue(OPERATOR_ROLE).pressEnter();
         locationAccessDiv.click();
         locationAccessInput.pressEnter();
@@ -97,17 +101,7 @@ public class UsersListPage {
     }
 
     public UsersListPage createSupervisor(String name, String position, String email) {
-        createUserButton.click();
-        nameInput.setValue(name);
-        positionInput.setValue(position);
-        companySelect.click();
-        waitForListOfDateInTheModal();
-        companySelect.setValue(USERS_COMPANY).pressEnter();
-        emailInput.setValue(email);
-        goToSelectingTheRolesButton.click();
-        addRoleButton.click();
-        roleSelect.click();
-        waitForListOfDateInTheModal();
+        addUserInfo(name, position, email);
         roleSelect.setValue(SUPERVISOR_ROLE).pressEnter();
         locationAccessDiv.click();
         locationAccessInput.pressEnter();
@@ -117,17 +111,7 @@ public class UsersListPage {
     }
 
     public UsersListPage createOfficer(String name, String position, String email) {
-        createUserButton.click();
-        nameInput.setValue(name);
-        positionInput.setValue(position);
-        companySelect.click();
-        waitForListOfDateInTheModal();
-        companySelect.setValue(USERS_COMPANY).pressEnter();
-        emailInput.setValue(email);
-        goToSelectingTheRolesButton.click();
-        addRoleButton.click();
-        roleSelect.click();
-        waitForListOfDateInTheModal();
+        addUserInfo(name, position, email);
         roleSelect.setValue(OFFICER_ROLE).pressEnter();
         addRoleButtonInTheSelectRoles.click();
         createUserButtonInTheModal.click();
@@ -135,17 +119,7 @@ public class UsersListPage {
     }
 
     public UsersListPage createAdmin(String name, String position, String email) {
-        createUserButton.click();
-        nameInput.setValue(name);
-        positionInput.setValue(position);
-        companySelect.click();
-        waitForListOfDateInTheModal();
-        companySelect.setValue(USERS_COMPANY).pressEnter();
-        emailInput.setValue(email);
-        goToSelectingTheRolesButton.click();
-        addRoleButton.click();
-        roleSelect.click();
-        waitForListOfDateInTheModal();
+        addUserInfo(name, position, email);
         roleSelect.setValue(ADMIN_ROLE).pressEnter();
         addRoleButtonInTheSelectRoles.click();
         createUserButtonInTheModal.click();
