@@ -30,20 +30,6 @@ public class UserCreatingTest extends BaseTest {
     List<Integer> userId;
 
     @Override
-    @BeforeEach
-    public void setUp() {
-        Configuration.browserSize = Entities.BROWSER_SIZE_1920_1080;
-        loginPage = open(URLs.STAGE_URL, LoginPage.class);
-        RestAssured.baseURI = URLs.BASE_API_URI;
-
-        //get a token
-        token = authRequest.getResponseForUserAuthorization()
-                .extract()
-                .body()
-                .path("content.token");
-    }
-
-    @Override
     @AfterEach
     public void tearDown() {
         GetAllUsersRequest getAllUsersRequest = new GetAllUsersRequest();

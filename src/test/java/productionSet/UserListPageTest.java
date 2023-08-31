@@ -51,10 +51,7 @@ public class UserListPageTest extends BaseTest {
         RestAssured.baseURI = URLs.BASE_API_URI;
 
         //get a token
-        token = authRequest.getResponseForUserAuthorization()
-                .extract()
-                .body()
-                .path("content.token");
+        token = authRequest.getToken();
 
         //create user and get user id
         CreateUserRequest createUserRequest = new CreateUserRequest();

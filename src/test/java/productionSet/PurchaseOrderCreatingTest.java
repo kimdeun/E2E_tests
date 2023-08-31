@@ -33,20 +33,6 @@ public class PurchaseOrderCreatingTest extends BaseTest {
     public List<Integer> purchaseOrderId;
 
     @Override
-    @BeforeEach
-    public void setUp() {
-        Configuration.browserSize = Entities.BROWSER_SIZE_1920_1080;
-        loginPage = open(URLs.STAGE_URL, LoginPage.class);
-        RestAssured.baseURI = URLs.BASE_API_URI;
-
-        //get a token
-        token = authRequest.getResponseForUserAuthorization()
-                .extract()
-                .body()
-                .path("content.token");
-    }
-
-    @Override
     @AfterEach
     public void tearDown() {
         //get PO id

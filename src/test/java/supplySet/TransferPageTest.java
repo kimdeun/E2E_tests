@@ -99,10 +99,7 @@ public class TransferPageTest extends BaseTest {
         RestAssured.baseURI = URLs.BASE_API_URI;
 
         //get token
-        token = authRequest.getResponseForUserAuthorization()
-                .extract()
-                .body()
-                .path("content.token");
+        token = authRequest.getToken();
 
         //create PO and get PO name
         CreatePurchaseOrderJsonObject createPurchaseOrderJsonObject = new CreatePurchaseOrderJsonObject(buyer, code, company, excludedSimbolsList, faker.onePiece().character());

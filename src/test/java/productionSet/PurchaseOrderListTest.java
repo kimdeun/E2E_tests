@@ -44,10 +44,7 @@ public class PurchaseOrderListTest extends BaseTest {
         RestAssured.baseURI = URLs.BASE_API_URI;
 
         //get a token
-        token = authRequest.getResponseForUserAuthorization()
-                .extract()
-                .body()
-                .path("content.token");
+        token = authRequest.getToken();
 
         //get PO name
         CreatePurchaseOrderJsonObject createPurchaseOrderJsonObject = new CreatePurchaseOrderJsonObject(buyer, code, company, excludedSimbolsList, faker.onePiece().character());

@@ -39,10 +39,7 @@ public class CompaniesListTest extends BaseTest {
         RestAssured.baseURI = URLs.BASE_API_URI;
 
         //get a token
-        token = authRequest.getResponseForUserAuthorization()
-                .extract()
-                .body()
-                .path("content.token");
+        token = authRequest.getToken();
 
         //create a company and get the company id
         CreateCompanyRequest createCompanyRequest = new CreateCompanyRequest();

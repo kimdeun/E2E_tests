@@ -26,11 +26,7 @@ public class BaseTest {
         RestAssured.baseURI = "https://staging1.stm.redflag.cc";
 
         //get a token
-        token = authRequest.getResponseForUserAuthorization()
-                .extract()
-                .body()
-                .path("content.token");
-
+        token = authRequest.getToken();
     }
 
     @AfterEach

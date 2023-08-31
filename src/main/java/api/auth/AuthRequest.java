@@ -15,4 +15,11 @@ public class AuthRequest {
                 .post(EndPoints.LOGIN_END_POINT)
                 .then();
     }
+
+    public String getToken() {
+        return getResponseForUserAuthorization()
+                .extract()
+                .body()
+                .path("content.token");
+    }
 }
