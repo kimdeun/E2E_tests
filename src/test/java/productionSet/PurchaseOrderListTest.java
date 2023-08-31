@@ -62,13 +62,11 @@ public class PurchaseOrderListTest extends BaseTest {
                 .jsonPath().getList("id");
     }
 
-    @Override
     @AfterEach
     public void tearDown() {
         //delete PO
         DeletePurchaseOrderRequest deletePurchaseOrderRequest = new DeletePurchaseOrderRequest();
         deletePurchaseOrderRequest.getResponseForDeletingPurchaseOrder(token, purchaseOrderId.get(purchaseOrderId.size() - 1));
-        Selenide.closeWindow();
     }
 
     @Test

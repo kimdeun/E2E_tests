@@ -58,13 +58,11 @@ public class CompanyPageTest extends BaseTest {
                 .path("id");
     }
 
-    @Override
     @AfterEach
     public void tearDown() {
         //delete company
         DeleteCompanyRequest deleteCompanyRequest = new DeleteCompanyRequest();
         deleteCompanyRequest.getResponseForDeletingCompanyRequest(token, companyId.toString());
-        Selenide.closeWindow();
     }
 
     @Test

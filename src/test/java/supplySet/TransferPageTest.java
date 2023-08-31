@@ -201,7 +201,6 @@ public class TransferPageTest extends BaseTest {
                 .jsonPath().getList("id");
     }
 
-    @Override
     @AfterEach
     public void tearDown() {
         //delete WO
@@ -213,7 +212,6 @@ public class TransferPageTest extends BaseTest {
         //delete transfer
         DeleteTransferRequest deleteTransferRequest = new DeleteTransferRequest();
         deleteTransferRequest.getResponseForDeletingTransfer(token, transfersId.get(0).toString());
-        Selenide.closeWindow();
     }
 
     @Test

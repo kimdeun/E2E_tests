@@ -49,13 +49,11 @@ public class CompaniesListTest extends BaseTest {
                 .path("id");
     }
 
-    @Override
     @AfterEach
     public void tearDown() {
         //delete company
         DeleteCompanyRequest deleteCompanyRequest = new DeleteCompanyRequest();
         deleteCompanyRequest.getResponseForDeletingCompanyRequest(token, companyIds.toString());
-        Selenide.closeWindow();
     }
 
     @Test

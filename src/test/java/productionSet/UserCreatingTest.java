@@ -29,7 +29,6 @@ public class UserCreatingTest extends BaseTest {
 
     List<Integer> userId;
 
-    @Override
     @AfterEach
     public void tearDown() {
         GetAllUsersRequest getAllUsersRequest = new GetAllUsersRequest();
@@ -43,7 +42,6 @@ public class UserCreatingTest extends BaseTest {
         //delete user
         DeleteUserRequest deleteUserRequest = new DeleteUserRequest();
         deleteUserRequest.getResponseForDeletingUserRequest(token, userId.get(userId.size() - 1).toString());
-        Selenide.closeWindow();
     }
 
     @Test

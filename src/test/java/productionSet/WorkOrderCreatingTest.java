@@ -85,7 +85,6 @@ public class WorkOrderCreatingTest extends BaseTest {
         addSealGroupRequest.getResponseForAddSealRequest(token, addSealsJsonObject, purchaseOrderIdList.get(purchaseOrderIdList.size() - 1));
     }
 
-    @Override
     @AfterEach
     public void tearDown() {
         //get WO id
@@ -105,8 +104,6 @@ public class WorkOrderCreatingTest extends BaseTest {
         //delete PO
         DeletePurchaseOrderRequest deletePurchaseOrderRequest = new DeletePurchaseOrderRequest();
         deletePurchaseOrderRequest.getResponseForDeletingPurchaseOrder(token, purchaseOrderIdList.get(purchaseOrderIdList.size() - 1));
-
-        Selenide.closeWindow();
     }
 
     @Test

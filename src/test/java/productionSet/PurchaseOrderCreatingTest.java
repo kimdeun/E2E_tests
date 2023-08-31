@@ -32,7 +32,6 @@ public class PurchaseOrderCreatingTest extends BaseTest {
     PurchaseOrderListPage purchaseOrderListPage = page(PurchaseOrderListPage.class);
     public List<Integer> purchaseOrderId;
 
-    @Override
     @AfterEach
     public void tearDown() {
         //get PO id
@@ -44,7 +43,6 @@ public class PurchaseOrderCreatingTest extends BaseTest {
         //delete PO
         DeletePurchaseOrderRequest deletePurchaseOrderRequest = new DeletePurchaseOrderRequest();
         deletePurchaseOrderRequest.getResponseForDeletingPurchaseOrder(token, purchaseOrderId.get(purchaseOrderId.size() - 1));
-        Selenide.closeWindow();
     }
 
     @Test

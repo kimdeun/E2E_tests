@@ -133,7 +133,6 @@ public class WorkOrderListTest extends BaseTest {
                 .path("id");
     }
 
-    @Override
     @AfterEach
     public void tearDown() {
         //get WO id
@@ -150,8 +149,6 @@ public class WorkOrderListTest extends BaseTest {
         //delete PO
         DeletePurchaseOrderRequest deletePurchaseOrderRequest = new DeletePurchaseOrderRequest();
         deletePurchaseOrderRequest.getResponseForDeletingPurchaseOrder(token, purchaseOrderIdList.get(purchaseOrderIdList.size() - 1));
-
-        Selenide.closeWindow();
     }
 
     @Test

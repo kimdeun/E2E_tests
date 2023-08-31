@@ -61,13 +61,11 @@ public class UserPageTest extends BaseTest {
                 .path("id");
     }
 
-    @Override
     @AfterEach
     public void tearDown() {
         //delete user
         DeleteUserRequest deleteUserRequest = new DeleteUserRequest();
         deleteUserRequest.getResponseForDeletingUserRequest(token, userId.toString());
-        Selenide.closeWindow();
     }
 
     @Test

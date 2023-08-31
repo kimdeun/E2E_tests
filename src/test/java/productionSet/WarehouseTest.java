@@ -172,7 +172,6 @@ public class WarehouseTest extends BaseTest {
                 .path("content.printNumber");
     }
 
-    @Override
     @AfterEach
     public void tearDown() {
         //delete WO
@@ -192,7 +191,6 @@ public class WarehouseTest extends BaseTest {
                 .collect(Collectors.toList());
         DeleteTransferRequest deleteTransferRequest = new DeleteTransferRequest();
         deleteTransferRequest.getResponseForDeletingTransfer(token, transferIds.get(transferIds.size() - 1).toString());
-        Selenide.closeWindow();
     }
 
     @Test
