@@ -58,9 +58,9 @@ public class UsersListPage {
     @FindBy(how = How.XPATH, using = ".//button[contains(text(), 'Search')]")
     private SelenideElement refreshButton;
     @FindBy(how = How.CSS, using = ".multiselect__single")
-    private SelenideElement userStatusSelectSpanInTheEditStatusUserModal;
+    private SelenideElement selectStatusSpanInTheEditStatusModal;
     @FindBy(how = How.XPATH, using = ".//input[@placeholder='Select user status']")
-    private SelenideElement userStatusSelectInputInTheEditStatusUserModal;
+    private SelenideElement selectStatusInputInTheEditStatusModal;
     @FindBy(how = How.XPATH, using = ".//div[contains(text(), 'Edit')]")
     private SelenideElement editButtonInTheEditStatusUserModal;
     @FindBy(how = How.XPATH, using = ".//span[text()='List is empty.']/parent::li")
@@ -162,9 +162,9 @@ public class UsersListPage {
 
     public UsersListPage changeUserState() {
         usersStateButton.click();
-        userStatusSelectSpanInTheEditStatusUserModal.click();
+        selectStatusSpanInTheEditStatusModal.click();
         listIsEmptyTip.shouldHave(Condition.attribute("style", "display: none;"));
-        userStatusSelectInputInTheEditStatusUserModal.pressEnter();
+        selectStatusInputInTheEditStatusModal.pressEnter();
         editButtonInTheEditStatusUserModal.click();
         return page(this);
     }

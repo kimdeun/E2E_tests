@@ -46,7 +46,7 @@ public class PurchaseOrderPage {
     @FindBy(how = How.XPATH, using = ".//input[@placeholder='Select etching format']")
     private SelenideElement etchingFormatField;
     @FindBy(how = How.XPATH, using = ".//input[@placeholder='Enter quantity']")
-    private SelenideElement quantityFieldInCreateWorkOrderModal;
+    private SelenideElement quantityInCreateWorkOrderModal;
     @FindBy(how = How.XPATH, using = ".//input[@placeholder='Select company']")
     private SelenideElement companyField;
     @FindBy(how = How.XPATH, using = ".//span[contains(text(), 'Select location')]")
@@ -92,15 +92,15 @@ public class PurchaseOrderPage {
     @FindBy(how = How.CSS, using = ".ui-app-hint.container.ui-error")
     private SelenideElement noTemplateHint;
     @FindBy(how = How.CSS, using = ".no-options")
-    private SelenideElement emptyListOfDataInTheCreateWorkOrderModal;
+    private SelenideElement emptyListOfDataInTheCreateWOModal;
 
     public PurchaseOrderPage addSealGroup(String quantityOfSeals) {
         addSealsButton.click();
         typeField.click();
-        emptyListOfDataInTheCreateWorkOrderModal.shouldNot(Condition.exist);
+        emptyListOfDataInTheCreateWOModal.shouldNot(Condition.exist);
         typeField.setValue(Entities.SEAL_TYPE).pressEnter();
         colorField.click();
-        emptyListOfDataInTheCreateWorkOrderModal.shouldNot(Condition.exist);
+        emptyListOfDataInTheCreateWOModal.shouldNot(Condition.exist);
         firstColorInTheList.click();
         quantityField.clear();
         quantityField.setValue(quantityOfSeals);
@@ -146,11 +146,11 @@ public class PurchaseOrderPage {
         createWorkOrderButton.click();
         noTemplateHint.shouldBe(Condition.visible, Duration.ofSeconds(120));
         productionField.click();
-        emptyListOfDataInTheCreateWorkOrderModal.shouldNot(Condition.exist);
+        emptyListOfDataInTheCreateWOModal.shouldNot(Condition.exist);
         productionField.setValue(Entities.USA_PRODUCTION).pressEnter();
         etchingFormatSpan.click();
         etchingFormatField.pressEnter();
-        quantityFieldInCreateWorkOrderModal.setValue(quantity);
+        quantityInCreateWorkOrderModal.setValue(quantity);
         companyField.click();
         companyField.setValue(Entities.USERS_COMPANY).pressEnter();
         locationSpan.click();

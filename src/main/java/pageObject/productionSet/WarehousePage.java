@@ -46,15 +46,15 @@ public class WarehousePage extends BasePage {
     @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-row']//i[@class='fa fa-circle']")
     private ElementsCollection checkboxCollectionInTheInventoryTable;
     @FindBy(how = How.CSS, using = ".no-options")
-    private SelenideElement emptyListOfCompaniesInTheCreateTransferModal;
+    private SelenideElement emptyCompaniesListInTheCreateTransferModal;
     @FindBy(how = How.XPATH, using = ".//div[text()='Location']//following-sibling::div//span[text()='No elements found. Consider changing the search query.']")
-    private SelenideElement emptyListOfLocationsInTheTransferModal;
+    private SelenideElement emptyLocationsListInTheTransferModal;
     @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-row-wrapper' and position()=1]//button[contains(text(), 'Skid')]")
     private SelenideElement firstSkidInTheContainersTable;
     @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-row-wrapper' and position()=2]//button[contains(text(), 'Box')]")
-    private SelenideElement firstBoxInTheSkidInTheContainersTable;
+    private SelenideElement firstBoxTheSkidInTheContainersTable;
     @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-row-wrapper' and position()=3]//button[contains(text(), 'Bag')]")
-    private SelenideElement firstBagInTheSkidInTheContainersTable;
+    private SelenideElement firstBagInSkidInTheContainersTable;
     @FindBy(how = How.CSS, using = "div.ui-table-row-wrapper:nth-child(1) span.ui-link-incorrect-url")
     private SelenideElement firstContainerNameInTheTable;
 
@@ -82,13 +82,13 @@ public class WarehousePage extends BasePage {
 
     public WarehousePage unfoldSkid() {
         firstSkidInTheContainersTable.click();
-        firstBoxInTheSkidInTheContainersTable.shouldHave(Condition.text(Entities.BOX));
+        firstBoxTheSkidInTheContainersTable.shouldHave(Condition.text(Entities.BOX));
         return page(WarehousePage.class);
     }
 
     public WarehousePage unfoldBox() {
-        firstBoxInTheSkidInTheContainersTable.click();
-        firstBagInTheSkidInTheContainersTable.shouldHave(Condition.text(Entities.BAG));
+        firstBoxTheSkidInTheContainersTable.click();
+        firstBagInSkidInTheContainersTable.shouldHave(Condition.text(Entities.BAG));
         return page(this);
     }
 
@@ -97,10 +97,10 @@ public class WarehousePage extends BasePage {
         createTransferButton.click();
         sleep(1000);
         companyInputInTheCreateTransferModal.click();
-        emptyListOfCompaniesInTheCreateTransferModal.shouldNot(Condition.exist);
+        emptyCompaniesListInTheCreateTransferModal.shouldNot(Condition.exist);
         companyInputInTheCreateTransferModal.setValue(Entities.USERS_COMPANY).pressEnter();
         locationSelectInTheCreateTransferModal.click();
-        emptyListOfLocationsInTheTransferModal.shouldNotBe(Condition.visible);
+        emptyLocationsListInTheTransferModal.shouldNotBe(Condition.visible);
         testCompanyLocationInTheCreateTransferModal.click();
         createButtonInTheCreateTransferModal.click();
         return page(this);

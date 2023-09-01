@@ -26,7 +26,7 @@ public class AttachModal {
     @FindBy(how = How.XPATH, using = ".//div[contains(text(), 'Close')]")
     private SelenideElement closeButtonInModal;
     @FindBy(how = How.CSS, using = ".no-options")
-    private SelenideElement emptyListOfDataInTheCreateWorkOrderModal;
+    private SelenideElement emptyListOfDataInTheCreateWOModal;
 
     public ConveyancesListPage openConveyancesListPage() {
         conveyancesButtonInNavMenu.click();
@@ -36,7 +36,7 @@ public class AttachModal {
     public AttachModal attachSeal(String containerNumber, String  sealNumber) {
         attachButtonInNavMenu.click();
         locationInput.setValue(Entities.COMPANY_LOCATION);
-        emptyListOfDataInTheCreateWorkOrderModal.shouldNot(Condition.exist);
+        emptyListOfDataInTheCreateWOModal.shouldNot(Condition.exist);
         locationInput.pressEnter();
         enterContainerNumberInput.setValue(containerNumber);
         bagOrSealInput.setValue(Entities.SEAL).pressEnter();
@@ -49,7 +49,7 @@ public class AttachModal {
     public AttachModal attachBag(String containerNumber, String bagNumber) {
         attachButtonInNavMenu.click();
         locationInput.setValue(Entities.COMPANY_LOCATION);
-        emptyListOfDataInTheCreateWorkOrderModal.shouldNot(Condition.exist);
+        emptyListOfDataInTheCreateWOModal.shouldNot(Condition.exist);
         locationInput.pressEnter();
         enterContainerNumberInput.setValue(containerNumber);
         bagOrSealInput.setValue(Entities.BAG).pressEnter();

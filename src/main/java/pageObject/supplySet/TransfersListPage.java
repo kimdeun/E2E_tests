@@ -11,7 +11,7 @@ import static com.codeborne.selenide.Selenide.page;
 
 public class TransfersListPage {
     @FindBy(how = How.XPATH, using = ".//div[@class='ui-header']//a[contains(text(), 'Transfers')]")
-    private SelenideElement transfersButtonInTheNavigationMenu;
+    private SelenideElement transfersButtonInTheNavMenu;
     @FindBy(how = How.CSS, using = "div.ui-table-row-wrapper:nth-child(1) a.ui-link[href^='#/supply/transfer/']")
     private SelenideElement transfersId;
     @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-row-wrapper' and position()=1]/div[1]/div[3]//a")
@@ -43,13 +43,13 @@ public class TransfersListPage {
     @FindBy(how = How.XPATH, using = ".//div[@class='ui-modal-content']//div[@class='ui-table-content']/div/div[1]/div[2]/span")
     private SelenideElement containerNumberInReceiveTransferModal;
     @FindBy(how = How.XPATH, using = ".//div[@class='ui-modal-content']//div[@class='ui-table-content']/div/div[1]/div[3]/span")
-    private SelenideElement containerSealTypeInReceiveTransferModal;
+    private SelenideElement sealTypeInReceiveTransferModal;
     @FindBy(how = How.CSS, using = ".ui-color-sign")
-    private SelenideElement containerSealColorInReceiveTransferModal;
+    private SelenideElement sealColorInReceiveTransferModal;
     @FindBy(how = How.CSS, using = "div.ui-modal-content .ui-table-number-cell-value")
     private SelenideElement containersQuantityInReceiveTransferModal;
     @FindBy(how = How.XPATH, using = ".//div[@class='ui-modal-content']//div[@class='ui-table-row']/div[6]/span")
-    private SelenideElement containerLogoInReceiveTransferModal;
+    private SelenideElement logoInReceiveTransferModal;
     @FindBy(how = How.XPATH, using = ".//div[@class='ui-modal-content']//div[@class='ui-table-row']/div[7]/span")
     private SelenideElement containersStartNumberInReceiveTransferModal;
     @FindBy(how = How.XPATH, using = ".//div[@class='ui-modal-content']//div[@class='ui-table-row']/div[8]/span")
@@ -156,12 +156,12 @@ public class TransfersListPage {
 
     public void checkSealTypeInReceiveTransferModal() {
         clickTransfersState();
-        containerSealTypeInReceiveTransferModal.shouldHave(exactText(Entities.SEAL_TYPE));
+        sealTypeInReceiveTransferModal.shouldHave(exactText(Entities.SEAL_TYPE));
     }
 
     public void checkSealColorInReceiveTransferModal() {
         clickTransfersState();
-        containerSealColorInReceiveTransferModal.shouldHave(attribute("style", Entities.GRAY_COLOR_OF_THE_SEAL));
+        sealColorInReceiveTransferModal.shouldHave(attribute("style", Entities.GRAY_COLOR_OF_THE_SEAL));
     }
 
     public void checkContainersQuantityInReceiveTransferModal(String containersQuantity) {
@@ -171,7 +171,7 @@ public class TransfersListPage {
 
     public void checkContainerLogoInReceiveTransferModal() {
         clickTransfersState();
-        containerLogoInReceiveTransferModal.shouldHave(exactText(Entities.LOGO));
+        logoInReceiveTransferModal.shouldHave(exactText(Entities.LOGO));
     }
 
     public void checkContainersStartNumber(String containersStartNumber) {

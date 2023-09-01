@@ -23,29 +23,29 @@ public class WorkOrderPage {
     @FindBy(how = How.CSS, using = "ul[role='listbox'].dropdown-menu a")
     private SelenideElement newStateOfWorkOrder;
     @FindBy(how = How.XPATH, using = ".//div[@class='ui-form-group']//a[contains(text(), 'In Production')]")
-    private SelenideElement newInProductionStateOfWorkOrder;
+    private SelenideElement inProductionStateOfWO;
     @FindBy(how = How.XPATH, using = ".//div[contains(text(), 'Ok')]")
     private SelenideElement okButtonInTheUpdateStateModal;
     @FindBy(how = How.XPATH, using = ".//div[@class='ui-work-order-packing']//div[@class='ui-table-row']")
     private SelenideElement rowsOfTheContainersTable;
     @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-row']/div[last()]/button")
-    private ElementsCollection containersStateCollectionInTheContainersTable;
+    private ElementsCollection containersStateCollectionInContainersTable;
     @FindBy(how = How.XPATH, using = ".//div[contains(text(), 'Ok')]")
-    private SelenideElement okButtonInTheUpdateWorkOrderStateConfirmationModal;
+    private SelenideElement okButtonInUpdateWOStateConfirmationModal;
     @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-row-wrapper' and position()=1]//button[contains(text(), 'Skid')]")
     private SelenideElement firstSkidInTheContainersTable;
     @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-row-wrapper' and position()=1]//button[contains(text(), 'In Production') or contains(text(), 'Produced')]")
-    private SelenideElement firstSkidStateInTheSkidInTheContainersTable;
+    private SelenideElement firstSkidStateInTheContainersTable;
     @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-row-wrapper' and position()=2]//button[contains(text(), 'Box')]")
     private SelenideElement firstBoxInTheSkidInTheContainersTable;
     @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-row-wrapper' and position()=2]//button[contains(text(), 'In Production') or contains(text(), 'Produced')]")
-    private SelenideElement firstBoxStateInTheSkidInTheContainersTable;
+    private SelenideElement firstBoxStateInTheContainersTable;
     @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-row-wrapper' and position()=3]//button[contains(text(), 'Bag')]")
-    private SelenideElement firstBagInTheSkidInTheContainersTable;
+    private SelenideElement firstBagInTheContainersTable;
     @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-row-wrapper' and position()=3]//button[contains(text(), 'In Production') or contains(text(), 'Produced')]")
-    private SelenideElement firstBagStateInTheSkidInTheContainersTable;
+    private SelenideElement firstBagStateInTheContainersTable;
     @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-row-wrapper' and position()=4]//button[contains(text(), 'Seal')]")
-    private SelenideElement firstSealInTheSkidInTheContainersTable;
+    private SelenideElement firstSealInTheContainersTable;
 
 //    public WorkOrderPage changeStateOfWorkOrder() {
 //        stateLabel.click();
@@ -66,7 +66,7 @@ public class WorkOrderPage {
     public WorkOrderPage changeStateOfWorkOrderToInProduction() {
         confirmedStateLabel.click();
         markAsInput.click();
-        newInProductionStateOfWorkOrder.click();
+        inProductionStateOfWO.click();
         okButtonInTheUpdateStateModal.click();
         okButtonInTheUpdateStateModal.shouldNotBe(Condition.visible, Duration.ofSeconds(300));
         return page(this);
@@ -104,15 +104,15 @@ public class WorkOrderPage {
     }
 
     public void containersStateShouldBeInProduction() {
-        containersStateCollectionInTheContainersTable.shouldHave(CollectionCondition.sizeGreaterThan(0));
-        for (SelenideElement element : containersStateCollectionInTheContainersTable) {
+        containersStateCollectionInContainersTable.shouldHave(CollectionCondition.sizeGreaterThan(0));
+        for (SelenideElement element : containersStateCollectionInContainersTable) {
             element.shouldHave(Condition.text(Entities.STATE_IN_PRODUCTION));
         }
     }
 
     public void containersStateShouldBeProduced() {
-        containersStateCollectionInTheContainersTable.shouldHave(CollectionCondition.sizeGreaterThan(0));
-        for (SelenideElement element : containersStateCollectionInTheContainersTable) {
+        containersStateCollectionInContainersTable.shouldHave(CollectionCondition.sizeGreaterThan(0));
+        for (SelenideElement element : containersStateCollectionInContainersTable) {
             element.shouldHave(Condition.text(Entities.STATE_PRODUCED), Duration.ofSeconds(300));
         }
     }
@@ -130,17 +130,17 @@ public class WorkOrderPage {
     }
 
     public WorkOrderPage firstChildContainerIsBag() {
-        firstBagInTheSkidInTheContainersTable.shouldHave(Condition.text(Entities.BAG));
+        firstBagInTheContainersTable.shouldHave(Condition.text(Entities.BAG));
         return page(this);
     }
 
     public WorkOrderPage firstChildContainerIsSeal() {
-        firstSealInTheSkidInTheContainersTable.shouldHave(Condition.text(Entities.SEAL));
+        firstSealInTheContainersTable.shouldHave(Condition.text(Entities.SEAL));
         return page(this);
     }
 
     public WorkOrderPage changeStateOfTheSkid() {
-        firstSkidStateInTheSkidInTheContainersTable.click();
+        firstSkidStateInTheContainersTable.click();
         okButtonInTheUpdateStateModal.click();
         okButtonInTheUpdateStateModal.shouldNotBe(Condition.visible, Duration.ofSeconds(10));
         firstSkidInTheContainersTable.click();
@@ -150,7 +150,7 @@ public class WorkOrderPage {
     public WorkOrderPage changeStateOfTheBox() {
         firstSkidInTheContainersTable.click();
         firstBoxInTheSkidInTheContainersTable.shouldHave(Condition.text(Entities.BOX));
-        firstBoxStateInTheSkidInTheContainersTable.click();
+        firstBoxStateInTheContainersTable.click();
         okButtonInTheUpdateStateModal.click();
         okButtonInTheUpdateStateModal.shouldNotBe(Condition.visible, Duration.ofSeconds(10));
         firstBoxInTheSkidInTheContainersTable.click();
@@ -160,11 +160,11 @@ public class WorkOrderPage {
     public WorkOrderPage changeStateOfTheBag() {
         firstSkidInTheContainersTable.click();
         firstBoxInTheSkidInTheContainersTable.click();
-        firstBagInTheSkidInTheContainersTable.shouldHave(Condition.text(Entities.BAG));
-        firstBagStateInTheSkidInTheContainersTable.click();
+        firstBagInTheContainersTable.shouldHave(Condition.text(Entities.BAG));
+        firstBagStateInTheContainersTable.click();
         okButtonInTheUpdateStateModal.click();
         okButtonInTheUpdateStateModal.shouldNotBe(Condition.visible, Duration.ofSeconds(10));
-        firstBagInTheSkidInTheContainersTable.click();
+        firstBagInTheContainersTable.click();
         return page(this);
     }
 }

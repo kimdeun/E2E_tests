@@ -15,9 +15,9 @@ public class UserPage {
     @FindBy(how = How.CSS, using = ".ui-btn-label")
     private SelenideElement userStateLabel;
     @FindBy(how = How.CSS, using = ".multiselect__placeholder")
-    private SelenideElement userStatusSelectSpanInTheEditStatusUserModal;
+    private SelenideElement selectStatusSpanInTheEditStatusModal;
     @FindBy(how = How.XPATH, using = ".//input[@placeholder='Select user status']")
-    private SelenideElement userStatusSelectInputInTheEditStatusUserModal;
+    private SelenideElement selectStatusInputInTheEditStatusModal;
     @FindBy(how = How.XPATH, using = ".//div[contains(text(), 'Edit')]")
     private SelenideElement editButtonInTheEditStatusUserModal;
     @FindBy(how = How.XPATH, using = ".//span[text()='List is empty.']/parent::li")
@@ -34,9 +34,9 @@ public class UserPage {
 
     public UserPage changeUserState() {
         userStateLabel.click();
-        userStatusSelectSpanInTheEditStatusUserModal.click();
+        selectStatusSpanInTheEditStatusModal.click();
         listIsEmptyTip.shouldHave(Condition.attribute("style", "display: none;"));
-        userStatusSelectInputInTheEditStatusUserModal.pressEnter();
+        selectStatusInputInTheEditStatusModal.pressEnter();
         editButtonInTheEditStatusUserModal.click();
         return page(this);
     }

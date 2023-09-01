@@ -70,7 +70,7 @@ public class WorkOrderListPage {
     @FindBy(how = How.CSS, using = ".ui-app-hint.container.ui-error")
     private SelenideElement noTemplateHint;
     @FindBy(how = How.CSS, using = ".no-options")
-    private SelenideElement emptyListOfDataInTheCreateWorkOrderModal;
+    private SelenideElement emptyListOfDataInTheCreateWOModal;
     @FindBy(how = How.XPATH, using = ".//span[text()='Work orders']")
     private SelenideElement pageTitle;
 
@@ -78,11 +78,11 @@ public class WorkOrderListPage {
         pageTitle.shouldBe(Condition.visible, Duration.ofSeconds(15));
         createWorkOrderButton.click();
         purchaseOrderField.shouldBe(Condition.visible).click();
-        emptyListOfDataInTheCreateWorkOrderModal.shouldNot(Condition.exist);
+        emptyListOfDataInTheCreateWOModal.shouldNot(Condition.exist);
         purchaseOrderField.setValue(id).pressEnter();
         noTemplateHint.shouldBe(Condition.visible, Duration.ofSeconds(120));
         productionField.click();
-        emptyListOfDataInTheCreateWorkOrderModal.shouldNot(Condition.exist);
+        emptyListOfDataInTheCreateWOModal.shouldNot(Condition.exist);
         productionField.setValue(Entities.USA_PRODUCTION).pressEnter();
         etchingFormatSpan.click();
         etchingFormatField.pressEnter();

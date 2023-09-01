@@ -39,7 +39,7 @@ public class CompanyPage {
     @FindBy(how = How.CSS, using = "i.fa-location-dot ~ .ui-link")
     private SelenideElement locationAddressInTheTable;
     @FindBy(how = How.XPATH, using = ".//input[@placeholder='Enter name']")
-    private SelenideElement nameInputInTheCreateAreaAndFieldOfficeModal;
+    private SelenideElement nameInputInTheCreateAreaAndFOModal;
     @FindBy(how = How.XPATH, using = ".//input[@placeholder='Select location']")
     private SelenideElement locationSelectInTheCreateAreaModal;
     @FindBy(how = How.CSS, using = "button.ui-table-quantity-button-container")
@@ -47,9 +47,9 @@ public class CompanyPage {
     @FindBy(how = How.CSS, using = "div.ui-table-row-wrapper:nth-child(2) div.ui-table-string-cell > span")
     private SelenideElement areaNameInTheTable;
     @FindBy(how = How.XPATH, using = ".//span[contains(text(), 'Select locations')]")
-    private SelenideElement selectLocationsSpanInTheCreateFieldOfficeModal;
+    private SelenideElement selectLocationsSpanInTheCreateFOModal;
     @FindBy(how = How.XPATH, using = ".//input[@placeholder='Select locations']")
-    private SelenideElement selectLocationsInputInTheCreateFieldOfficeModal;
+    private SelenideElement selectLocationsInputInTheCreateFOModal;
     @FindBy(how = How.CSS, using = "div.ui-table-link-cell > span")
     private SelenideElement fieldOfficeNameInTheTable;
 
@@ -91,7 +91,7 @@ public class CompanyPage {
     public CompanyPage createArea(String areaName, String locationName) {
         createButton.click();
         createAreaButton.click();
-        nameInputInTheCreateAreaAndFieldOfficeModal.setValue(areaName);
+        nameInputInTheCreateAreaAndFOModal.setValue(areaName);
         locationSelectInTheCreateAreaModal.setValue(locationName).pressEnter();
         createButtonInTheModal.click();
         return page(this);
@@ -110,9 +110,9 @@ public class CompanyPage {
     public CompanyPage createFieldOffice(String fieldOfficeName, String locationName) {
         createButton.click();
         createFieldOfficeButton.click();
-        nameInputInTheCreateAreaAndFieldOfficeModal.setValue(fieldOfficeName);
-        selectLocationsSpanInTheCreateFieldOfficeModal.click();
-        selectLocationsInputInTheCreateFieldOfficeModal.setValue(locationName).pressEnter();
+        nameInputInTheCreateAreaAndFOModal.setValue(fieldOfficeName);
+        selectLocationsSpanInTheCreateFOModal.click();
+        selectLocationsInputInTheCreateFOModal.setValue(locationName).pressEnter();
         createButtonInTheModal.click();
         return page(this);
     }

@@ -9,7 +9,7 @@ import static com.codeborne.selenide.Selenide.page;
 
 public class BaseSupplySetPage {
     @FindBy(how = How.XPATH, using = ".//div[@class='ui-header']//a[contains(text(), 'Transfers')]")
-    private SelenideElement transfersButtonInTheNavigationMenu;
+    private SelenideElement transfersButtonInTheNavMenu;
     @FindBy(how = How.XPATH, using = ".//div[@class='ui-header']//a[contains(text(), 'Users')]")
     private SelenideElement usersButtonInTheNavMenu;
     @FindBy(how = How.XPATH, using = ".//div[@class='ui-header']//a[contains(text(), 'Companies')]")
@@ -25,7 +25,7 @@ public class BaseSupplySetPage {
     }
 
     public TransfersListPage openTransfersListPage() {
-        transfersButtonInTheNavigationMenu.click();
+        transfersButtonInTheNavMenu.click();
         return page(TransfersListPage.class);
     }
 

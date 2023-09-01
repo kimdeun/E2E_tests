@@ -34,7 +34,7 @@ public class WarehousePage extends BasePage {
     @FindBy(how = How.CSS, using = ".ui-table-row-wrapper:nth-child(1) .ui-link-incorrect-url")
     private SelenideElement firstContainerNameInTheTable;
     @FindBy(how = How.CSS, using = ".no-options")
-    private SelenideElement emptyListOfCompaniesAndLocationsInTheCreateTransferModal;
+    private SelenideElement emptyListOfCompaniesAndLocationsInTheModal;
     @FindBy(how = How.XPATH, using = ".//div[@class='ui-table-row']//i[@class='fa fa-circle']")
     private ElementsCollection checkboxCollectionInTheInventoryTable;
     @FindBy(how = How.XPATH, using = ".//div[@class='ui-header']//a[contains(text(), 'Transfers')]")
@@ -63,10 +63,10 @@ public class WarehousePage extends BasePage {
         createTransferButton.click();
         sleep(1000);
         companyInputInTheCreateTransferModal.click();
-        emptyListOfCompaniesAndLocationsInTheCreateTransferModal.shouldNot(Condition.exist);
+        emptyListOfCompaniesAndLocationsInTheModal.shouldNot(Condition.exist);
         companyInputInTheCreateTransferModal.setValue(Entities.ALPACA_COMPANY).pressEnter();
         locationInputInTheCreateTransferModal.click();
-        emptyListOfCompaniesAndLocationsInTheCreateTransferModal.shouldNot(Condition.exist);;
+        emptyListOfCompaniesAndLocationsInTheModal.shouldNot(Condition.exist);;
         locationInputInTheCreateTransferModal.setValue(Entities.ALPACA_PAVLOVSK_LOCATION).pressEnter();
         createButtonInTheCreateTransferModal.click();
         return page(this);
