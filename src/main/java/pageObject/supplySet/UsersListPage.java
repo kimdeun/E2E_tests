@@ -4,6 +4,8 @@ import com.codeborne.selenide.CollectionCondition;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
+import constants.Companies;
+import constants.UserRoles;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
@@ -83,7 +85,7 @@ public class UsersListPage {
         positionInput.setValue(position);
         companySelect.click();
         waitForListOfDateInTheModal();
-        companySelect.setValue(USERS_COMPANY).pressEnter();
+        companySelect.setValue(Companies.TEST_COMPANY_FOR_AUTO_TESTS.getCompany()).pressEnter();
         emailInput.setValue(email);
         goToSelectingTheRolesButton.click();
         addRoleButton.click();
@@ -93,7 +95,7 @@ public class UsersListPage {
 
     public UsersListPage createOperator(String name, String position, String email) {
         addUserInfo(name, position, email);
-        roleSelect.setValue(OPERATOR_ROLE).pressEnter();
+        roleSelect.setValue(UserRoles.OPERATOR.getRole()).pressEnter();
         locationAccessDiv.click();
         locationAccessInput.pressEnter();
         addRoleButtonInTheSelectRoles.click();
@@ -103,7 +105,7 @@ public class UsersListPage {
 
     public UsersListPage createSupervisor(String name, String position, String email) {
         addUserInfo(name, position, email);
-        roleSelect.setValue(SUPERVISOR_ROLE).pressEnter();
+        roleSelect.setValue(UserRoles.SUPERVISOR.getRole()).pressEnter();
         locationAccessDiv.click();
         locationAccessInput.pressEnter();
         addRoleButtonInTheSelectRoles.click();
@@ -113,7 +115,7 @@ public class UsersListPage {
 
     public UsersListPage createOfficer(String name, String position, String email) {
         addUserInfo(name, position, email);
-        roleSelect.setValue(OFFICER_ROLE).pressEnter();
+        roleSelect.setValue(UserRoles.OFFICER.getRole()).pressEnter();
         addRoleButtonInTheSelectRoles.click();
         createUserButtonInTheModal.click();
         return page(this);
@@ -121,7 +123,7 @@ public class UsersListPage {
 
     public UsersListPage createAdmin(String name, String position, String email) {
         addUserInfo(name, position, email);
-        roleSelect.setValue(ADMIN_ROLE).pressEnter();
+        roleSelect.setValue(UserRoles.ADMIN.getRole()).pressEnter();
         addRoleButtonInTheSelectRoles.click();
         createUserButtonInTheModal.click();
         return page(this);
@@ -132,7 +134,7 @@ public class UsersListPage {
     }
 
     public void checkCompanyName() {
-        companyNameInTheTable.shouldHave(exactText(USERS_COMPANY));
+        companyNameInTheTable.shouldHave(exactText(Companies.TEST_COMPANY_FOR_AUTO_TESTS.getCompany()));
     }
 
     public void checkPositionName(String position) {

@@ -2,7 +2,7 @@ package pageObject.productionSet;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
-import constants.Entities;
+import constants.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
@@ -122,12 +122,12 @@ public class PurchaseOrderPage {
     }
 
     public PurchaseOrderPage waitForConfirmedState() {
-        $(stateLabel).shouldHave(Condition.exactText(Entities.STATE_CONFIRMED));
+        $(stateLabel).shouldHave(Condition.exactText(OrderStates.CONFIRMED.getOrderState()));
         return page(this);
     }
 
     public PurchaseOrderPage waitForProducedState() {
-        $(stateLabel).shouldHave(Condition.exactText(Entities.STATE_PRODUCED));
+        $(stateLabel).shouldHave(Condition.exactText(SealStates.PRODUCED.getSealState()));
         return page(this);
     }
 
@@ -152,10 +152,10 @@ public class PurchaseOrderPage {
         etchingFormatField.pressEnter();
         quantityInCreateWorkOrderModal.setValue(quantity);
         companyField.click();
-        companyField.setValue(Entities.USERS_COMPANY).pressEnter();
+        companyField.setValue(Companies.TEST_COMPANY_FOR_AUTO_TESTS.getCompany()).pressEnter();
         locationSpan.click();
         locationField.click();
-        locationField.setValue(Entities.COMPANY_LOCATION).pressEnter();
+        locationField.setValue(Locations.TEST_LOCATION.getLocation()).pressEnter();
         notesField.setValue(notes);
         skidField.click();
         skidField.pressEnter();

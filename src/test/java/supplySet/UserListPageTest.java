@@ -6,6 +6,7 @@ import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import constants.Entities;
 import constants.URLs;
+import constants.UserStates;
 import io.restassured.RestAssured;
 import jsonObjects.user.Company;
 import jsonObjects.user.Contacts;
@@ -110,7 +111,7 @@ public class UserListPageTest extends BaseTest {
                 .openSupplySetPage();
         open(URLs.SUPPLY_USERS_LIST_PAGE);
         usersListPage.searchUser(userName)
-                .checkUsersState(NOT_APPROVED_USERS_STATE);
+                .checkUsersState(UserStates.NOT_APPROVED.getUserState());
     }
 
     @Test
@@ -120,7 +121,7 @@ public class UserListPageTest extends BaseTest {
         open(URLs.SUPPLY_USERS_LIST_PAGE);
         usersListPage.searchUser(userName)
                 .changeUserState()
-                .checkUsersState(PENDING_INITIAL_TRAINING_USERS_STATE);
+                .checkUsersState(UserStates.PENDING_INITIAL_TRAINING.getUserState());
     }
 
     @Test
@@ -131,6 +132,6 @@ public class UserListPageTest extends BaseTest {
         usersListPage.searchUser(userName)
                 .changeUserState()
                 .changeUserState()
-                .checkUsersState(ACTIVE_USERS_STATE);
+                .checkUsersState(UserStates.ACTIVE.getUserState());
     }
 }

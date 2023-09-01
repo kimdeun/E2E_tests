@@ -2,6 +2,7 @@ package pageObject.supplySet;
 
 import com.codeborne.selenide.SelenideElement;
 import constants.Entities;
+import constants.TransferStates;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
@@ -90,15 +91,15 @@ public class TransfersPage {
     }
 
     public void checkContainersTransitStateInTheTable() {
-        containersStateInTheTable.shouldHave(exactText(Entities.TRANSIT_STATE));
+        containersStateInTheTable.shouldHave(exactText(TransferStates.TRANSIT.getState()));
     }
 
     public void checkContainersProblemStateInTheTable() {
-        containersStateInTheTable.shouldHave(exactText(Entities.PROBLEM_STATE));
+        containersStateInTheTable.shouldHave(exactText(TransferStates.PROBLEM.getState()));
     }
 
     public void checkContainersLostStateInTheTable() {
-        containersStateInTheTable.shouldHave(exactText(Entities.LOST_STATE));
+        containersStateInTheTable.shouldHave(exactText(TransferStates.LOST.getState()));
     }
 
     public void checkContainersCommentInTheTable(String comment) {
@@ -106,15 +107,15 @@ public class TransfersPage {
     }
 
     public void checkTransitStateInTheTopRightCorner() {
-        containersStateInTheTopRightCorner.shouldHave((exactText(Entities.TRANSIT_STATE)));
+        containersStateInTheTopRightCorner.shouldHave((exactText(TransferStates.TRANSIT.getState())));
     }
 
     public void checkReceivedStateInTheTopRightCorner() {
-        containersStateInTheTopRightCorner.shouldHave((exactText(Entities.TRANSIT_STATE)));
+        containersStateInTheTopRightCorner.shouldHave((exactText(TransferStates.RECEIVED.getState())));
     }
 
     public void checkReceivedWithAProblemStateInTheTopRightCorner() {
-        containersStateInTheTopRightCorner.shouldHave((exactText(Entities.RECEIVED_WITH_A_PROBLEM_STATE)));
+        containersStateInTheTopRightCorner.shouldHave((exactText(TransferStates.RECEIVED_WITH_A_PROBLEM.getState())));
     }
 
     private void clickStateLabelInTheTopRightCorner() {

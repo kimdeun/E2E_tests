@@ -5,9 +5,7 @@ import api.purchaseOrder.DeletePurchaseOrderRequest;
 import api.purchaseOrder.GetAllPurchaseOrdersRequest;
 import baseTests.BaseTest;
 import com.codeborne.selenide.Configuration;
-import com.codeborne.selenide.Selenide;
-import constants.Entities;
-import constants.URLs;
+import constants.*;
 import io.restassured.RestAssured;
 import jsonObjects.purchaseOrder.createPurchaseOrder.*;
 import org.junit.jupiter.api.AfterEach;
@@ -76,7 +74,7 @@ public class PurchaseOrderListTest extends BaseTest {
         open(URLs.PURCHASE_ORDER_LIST_PAGE);
         purchaseOrderListPage.waitForLoadPurchaseOrdersPage(purchaseOrderName);
 
-        assertEquals(Entities.STATE_ENTERED, purchaseOrderListPage.getPurchaseOrderState());
+        assertEquals(OrderStates.ENTERED.getOrderState(), purchaseOrderListPage.getPurchaseOrderState());
     }
 
     @Test
@@ -86,7 +84,7 @@ public class PurchaseOrderListTest extends BaseTest {
         open(URLs.PURCHASE_ORDER_LIST_PAGE);
         purchaseOrderListPage.waitForLoadPurchaseOrdersPage(purchaseOrderName);
 
-        assertEquals(Entities.USERS_COMPANY, purchaseOrderListPage.getPurchaseOrderCompany());
+        assertEquals(Companies.TEST_COMPANY_FOR_AUTO_TESTS.getCompany(), purchaseOrderListPage.getPurchaseOrderCompany());
     }
 
     @Test

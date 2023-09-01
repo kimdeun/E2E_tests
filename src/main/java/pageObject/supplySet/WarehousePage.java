@@ -4,7 +4,9 @@ import com.codeborne.selenide.CollectionCondition;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
+import constants.Companies;
 import constants.Entities;
+import constants.Locations;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import pageObject.BasePage;
@@ -64,10 +66,10 @@ public class WarehousePage extends BasePage {
         sleep(1000);
         companyInputInTheCreateTransferModal.click();
         emptyListOfCompaniesAndLocationsInTheModal.shouldNot(Condition.exist);
-        companyInputInTheCreateTransferModal.setValue(Entities.ALPACA_COMPANY).pressEnter();
+        companyInputInTheCreateTransferModal.setValue(Companies.ALPACA.getCompany()).pressEnter();
         locationInputInTheCreateTransferModal.click();
         emptyListOfCompaniesAndLocationsInTheModal.shouldNot(Condition.exist);;
-        locationInputInTheCreateTransferModal.setValue(Entities.ALPACA_PAVLOVSK_LOCATION).pressEnter();
+        locationInputInTheCreateTransferModal.setValue(Locations.PAVLOVSK.getLocation()).pressEnter();
         createButtonInTheCreateTransferModal.click();
         return page(this);
     }

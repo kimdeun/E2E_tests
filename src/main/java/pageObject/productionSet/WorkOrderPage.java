@@ -1,7 +1,9 @@
 package pageObject.productionSet;
 
 import com.codeborne.selenide.*;
-import constants.Entities;
+import constants.OrderStates;
+import constants.PackingTypes;
+import constants.SealStates;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
@@ -83,15 +85,15 @@ public class WorkOrderPage {
     }
 
     public void stateShouldBeConfirmed() {
-        confirmedStateLabel.shouldHave(Condition.text(Entities.STATE_CONFIRMED));
+        confirmedStateLabel.shouldHave(Condition.text(OrderStates.CONFIRMED.getOrderState()));
     }
 
     public void stateShouldBeInProduction() {
-        inProductionStateLabel.shouldHave(Condition.text(Entities.STATE_IN_PRODUCTION));
+        inProductionStateLabel.shouldHave(Condition.text(SealStates.IN_PRODUCTION.getSealState()));
     }
 
     public void stateShouldBeProduced() {
-        producedStateLabel.shouldHave(Condition.text(Entities.STATE_PRODUCED), Duration.ofSeconds(300));
+        producedStateLabel.shouldHave(Condition.text(SealStates.PRODUCED.getSealState()), Duration.ofSeconds(300));
     }
 
     public WorkOrderPage waitForContainersTable() {
@@ -106,14 +108,14 @@ public class WorkOrderPage {
     public void containersStateShouldBeInProduction() {
         containersStateCollectionInContainersTable.shouldHave(CollectionCondition.sizeGreaterThan(0));
         for (SelenideElement element : containersStateCollectionInContainersTable) {
-            element.shouldHave(Condition.text(Entities.STATE_IN_PRODUCTION));
+            element.shouldHave(Condition.text(SealStates.IN_PRODUCTION.getSealState()));
         }
     }
 
     public void containersStateShouldBeProduced() {
         containersStateCollectionInContainersTable.shouldHave(CollectionCondition.sizeGreaterThan(0));
         for (SelenideElement element : containersStateCollectionInContainersTable) {
-            element.shouldHave(Condition.text(Entities.STATE_PRODUCED), Duration.ofSeconds(300));
+            element.shouldHave(Condition.text(SealStates.PRODUCED.getSealState()), Duration.ofSeconds(300));
         }
     }
 
@@ -125,17 +127,17 @@ public class WorkOrderPage {
 //    }
 
     public WorkOrderPage firstChildContainerIsBox() {
-        firstBoxInTheSkidInTheContainersTable.shouldHave(Condition.text(Entities.BOX));
+        firstBoxInTheSkidInTheContainersTable.shouldHave(Condition.text(PackingTypes.BOX.toString()));
         return page(this);
     }
 
     public WorkOrderPage firstChildContainerIsBag() {
-        firstBagInTheContainersTable.shouldHave(Condition.text(Entities.BAG));
+        firstBagInTheContainersTable.shouldHave(Condition.text(PackingTypes.BAG.toString()));
         return page(this);
     }
 
     public WorkOrderPage firstChildContainerIsSeal() {
-        firstSealInTheContainersTable.shouldHave(Condition.text(Entities.SEAL));
+        firstSealInTheContainersTable.shouldHave(Condition.text(PackingTypes.SEAL.toString()));
         return page(this);
     }
 
@@ -149,7 +151,7 @@ public class WorkOrderPage {
 
     public WorkOrderPage changeStateOfTheBox() {
         firstSkidInTheContainersTable.click();
-        firstBoxInTheSkidInTheContainersTable.shouldHave(Condition.text(Entities.BOX));
+        firstBoxInTheSkidInTheContainersTable.shouldHave(Condition.text(PackingTypes.BOX.toString()));
         firstBoxStateInTheContainersTable.click();
         okButtonInTheUpdateStateModal.click();
         okButtonInTheUpdateStateModal.shouldNotBe(Condition.visible, Duration.ofSeconds(10));
@@ -160,7 +162,7 @@ public class WorkOrderPage {
     public WorkOrderPage changeStateOfTheBag() {
         firstSkidInTheContainersTable.click();
         firstBoxInTheSkidInTheContainersTable.click();
-        firstBagInTheContainersTable.shouldHave(Condition.text(Entities.BAG));
+        firstBagInTheContainersTable.shouldHave(Condition.text(PackingTypes.BAG.toString()));
         firstBagStateInTheContainersTable.click();
         okButtonInTheUpdateStateModal.click();
         okButtonInTheUpdateStateModal.shouldNotBe(Condition.visible, Duration.ofSeconds(10));

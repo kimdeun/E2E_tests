@@ -4,7 +4,9 @@ import com.codeborne.selenide.CollectionCondition;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
+import constants.Companies;
 import constants.Entities;
+import constants.PackingTypes;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import pageObject.BasePage;
@@ -69,7 +71,7 @@ public class WarehousePage extends BasePage {
 
     public WarehousePage openDetailsTable() {
         companySelect.click();
-        selectCompanyInput.setValue(Entities.USERS_COMPANY).pressEnter();
+        selectCompanyInput.setValue(Companies.TEST_COMPANY_FOR_AUTO_TESTS.getCompany()).pressEnter();
         showInventoryButton.click();
         detailsButton.click();
         return page(this);
@@ -82,13 +84,13 @@ public class WarehousePage extends BasePage {
 
     public WarehousePage unfoldSkid() {
         firstSkidInTheContainersTable.click();
-        firstBoxTheSkidInTheContainersTable.shouldHave(Condition.text(Entities.BOX));
+        firstBoxTheSkidInTheContainersTable.shouldHave(Condition.text(PackingTypes.BOX.toString()));
         return page(WarehousePage.class);
     }
 
     public WarehousePage unfoldBox() {
         firstBoxTheSkidInTheContainersTable.click();
-        firstBagInSkidInTheContainersTable.shouldHave(Condition.text(Entities.BAG));
+        firstBagInSkidInTheContainersTable.shouldHave(Condition.text(PackingTypes.BAG.toString()));
         return page(this);
     }
 
@@ -98,7 +100,7 @@ public class WarehousePage extends BasePage {
         sleep(1000);
         companyInputInTheCreateTransferModal.click();
         emptyCompaniesListInTheCreateTransferModal.shouldNot(Condition.exist);
-        companyInputInTheCreateTransferModal.setValue(Entities.USERS_COMPANY).pressEnter();
+        companyInputInTheCreateTransferModal.setValue(Companies.TEST_COMPANY_FOR_AUTO_TESTS.getCompany()).pressEnter();
         locationSelectInTheCreateTransferModal.click();
         emptyLocationsListInTheTransferModal.shouldNotBe(Condition.visible);
         testCompanyLocationInTheCreateTransferModal.click();

@@ -6,8 +6,9 @@ import api.purchaseOrder.DeletePurchaseOrderRequest;
 import api.purchaseOrder.GetAllPurchaseOrdersRequest;
 import baseTests.BaseTest;
 import com.codeborne.selenide.Configuration;
-import com.codeborne.selenide.Selenide;
 import constants.Entities;
+import constants.OrderStates;
+import constants.SealStates;
 import constants.URLs;
 import io.restassured.RestAssured;
 import jsonObjects.purchaseOrder.createPurchaseOrder.*;
@@ -86,7 +87,7 @@ public class PurchaseOrderPageTest extends BaseTest {
                 .changeStateOfPurchaseOrder()
                 .waitForConfirmedState();
 
-        assertEquals(Entities.STATE_CONFIRMED, purchaseOrderPage.getPurchaseOrderState());
+        assertEquals(OrderStates.CONFIRMED.getOrderState(), purchaseOrderPage.getPurchaseOrderState());
     }
 
     @Test
@@ -100,7 +101,7 @@ public class PurchaseOrderPageTest extends BaseTest {
                 .changeStateOfPurchaseOrder()
                 .waitForProducedState();
 
-        assertEquals(Entities.STATE_PRODUCED, purchaseOrderPage.getPurchaseOrderState());
+        assertEquals(SealStates.PRODUCED.getSealState(), purchaseOrderPage.getPurchaseOrderState());
     }
 
     @Test

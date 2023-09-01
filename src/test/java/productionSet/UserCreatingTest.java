@@ -3,23 +3,16 @@ package productionSet;
 import api.user.DeleteUserRequest;
 import api.user.GetAllUsersRequest;
 import baseTests.BaseTest;
-import com.codeborne.selenide.Configuration;
-import com.codeborne.selenide.Selenide;
 import constants.Entities;
-import constants.URLs;
-import io.restassured.RestAssured;
+import constants.UserRoles;
 import net.datafaker.Faker;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import pageObject.LoginPage;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.codeborne.selenide.Selenide.open;
-import static constants.Entities.*;
-import static constants.Entities.ADMIN_ROLE;
 
 public class UserCreatingTest extends BaseTest {
     Faker faker = new Faker();
@@ -51,7 +44,7 @@ public class UserCreatingTest extends BaseTest {
                 .openUsersListPage()
                 .createOperator(userName, position, email)
                 .searchUser(userName)
-                .checkUserRole(OPERATOR_ROLE);
+                .checkUserRole(UserRoles.OPERATOR.getRole());
     }
 
     @Test
@@ -61,7 +54,7 @@ public class UserCreatingTest extends BaseTest {
                 .openUsersListPage()
                 .createSupervisor(userName, position, email)
                 .searchUser(userName)
-                .checkUserRole(SUPERVISOR_ROLE);
+                .checkUserRole(UserRoles.SUPERVISOR.getRole());
     }
 
     @Test
@@ -71,8 +64,8 @@ public class UserCreatingTest extends BaseTest {
                 .openUsersListPage()
                 .createOfficer(userName, position, email)
                 .searchUser(userName)
-                .checkUserRole(OFFICER_ROLE)
-                .checkUserRole(OPERATOR_ROLE);
+                .checkUserRole(UserRoles.OFFICER.getRole())
+                .checkUserRole(UserRoles.OPERATOR.getRole());
     }
 
     @Test
@@ -82,6 +75,6 @@ public class UserCreatingTest extends BaseTest {
                 .openUsersListPage()
                 .createAdmin(userName, position, email)
                 .searchUser(userName)
-                .checkUserRole(ADMIN_ROLE);
+                .checkUserRole(UserRoles.ADMIN.getRole());
     }
 }

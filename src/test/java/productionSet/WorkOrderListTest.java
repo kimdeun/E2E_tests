@@ -4,9 +4,7 @@ import api.purchaseOrder.*;
 import api.workOrder.CreateWorkOrderRequest;
 import baseTests.BaseTest;
 import com.codeborne.selenide.Configuration;
-import com.codeborne.selenide.Selenide;
-import constants.Entities;
-import constants.URLs;
+import constants.*;
 import io.restassured.RestAssured;
 import jsonObjects.purchaseOrder.addSeals.AddSealsJsonObject;
 import jsonObjects.purchaseOrder.addSeals.Quantity;
@@ -158,7 +156,7 @@ public class WorkOrderListTest extends BaseTest {
         open(URLs.WORK_ORDERS_LIST_PAGE);
         workOrderListPage.waitForLoadWorkOrdersPage(purchaseOrderName);
 
-        assertEquals(Entities.STATE_ENTERED, workOrderListPage.getWorkOrderState());
+        assertEquals(OrderStates.ENTERED.getOrderState(), workOrderListPage.getWorkOrderState());
     }
 
     @Test
@@ -178,7 +176,7 @@ public class WorkOrderListTest extends BaseTest {
         open(URLs.WORK_ORDERS_LIST_PAGE);
         workOrderListPage.waitForLoadWorkOrdersPage(purchaseOrderName);
 
-        assertEquals(Entities.USERS_COMPANY, workOrderListPage.getWorkOrderCompany());
+        assertEquals(Companies.TEST_COMPANY_FOR_AUTO_TESTS.getCompany(), workOrderListPage.getWorkOrderCompany());
     }
 
     @Test
@@ -248,7 +246,7 @@ public class WorkOrderListTest extends BaseTest {
         open(URLs.getPurchaseOrderPageURL(purchaseOrderIdList.get(purchaseOrderIdList.size() - 1).toString()));
         purchaseOrderPage.waitForNewWorkOrder();
 
-        assertEquals(Entities.STATE_ENTERED, purchaseOrderPage.getWorkOrderState());
+        assertEquals(OrderStates.ENTERED.getOrderState(), purchaseOrderPage.getWorkOrderState());
     }
 
     @Test

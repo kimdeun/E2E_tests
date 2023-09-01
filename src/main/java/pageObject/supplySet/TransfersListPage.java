@@ -1,7 +1,10 @@
 package pageObject.supplySet;
 
 import com.codeborne.selenide.SelenideElement;
+import constants.Companies;
 import constants.Entities;
+import constants.Locations;
+import constants.TransferStates;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
@@ -65,19 +68,19 @@ public class TransfersListPage {
     }
 
     public void checkTransfersSender() {
-        transfersSender.shouldHave(exactText(Entities.RED_FLAG_COMPANY));
+        transfersSender.shouldHave(exactText(Companies.RED_FLAG.getCompany()));
     }
 
     public void checkTransfersDestination() {
-        transfersDestination.shouldHave(exactText(Entities.COMPANY_LOCATION));
+        transfersDestination.shouldHave(exactText(Locations.TEST_LOCATION.getLocation()));
     }
 
     public void checkTransfersSource() {
-        transfersSource.shouldHave(exactText(Entities.MILWAKEE));
+        transfersSource.shouldHave(exactText(Locations.MILWAKEE.getLocation()));
     }
 
     public void checkTransfersReceiver() {
-        transfersReceiver.shouldHave(exactText(Entities.USERS_COMPANY));
+        transfersReceiver.shouldHave(exactText(Companies.TEST_COMPANY_FOR_AUTO_TESTS.getCompany()));
     }
 
     public void checkTransfersOwner() {
@@ -89,13 +92,13 @@ public class TransfersListPage {
     }
 
     public void checkTransfersTransitState() {
-        transfersState.shouldHave(exactText(Entities.TRANSIT_STATE));
+        transfersState.shouldHave(exactText(TransferStates.TRANSIT.getState()));
     }
     private void checkTransfersReceivedState() {
-        transfersState.shouldHave(exactText(Entities.RECEIVED_STATE));
+        transfersState.shouldHave(exactText(TransferStates.RECEIVED.getState()));
     }
     private void checkTransfersReceivedWithAProblemState() {
-        transfersState.shouldHave(exactText(Entities.RECEIVED_WITH_A_PROBLEM_STATE));
+        transfersState.shouldHave(exactText(TransferStates.RECEIVED_WITH_A_PROBLEM.getState()));
     }
 
     private void clickTransfersState() {

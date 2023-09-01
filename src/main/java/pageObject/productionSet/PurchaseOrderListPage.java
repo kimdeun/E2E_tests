@@ -3,6 +3,7 @@ package pageObject.productionSet;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.WebDriverRunner;
+import constants.Companies;
 import constants.Entities;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -81,7 +82,7 @@ public class PurchaseOrderListPage extends BasePage {
     public PurchaseOrderListPage createPurchaseOrderWithSpecifiedBuyer(String id, String name, String phoneNumber, String email) {
         createButton.click();
         idField.setValue(id);
-        companyField.setValue(Entities.USERS_COMPANY).pressEnter();
+        companyField.setValue(Companies.TEST_COMPANY_FOR_AUTO_TESTS.getCompany()).pressEnter();
         clickSetBuyerManuallyCheckbox();
         fullNameField.setValue(name);
         phoneNumberField.setValue(phoneNumber);
@@ -94,7 +95,7 @@ public class PurchaseOrderListPage extends BasePage {
         pageTitle.should(Condition.exist);
         createButton.click();
         idField.shouldBe(Condition.visible).setValue(id);
-        companyField.setValue(Entities.USERS_COMPANY).pressEnter();
+        companyField.setValue(Companies.TEST_COMPANY_FOR_AUTO_TESTS.getCompany()).pressEnter();
         buyerField.click();
         firstBuyer.click();
         okButton.click();
@@ -105,7 +106,7 @@ public class PurchaseOrderListPage extends BasePage {
     public PurchaseOrderListPage createPurchaseOrderWithCustomCode(String id, String code, String numbersQuantity, String sequenceStartNumber, String totalSealsQuantity) {
         createButton.click();
         idField.setValue(id);
-        companyField.setValue(Entities.USERS_COMPANY).pressEnter();
+        companyField.setValue(Companies.TEST_COMPANY_FOR_AUTO_TESTS.getCompany()).pressEnter();
         codeTypeField.click();
         customCode.click();
         codeField.setValue(code);

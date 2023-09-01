@@ -2,7 +2,9 @@ package pageObject.productionSet;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import constants.Companies;
 import constants.Entities;
+import constants.Locations;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
@@ -88,10 +90,10 @@ public class WorkOrderListPage {
         etchingFormatField.pressEnter();
         quantityField.setValue(quantity);
         companyField.click();
-        companyField.setValue(Entities.USERS_COMPANY).pressEnter();
+        companyField.setValue(Companies.TEST_COMPANY_FOR_AUTO_TESTS.getCompany()).pressEnter();
         locationSpan.click();
         locationField.click();
-        locationField.setValue(Entities.COMPANY_LOCATION).pressEnter();
+        locationField.setValue(Locations.TEST_LOCATION.getLocation()).pressEnter();
         notesField.setValue(notes);
         skidField.click();
         skidField.pressEnter();

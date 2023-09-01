@@ -7,6 +7,7 @@ import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import constants.Entities;
 import constants.URLs;
+import constants.UserStates;
 import io.restassured.RestAssured;
 import jsonObjects.user.Company;
 import jsonObjects.user.Contacts;
@@ -75,7 +76,7 @@ public class UserPageTest extends BaseTest {
         open(URLs.PRODUCTION_USERS_LIST_PAGE);
         usersListPage.searchUser(userName)
                 .openUserPage()
-                .checkUserState(NOT_APPROVED_USERS_STATE);
+                .checkUserState(UserStates.NOT_APPROVED.getUserState());
     }
 
     @Test
@@ -86,7 +87,7 @@ public class UserPageTest extends BaseTest {
         usersListPage.searchUser(userName)
                 .changeUserState()
                 .openUserPage()
-                .checkUserState(PENDING_INITIAL_TRAINING_USERS_STATE);
+                .checkUserState(UserStates.PENDING_INITIAL_TRAINING.getUserState());
     }
 
     @Test
@@ -98,7 +99,7 @@ public class UserPageTest extends BaseTest {
                 .changeUserState()
                 .changeUserState()
                 .openUserPage()
-                .checkUserState(ACTIVE_USERS_STATE);
+                .checkUserState(UserStates.ACTIVE.getUserState());
     }
 
     @Test
@@ -109,7 +110,7 @@ public class UserPageTest extends BaseTest {
         usersListPage.searchUser(userName)
                 .openUserPage()
                 .changeUserState()
-                .checkUserState(PENDING_INITIAL_TRAINING_USERS_STATE);
+                .checkUserState(UserStates.PENDING_INITIAL_TRAINING.getUserState());
     }
 
     @Test
@@ -121,6 +122,6 @@ public class UserPageTest extends BaseTest {
                 .openUserPage()
                 .changeUserState()
                 .changeUserState()
-                .checkUserState(ACTIVE_USERS_STATE);
+                .checkUserState(UserStates.ACTIVE.getUserState());
     }
 }

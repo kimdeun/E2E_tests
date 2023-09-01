@@ -3,6 +3,8 @@ package pageObject.securitySet;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import constants.Entities;
+import constants.Locations;
+import constants.PackingTypes;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
@@ -35,11 +37,11 @@ public class AttachModal {
 
     public AttachModal attachSeal(String containerNumber, String  sealNumber) {
         attachButtonInNavMenu.click();
-        locationInput.setValue(Entities.COMPANY_LOCATION);
+        locationInput.setValue(Locations.TEST_LOCATION.getLocation());
         emptyListOfDataInTheCreateWOModal.shouldNot(Condition.exist);
         locationInput.pressEnter();
         enterContainerNumberInput.setValue(containerNumber);
-        bagOrSealInput.setValue(Entities.SEAL).pressEnter();
+        bagOrSealInput.setValue(PackingTypes.SEAL.toString()).pressEnter();
         attachSealsInput.setValue(sealNumber);
         attachButtonInModal.click();
         closeButtonInModal.click();
@@ -48,11 +50,11 @@ public class AttachModal {
 
     public AttachModal attachBag(String containerNumber, String bagNumber) {
         attachButtonInNavMenu.click();
-        locationInput.setValue(Entities.COMPANY_LOCATION);
+        locationInput.setValue(Locations.TEST_LOCATION.getLocation());
         emptyListOfDataInTheCreateWOModal.shouldNot(Condition.exist);
         locationInput.pressEnter();
         enterContainerNumberInput.setValue(containerNumber);
-        bagOrSealInput.setValue(Entities.BAG).pressEnter();
+        bagOrSealInput.setValue(PackingTypes.BAG.toString()).pressEnter();
         attachSealsInput.setValue(bagNumber);
         attachButtonInModal.click();
         closeButtonInModal.click();
