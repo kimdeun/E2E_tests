@@ -1,8 +1,8 @@
 package constants;
 
 public class Entities {
-    public static final String USER_LOGIN = "test@test.test";
-    public static final String USER_PASSWORD = "Qq!111111";
+    public static final String USER_LOGIN = "***";
+    public static final String USER_PASSWORD = "***";
     public static final String USER_NAME = "Test User";
     public static final String USA_PRODUCTION = "USA production";
     public static final String BOXES_IN_SKID_FOR_CREATING_WORK_ORDER = "10";

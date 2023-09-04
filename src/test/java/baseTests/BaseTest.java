@@ -23,7 +23,7 @@ public class BaseTest {
     public void setUp() {
         Configuration.browserSize = Entities.BROWSER_SIZE_1920_1080;
         loginPage = open(URLs.STAGE_URL, LoginPage.class);
-        RestAssured.baseURI = "https://staging1.stm.redflag.cc";
+        RestAssured.baseURI = "***";
 
         //get a token
         token = authRequest.getToken();

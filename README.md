@@ -1,7 +1,7 @@
 # Introduction
 Auto Tests project for Red Flag Security Transit Management Platform. The project contains E2E tests
 
-Autotests are run on the staging1 environment - https://staging1.stm.redflag.cc/#/login
+Autotests are run on the staging1 environment - ***
 
 
 # Installation
@@ -65,10 +65,11 @@ The tests are located in the src/test/java folder. This folder is also divided i
 
 All constants are located in the src/main/java/constants folder.
 
-- EndPoints folder - contains endpoints
-- Entities folder - contains common constants
-- Json folder - contains the body of small requests
-- URLs folder - contains links
+- EndPoints file - contains endpoints
+- Entities file - contains common constants
+- Json file - contains the body of small requests
+- URLs file - contains links
+- Companies, Country, Locations, OrderStates, PackingTypes, SealStates, TransferStates, UserRoles, UserStates files - contains enums
 
 ### Test creating
 To create a test, you need to
@@ -79,5 +80,5 @@ To create a test, you need to
 5. Inherit the Base test
 
 ---
-Read more about git flow, libraries and frameworks, approaches to writing code, checklists, Jenkins at [this link](https://redflag.atlassian.net/wiki/spaces/RFS/pages/49545217/2022-12-05+Autotest+project+kick-off+roadmap)
+Read more about git flow, libraries and frameworks, approaches to writing code, checklists, Jenkins at [this link](***)
 
