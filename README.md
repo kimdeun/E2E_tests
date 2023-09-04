@@ -8,7 +8,7 @@ Autotests are run on the staging1 environment - ***
 Navigate to the desired directory in the terminal and clone the project using
 
 
-`git clone https://gitlab.com/rfccs/stm/auto-tests.git`
+`git clone https://gitlab.com/***`
 
 or download the archive from gitlab
 
